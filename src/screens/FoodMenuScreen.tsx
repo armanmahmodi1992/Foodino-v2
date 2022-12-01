@@ -3,19 +3,23 @@ import React from 'react'
 import { FoodMenuCard } from '~/component';
 import { Colors } from '~/style'
 import { fontFamily } from '~/utils/Style'
+import { useFoodList } from '~/hooks';
 import image from '~/assets/image';
 
-const renderItem = () => {
+const renderItem = ({ item }: { item: any }) => {
     return (
-        <FoodMenuCard />
+        <FoodMenuCard item={item} />
     )
 }
-const item = [{ id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }]
+
 const HEADER_EXPANDED_HEIGHT = 160
 const HEADER_COLLAPSED_HEIGHT = 50
 const { width: SCREEN_WIDTH } = Dimensions.get("screen")
-export default function FoodMenu() {
-    // let scrollOffsetY = useRef(new Animated.Value(0)).current;
+export default function FoodMenu({ route }: { route: any }) {
+
+    const { subset } = route?.params
+    const { data } = useFoodList(subset);
+    const item = data?.data
 
     const scrollY = new Animated.Value(0)
     const headerY = scrollY.interpolate({

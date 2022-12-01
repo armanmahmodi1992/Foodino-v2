@@ -1,31 +1,30 @@
-import React from 'react'
-import { Text, TouchableOpacity, StyleSheet, View } from 'react-native'
-import { Image } from 'native-base';
-import image from '~/assets/image';
-import { fontFamily } from '~/utils/Style';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { navigate } from '~/navigation/Methods';
+import { fontFamily } from '~/utils/Style';
 
-export default function HomeCard() {
+export default function HomeCard({ item }: { item: any }) {
+    let subset = item?.subset
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigate('FoodMenuScreen')} style={styles.touchableOpacity} >
-                <Image source={image.pizza} w='100%' h='100%' alt="image" alignSelf='center' borderRadius='20' />
+            <TouchableOpacity onPress={() => navigate('FoodMenuScreen', { subset })} style={styles.touchableOpacity} >
+                <Image source={{ uri: item?.pic }} style={styles.image} />
             </TouchableOpacity >
-            <Text style={styles.textCard}>Burgers Story</Text>
+            <Text style={styles.textCard}>{item?.name}</Text>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
-        padding: 4,
+        padding: 5,
         paddingBottom: 10,
 
     },
     textCard: {
         fontFamily: fontFamily.bold,
-        fontSize: 18,
-
-        marginLeft: 5
+        fontSize: 20,
+        marginTop: 3,
+        marginRight: 10
     },
     touchableOpacity: {
         height: 210,
@@ -33,5 +32,10 @@ const styles = StyleSheet.create({
         margin: 1,
         marginTop: 2,
         alignSelf: 'center'
+    },
+    image: {
+        width: 385,
+        height: 210,
+        borderRadius: 20
     }
 })

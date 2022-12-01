@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { HomeStack, CartStack, AuthStack, OrdersStack } from '~/navigation';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
+import { badgeStore } from '~/store/BadgeStore'
 
 const Tab = createBottomTabNavigator();
 
 export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: undefined };
 
 export default function TabNavigator() {
-
+    const { badge } = badgeStore();
+    const badgeCart = badge == 0 ? undefined : badge
     return (
         <Tab.Navigator initialRouteName='HomeStack'
             backBehavior='initialRoute'
@@ -69,6 +71,8 @@ export default function TabNavigator() {
             <Tab.Screen
                 name={'CartStack'}
                 component={CartStack}
+                options={{ tabBarBadge: badgeCart }}
+
             />
 
             <Tab.Screen
