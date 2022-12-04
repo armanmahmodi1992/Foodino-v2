@@ -1,19 +1,24 @@
-import { HStack, Image, Text, VStack } from 'native-base';
+import { Center, HStack, Image, Text, VStack } from 'native-base';
 import React, { useState } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
-import { CustomButton } from '~/component';
-import { UseUpdateFoodList } from '~/hooks';
-import { badgeStore } from '~/store/BadgeStore';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { CustomButton, Loading } from '~/component';
+import { useUpdateFoodList } from '~/hooks';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
 export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function FoodMenuCard({ item }: { item: any }) {
 
-    const { setBadge } = badgeStore(state => state);
-    const { badge } = badgeStore();
     const [cart, setCart] = useState(item?.number);
-    const { mutate } = UseUpdateFoodList()
+    const { mutate, isLoading } = useUpdateFoodList()
+
+    if (isLoading) {
+        return (
+            <Center flex={1} >
+                <Loading />
+            </Center>
+        )
+    }
 
     const handleUpdateCart = (item: any) => {
         mutate(item, {
@@ -30,7 +35,6 @@ export default function FoodMenuCard({ item }: { item: any }) {
         setCart(prevState => prevState + 1);
         item.number = cart + 1;
         handleUpdateCart(item);
-        setBadge(badge + 1);
     };
 
     const cartMinus = () => {
@@ -38,7 +42,6 @@ export default function FoodMenuCard({ item }: { item: any }) {
             setCart(prevState => prevState - 1);
             item.number = cart - 1;
             handleUpdateCart(item);
-            setBadge(badge - 1);
         }
     }
 
@@ -51,9 +54,9 @@ export default function FoodMenuCard({ item }: { item: any }) {
             <VStack space='3' paddingLeft='2' >
                 <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                 <HStack width='100' justifyContent='space-between'>
-                    <CustomButton title='-' onPress={cartMinus} style={{ width: 27 }} />
+                    <CustomButton title='-' onPress={cartMinus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                     <Text style={styles.text}>{cart}</Text>
-                    <CustomButton title='+' onPress={cartPlus} style={{ width: 27 }} />
+                    <CustomButton title='+' onPress={cartPlus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                 </HStack>
             </VStack>
         </HStack>
@@ -72,5 +75,10 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 10
     },
+    loading: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: 'center'
+    }
 });
 
