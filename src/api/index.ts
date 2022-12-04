@@ -36,19 +36,14 @@ export const getFoodList = async (subset:any) => {
     return data;
 }
 
-export const postFoodCart=async(item:any)=>{
-
-    console.log('item in api>>>>',item)
-    const data=await instance({
-        url: `food_cart`,
-        method:'put',
-        data:{
-            id_food:item?.id,
-            name:item?.name,
-            subset:item?.subset,
-            number:item?.number+1,
-            price:item?.price
-        }
+export const getCartList = async () => {
+const order='yes'
+    const data = await instance({
+        url: `food_list`,
+        method: 'get',
+        params:{         
+             select:order
+                }
     })
     return data;
 }
@@ -57,14 +52,13 @@ export const updateNumber = async (item:any) => {
 
   const url=`food_list/${item.id}`
   const number=item.number
-  const order=number > 0 ? true : false;
-  console.log({url,number,order})
+  const select=number > 0 ? "yes" : "no";
     const result = await instance({
         url: url,
         method:'put',
         data:{
             number:number,
-            order:order
+            select:select,
         }  
     })
     return result;
