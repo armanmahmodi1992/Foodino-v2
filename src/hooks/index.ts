@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '~/api';
 
 const useFoodCategory = () => {
@@ -11,15 +11,30 @@ const useFoodList = (subset: any) => {
     return query;
 }
 
-const UseUpdateFoodList = () => {
+const useCartList = () => {
+const res=useQuery(['cart_list'],async ()=> {return api.getCartList()})
+return res
+}
+
+const useUpdateFoodList = () => {
+const queryClient=useQueryClient()
     return useMutation( async (item:any)=> {
         return api.updateNumber(item);
     },
+    {
+        onSuccess:(data)=>{
+            queryClient.invalidateQueries(['cart_list'])
+        }
+    }
     )
 }
+
+
 
 export {
     useFoodCategory,
     useFoodList,
-    UseUpdateFoodList,
+    useUpdateFoodList,
+    useCartList
 };
+
