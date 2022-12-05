@@ -4,5 +4,7 @@ export {default as CartScreen} from '~/screens/CartScreen';
 export {default as LoginScreen} from '~/screens/LoginScreen';
 export {default as OrdersScreen} from '~/screens/OrdersScreen';
 export {default as FoodMenuScreen} from '~/screens/FoodMenuScreen';
+export {default as UserScreen} from '~/screens/UserScreen';
+export {default as RegisterScreen} from '~/screens/RegisterScreen';
 
 
