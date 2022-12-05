@@ -42,6 +42,7 @@
         "lottie-react-native": "^5.1.4",
         "native-base": "^3.4.21",
         "react": "18.1.0",
+        "react-hook-form": "^7.40.0",
         "react-native": "0.70.5",
         "react-native-fast-image": "8.5.11",
         "react-native-indicators": "^0.17.0",
