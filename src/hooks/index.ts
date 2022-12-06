@@ -29,12 +29,20 @@ const queryClient=useQueryClient()
     )
 }
 
+const useLogin = () => {
+    return useMutation(user => {
+        console.log(user)
+        return api.loginUser(user)
+    })
+}
+
 
 
 export {
     useFoodCategory,
     useFoodList,
     useUpdateFoodList,
-    useCartList
+    useCartList,
+    useLogin
 };
 
