@@ -9,6 +9,7 @@ export default React.forwardRef(
         {
             name,
             placeholder,
+            defaultValue,
             type,
             keyboardType,
             backgroundColor = 'lightgrey',
@@ -18,9 +19,11 @@ export default React.forwardRef(
             textArea = false,
             disabled,
             mode = 'input',
+            textAlign,
         }: {
             name: any;
             placeholder?: string;
+            defaultValue?: any;
             type?: string;
             keyboardType?:
             | 'default'
@@ -44,6 +47,7 @@ export default React.forwardRef(
             textArea?: boolean;
             disabled?: boolean;
             mode?: 'input' | 'text';
+            textAlign?: any
         },
         ref: any,
     ) => {
@@ -55,7 +59,7 @@ export default React.forwardRef(
         };
 
         return (
-            <FormControl isInvalid={fieldState.error} w={{ base: '95%' }} >
+            <FormControl isInvalid={fieldState.error} w={{ base: '100%' }} >
                 {label && (
                     <Text
                         mb="3"
@@ -70,6 +74,7 @@ export default React.forwardRef(
                 )}
                 {mode === 'input' ? (
                     <HStack
+                        flexDirection='row-reverse'
                         bg={backgroundColor}
                         borderRadius="md"
                         alignItems="center"
@@ -80,12 +85,14 @@ export default React.forwardRef(
 
                             editable={!disabled}
                             ref={ref}
+                            defaultValue={defaultValue}
                             numberOfLines={textArea ? 4 : 1}
                             textAlignVertical={textArea ? 'top' : 'center'}
                             placeholder={placeholder}
                             secureTextEntry={type === 'password' ? !secureText : false}
                             placeholderTextColor='gray'
                             autoCapitalize="none"
+                            textAlign='right'
                             keyboardType={keyboardType}
                             multiline={textArea ? true : false}
                             value={field.value}
