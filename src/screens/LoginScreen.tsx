@@ -11,11 +11,11 @@ import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontWeight } from '~/utils/Style';
-import { useShowMessage } from '~/utils/Toast';
+import { useShowError } from '~/utils/Toast';
 
 export default function Login() {
 
-  const { show } = useShowMessage();
+  const { showError } = useShowError();
   const schema = yup.object().shape({
     email: yup.string().email().required('required'),
     password: yup
@@ -50,7 +50,7 @@ export default function Login() {
           setToken(data.data);
           navigate('UserScreen')
         } else {
-          show("ایمیل یا رمز عبور اشتباه است.")
+          showError("ایمیل یا رمز عبور اشتباه است.")
         }
       },
       onError: (error) => {
