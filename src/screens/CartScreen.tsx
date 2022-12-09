@@ -34,7 +34,7 @@ export default function CartScreen() {
 
     return (
         (item == '' ?
-            <NoCart /> :
+            <EmptyCart /> :
             <View style={styles.container} >
                 <AppBar title='سبد خرید' icon='shopping-cart' />
                 <FlatList

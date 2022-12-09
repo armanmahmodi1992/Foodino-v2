@@ -64,3 +64,16 @@ export const updateNumber = async (item:any) => {
     return result;
 }
 
+export const loginUser = async (user:any) => {
+console.log(user)
+    const data = await instance({
+        url: `users`,
+        method: 'get',
+        params:{         
+             username:user.username,
+             password:user.password
+                }
+    })
+    return data;
+}
+

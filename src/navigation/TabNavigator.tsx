@@ -20,6 +20,7 @@ export default function TabNavigator() {
             screenOptions={({ route }) => ({
                 tabBarHideOnKeyboard: true,
                 headerShown: false,
+                keyboardHidesTabBar: true,
 
                 tabBarIcon: ({ focused, color, size }) => {
                     var iconName: any;
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         borderRadius: 25,
-        top: -25,
+        top: -15,
         elevation: 1
     },
     tabLabel: {
