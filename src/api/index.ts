@@ -70,10 +70,31 @@ console.log(user)
         url: `users`,
         method: 'get',
         params:{         
-             username:user.username,
-             password:user.password
+             email:user?.email,
+             password:user?.password
                 }
     })
     return data;
 }
 
+export const updateUser = async (item:any) => {
+console.log('item in api',item)
+    const url=`users/${item?.id}`
+    const email=item?.email
+    const password=item?.password
+    const name=item?.name
+    const address=item?.address
+    const pic=item?.pic
+          const result = await instance({
+          url: url,
+          method:'put',
+          data:{
+              email:email,
+              password:password,
+              name:name,
+              address:address,
+              pic:pic
+          }  
+      })
+      return result;
+  }
