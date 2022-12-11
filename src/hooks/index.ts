@@ -36,13 +36,27 @@ const useLogin = () => {
     })
 }
 
-
+const useUpdateUser = () => {
+    const queryClient=useQueryClient()
+        return useMutation( async (item:any)=> {
+            console.log('item in hook',item)
+      
+            return api.updateUser(item);
+        },
+        {
+            // onSuccess:(data)=>{
+            //     queryClient.invalidateQueries(['users'])
+            // }
+        }
+        )
+    }
 
 export {
     useFoodCategory,
     useFoodList,
     useUpdateFoodList,
     useCartList,
-    useLogin
+    useLogin,
+    useUpdateUser
 };
 
