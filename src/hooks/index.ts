@@ -39,17 +39,19 @@ const useLogin = () => {
 const useUpdateUser = () => {
     const queryClient=useQueryClient()
         return useMutation( async (item:any)=> {
-            console.log('item in hook',item)
       
             return api.updateUser(item);
         },
-        {
-            // onSuccess:(data)=>{
-            //     queryClient.invalidateQueries(['users'])
-            // }
-        }
         )
     }
+
+    const usePostUser = () => {
+            return useMutation( async (item:any)=> {
+                return api.postUser(item);
+            },
+            )
+        }
+
 
 export {
     useFoodCategory,
@@ -57,6 +59,7 @@ export {
     useUpdateFoodList,
     useCartList,
     useLogin,
-    useUpdateUser
+    useUpdateUser,
+    usePostUser,
 };
 
