@@ -78,7 +78,7 @@ console.log(user)
 }
 
 export const updateUser = async (item:any) => {
-console.log('item in api',item)
+
     const url=`users/${item?.id}`
     const email=item?.email
     const password=item?.password
@@ -94,6 +94,22 @@ console.log('item in api',item)
               name:name,
               address:address,
               pic:pic
+          }  
+      })
+      return result;
+  }
+
+  export const postUser = async (item:any) => {
+
+    const url=`users`
+    const email=item.email
+    const password=item.password
+      const result = await instance({
+          url: url,
+          method:'post',
+          data:{
+              email:email,
+              password:password,
           }  
       })
       return result;
