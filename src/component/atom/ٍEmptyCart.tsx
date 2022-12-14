@@ -5,7 +5,6 @@ import image from '~/assets/image'
 export default function EmptyCart() {
     return (
         <View style={styles.container}>
-            <AppBar title='سبد خرید' icon='shopping-cart' />
             <View style={styles.content}>
                 <Image source={image.shoppingCart} style={{ width: 200, height: 200 }} />
                 <Text style={styles.text}>شما محصولی انتخاب نکردید</Text>
