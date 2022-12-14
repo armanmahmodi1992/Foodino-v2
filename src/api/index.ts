@@ -114,3 +114,32 @@ export const updateUser = async (item:any) => {
       })
       return result;
   }
+
+  export const resetPassword = async (item:any) => {
+
+    console.log('item in api',item)
+
+    const url=`users/${item?.id}`
+    const password=item?.item.password
+          const result = await instance({
+          url: url,
+          method:'put',
+          data:{
+              password:password,
+          }  
+      })
+      return result;
+  }
+
+  export const searchUser = async (email:any) => {
+
+    const mail=email
+    const data = await instance({
+        url: `users`,
+        method: 'get',
+        params:{         
+             email:mail
+                }
+    })
+    return data;
+}
