@@ -18,7 +18,6 @@ export default function Home() {
 
     return (
         <View style={styles.container} >
-            <AppBar title='صفحه اصلی' icon='home' />
             <View style={styles.flatList}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
 
     },
     flatList: {
-        paddingBottom: 90,
+        paddingBottom: 30,
         paddingTop: 15
     }
 });
