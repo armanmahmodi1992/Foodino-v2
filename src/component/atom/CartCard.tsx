@@ -50,9 +50,9 @@ export default function CartCard({ item }: { item: any }) {
 
     return (
         <View style={styles.content}>
-            <HStack h='160' w='95%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' >
+            <HStack h='160' w='95%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
                 <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
-                <VStack space='2' pr='1' flex={1} >
+                <VStack space='2' pr='1' flex={1} m='1' >
                     <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
                     <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
                 </VStack>
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 2,
+        paddingHorizontal: 5
 
     },
     text: {
