@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { HStack } from 'native-base';
+import { HStack, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
 import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
@@ -28,7 +28,6 @@ export default function RegisterScreen() {
             .required("این فیلد الزامی می باشد")
             .oneOf([yup.ref('password'), null], "کلمه های عبور باید یکسان باشند"),
     });
-
 
     const { ...methods } = useForm<Record<string, any>, object>({
         resolver: yupResolver<yup.AnyObjectSchema>(schema),
@@ -60,55 +59,54 @@ export default function RegisterScreen() {
     }
 
     return (
-        <View style={styles.container}>
+
+        <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+
             <Image source={image.splash} style={styles.image} />
+
             <FormProvider {...methods}>
-                <CustomInput
-                    {...register('email')}
-                    label="ایمیل"
-                    placeholder="ایمیل"
-                    keyboardType="email-address"
-                    required
-                />
-                <CustomInput
-                    {...register('password')}
-                    label="رمز عبور"
-                    placeholder="رمز عبور********"
-                    type="password"
-                    required
-                />
-                <CustomInput
-                    {...register('passwordConfirmation')}
-                    label="تکرار رمز عبور"
-                    placeholder="تکرار رمز عبور"
-                    type="password"
-                    required
-                />
-                <HStack space='3'>
-                    <CustomButton
-                        onPress={() => navigate('LoginScreen')}
-                        title='انصراف'
-                        buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+
+                <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
+                    <CustomInput
+                        {...register('email')}
+                        label="ایمیل"
+                        placeholder="ایمیل"
+                        keyboardType="email-address"
+                        required
                     />
-                    <CustomButton
-                        onPress={handleSubmit(handleSubmit(handlePostUser))}
-                        title='ثبت نام'
-                        buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                    <CustomInput
+                        {...register('password')}
+                        label="رمز عبور"
+                        placeholder="رمز عبور********"
+                        type="password"
+                        required
                     />
-                </HStack>
+                    <CustomInput
+                        {...register('passwordConfirmation')}
+                        label="تکرار رمز عبور"
+                        placeholder="تکرار رمز عبور"
+                        type="password"
+                        required
+                    />
+                    <HStack space='3'>
+                        <CustomButton
+                            onPress={() => navigate('LoginScreen')}
+                            title='انصراف'
+                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                        />
+                        <CustomButton
+                            onPress={handleSubmit(handleSubmit(handlePostUser))}
+                            title='ثبت نام'
+                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                        />
+                    </HStack>
+                </VStack>
 
             </FormProvider>
-        </View>
+        </VStack>
     )
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 5,
-        margin: 5
-    },
     newUser: {
         fontSize: 18,
         fontWeight: fontWeight.heavy,
