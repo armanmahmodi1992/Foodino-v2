@@ -17,3 +17,4 @@ export const INFO = '#3583EB';
 export const SUCCESS = '#1CA24A';
 export const WARNING = '#FFBD0A';
 export const ERROR = '#BF1A1A';
+export const LINK = '#0288d1';
