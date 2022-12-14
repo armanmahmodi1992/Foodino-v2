@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { HStack, Text } from 'native-base';
+import { HStack, Text, VStack } from 'native-base';
 import React, { useLayoutEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet, View } from 'react-native';
@@ -17,12 +17,12 @@ export default function Login() {
 
   const { showError } = useShowError();
   const schema = yup.object().shape({
-    email: yup.string().email().required('required'),
+    email: yup.string().email().required('این فیلد الزامی می باشد'),
     password: yup
       .string()
-      .min(6, 'Use 8 or more characters with a mix of letters,numbers & symbols')
-      .max(36, 'Must be 36 characters or less')
-      .required('Required'),
+      .min(6)
+      .max(36)
+      .required('این فیلد الزامی می باشد'),
   });
   const { setIsLogin } = authStore(state => state);
   const { setToken } = authStore(state => state);
@@ -60,34 +60,37 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.container}>
+    <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
       <Image source={image.splash} style={styles.image} />
       <FormProvider {...methods}>
-        <CustomInput
-          {...register('email')}
-          label="ایمیل"
-          placeholder="cooper@example.com"
-          keyboardType="email-address"
-          required
-        />
-        <CustomInput
-          {...register('password')}
-          label="رمز عبور"
-          placeholder="********"
-          type="password"
-          required
-        />
-        <CustomButton
-          onPress={handleSubmit(handleSubmit(handleUserLogin))}
-          title='ورود'
-          buttonStyle={{ width: 180, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
-        />
-        <HStack justifyContent="center" mt='4'>
-          <Text style={styles.link} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
-          <Text style={styles.newUser}>کاربر جدید.{"   "} </Text>
-        </HStack>
+        <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
+          <CustomInput
+            {...register('email')}
+            label="ایمیل"
+            placeholder="cooper@example.com"
+            keyboardType="email-address"
+            required
+          />
+          <CustomInput
+            {...register('password')}
+            label="رمز عبور"
+            placeholder="********"
+            type="password"
+            required
+          />
+          <Text style={styles.forgetPass} onPress={() => navigate('ForgetPassword')}> فراموشی رمز عبور</Text>
+          <CustomButton
+            onPress={handleSubmit(handleSubmit(handleUserLogin))}
+            title='ورود'
+            buttonStyle={{ width: '100%', height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+          />
+          <HStack justifyContent="center" mt='3' >
+            <Text style={styles.register} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
+            <Text style={styles.newUser}>کاربر جدید.{"   "} </Text>
+          </HStack>
+        </VStack>
       </FormProvider>
-    </View>
+    </VStack>
   )
 }
 const styles = StyleSheet.create({
@@ -95,17 +98,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5
+    marginTop: 5,
+    padding: 8
   },
   newUser: {
     fontSize: 18,
     fontWeight: fontWeight.heavy,
   },
-  link: {
+  register: {
     fontSize: 18,
     fontWeight: fontWeight.heavy,
     color: '#3f50b5',
     textDecorationLine: 'underline'
+
+  },
+  forgetPass: {
+    fontSize: 18,
+    fontWeight: fontWeight.heavy,
+    color: '#3f50b5',
+    textDecorationLine: 'underline',
+    alignSelf: 'flex-end'
 
   },
   image: {
