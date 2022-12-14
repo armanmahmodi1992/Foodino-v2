@@ -52,6 +52,23 @@ const useUpdateUser = () => {
             )
         }
 
+        const useResetPassword = () => {
+            const queryClient=useQueryClient()
+            return useMutation( async (item:any)=> {
+                console.log('item in hook',item)
+                return api.resetPassword(item);
+
+                },
+                )
+            }
+
+            const useSearchUser = () => {
+                return useMutation(email => {
+                    console.log(email)
+                    return api.searchUser(email)
+                })
+            }
+           
 
 export {
     useFoodCategory,
@@ -61,5 +78,7 @@ export {
     useLogin,
     useUpdateUser,
     usePostUser,
+    useResetPassword,
+    useSearchUser
 };
 
