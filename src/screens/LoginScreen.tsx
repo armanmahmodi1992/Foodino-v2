@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
   register: {
     fontSize: 18,
     fontWeight: fontWeight.heavy,
-    color: '#3f50b5',
+    color: Colors.LINK,
     textDecorationLine: 'underline'
 
   },
   forgetPass: {
     fontSize: 18,
     fontWeight: fontWeight.heavy,
-    color: '#3f50b5',
+    color: Colors.LINK,
     textDecorationLine: 'underline',
     alignSelf: 'flex-end'
 
