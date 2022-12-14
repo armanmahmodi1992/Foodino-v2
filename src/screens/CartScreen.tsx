@@ -36,7 +36,6 @@ export default function CartScreen() {
         (item == '' ?
             <EmptyCart /> :
             <View style={styles.container} >
-                <AppBar title='سبد خرید' icon='shopping-cart' />
                 <FlatList
                     data={item}
                     keyExtractor={(_, index) => `itm${index}`}
