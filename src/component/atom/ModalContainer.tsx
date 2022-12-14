@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { scale } from '~/utils/Style';
-// import {CustomLoading} from '~/components';
+import { CustomLoading } from '~/component';
 
 function ModalContainer({
     isVisible,
