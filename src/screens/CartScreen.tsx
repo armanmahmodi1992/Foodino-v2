@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { AppBar, CartCard, EmptyCart, SumCart } from '~/component';
+import { CartCard, EmptyCart, SumCart } from '~/component';
 import { useCartList } from '~/hooks';
 
 export default function CartScreen() {
