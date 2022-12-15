@@ -9,5 +9,6 @@ export {default as RegisterScreen} from '~/screens/RegisterScreen';
 export {default as SettingScreen} from '~/screens/SettingScreen';
 export {default as FurtherInformation} from '~/screens/FurtherInformation';
 export {default as ForgetPassword} from '~/screens/ForgetPassword';
+export {default as RestaurantList} from '~/screens/RestaurantList';
 
 
