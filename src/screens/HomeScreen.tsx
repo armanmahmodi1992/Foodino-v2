@@ -25,6 +25,8 @@ export default function Home() {
                         alignSelf: 'center',
                     }}
                     data={item}
+                    columnWrapperStyle={{ flexDirection: 'row-reverse' }}
+                    numColumns={2}
                     keyExtractor={(_, index) => `itm${index}`}
                     renderItem={renderItem}
                 />
@@ -39,6 +41,6 @@ const styles = StyleSheet.create({
     },
     flatList: {
         paddingBottom: 30,
-        paddingTop: 15
+        paddingTop: 10
     }
 });
