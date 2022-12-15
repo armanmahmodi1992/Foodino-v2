@@ -12,14 +12,6 @@ export default function FoodMenuCard({ item }: { item: any }) {
     const [cart, setCart] = useState(item?.number);
     const { mutate, isLoading } = useUpdateFoodList()
 
-    if (isLoading) {
-        return (
-            <Center flex={1} >
-                <Loading />
-            </Center>
-        )
-    }
-
     const handleUpdateCart = (item: any) => {
         mutate(item, {
             onSuccess: (data) => {
