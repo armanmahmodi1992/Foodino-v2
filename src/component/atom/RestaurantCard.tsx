@@ -10,8 +10,6 @@ export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function RestaurantCard({ item }: { item: any }) {
 
-    console.log('item in restaurant card', item)
-
     return (
         <View style={styles.content}>
             <HStack h='160' w='100%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
