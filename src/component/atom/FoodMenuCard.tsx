@@ -1,7 +1,8 @@
-import { Center, HStack, Image, Text, VStack } from 'native-base';
-import React, { useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import { CustomButton, Loading } from '~/component';
+import { HStack, Image, Text, VStack } from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
+import { CustomButton } from '~/component';
+import { cartMinus, cartPlus } from '~/component/atom/CardCounter';
 import { useUpdateFoodList } from '~/hooks';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
@@ -12,30 +13,16 @@ export default function FoodMenuCard({ item }: { item: any }) {
     const [cart, setCart] = useState(item?.number);
     const { mutate, isLoading } = useUpdateFoodList()
 
-    const handleUpdateCart = (item: any) => {
+    useEffect(() => {
+        item.number = cart
         mutate(item, {
             onSuccess: (data) => {
-                console.log('success data =>', data.status)
             },
             onError: (error) => {
-                console.log('login error =>', error)
             }
         })
-    }
+    }, [cart]);
 
-    const cartPlus = () => {
-        setCart(prevState => prevState + 1);
-        item.number = cart + 1;
-        handleUpdateCart(item);
-    };
-
-    const cartMinus = () => {
-        if (cart > 0) {
-            setCart(prevState => prevState - 1);
-            item.number = cart - 1;
-            handleUpdateCart(item);
-        }
-    }
 
     return (
         <HStack h='200' w='420' direction='row-reverse' p='3' alignItems='center' justifyContent='space-between' borderTopWidth='0.5' borderTopColor={Colors.GARY_4}>
@@ -46,9 +33,9 @@ export default function FoodMenuCard({ item }: { item: any }) {
             <VStack space='3' paddingLeft='2' >
                 <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                 <HStack width='100' justifyContent='space-between'>
-                    <CustomButton title='-' onPress={cartMinus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                    <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                     <Text style={styles.text}>{cart}</Text>
-                    <CustomButton title='+' onPress={cartPlus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                    <CustomButton title='+' onPress={() => setCart(cartPlus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                 </HStack>
             </VStack>
         </HStack>
