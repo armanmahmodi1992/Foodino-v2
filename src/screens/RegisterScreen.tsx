@@ -44,7 +44,7 @@ export default function RegisterScreen() {
     const handlePostUser = (formData: any) => {
         mutate(formData, {
             onSuccess: (data) => {
-                console.log(data.status)
+
                 if (data.status === 201) {
                     showSuccess('اطلاعات با موفقیت ثبت شد')
                     navigate('LoginScreen')
