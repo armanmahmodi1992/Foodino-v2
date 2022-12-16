@@ -1,8 +1,9 @@
-import { HStack, Image, Text, View, VStack, Center } from 'native-base';
-import React, { useState } from 'react';
+import { HStack, Image, Text, View, VStack } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { CustomButton, Loading } from '~/component';
+import { CustomButton, QuestionModal } from '~/component';
+import { cartMinus, cartPlus } from '~/component/atom/CardCounter';
 import { useUpdateFoodList } from '~/hooks';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
@@ -10,42 +11,34 @@ export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function CartCard({ item }: { item: any }) {
 
+
+    const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
+
     const [cart, setCart] = useState(item?.number);
-    const { mutate, isLoading } = useUpdateFoodList()
-    if (isLoading && cart > 0) {
-        return (
-            <Center flex={1} >
-                <Loading />
-            </Center>
-        )
-    }
-    const handleUpdateCart = (item: any) => {
+
+    const { mutate } = useUpdateFoodList()
+
+    const onLogOutPressHandler = () => {
+        setLogoutModalVisible(true);
+    };
+
+    const onCloseLogoutModal = () => {
+        setLogoutModalVisible(false);
+    };
+
+    useEffect(() => {
+        item.number = cart
         mutate(item, {
             onSuccess: (data) => {
             },
             onError: (error) => {
             }
         })
-    }
-
-    const cartPlus = () => {
-        setCart(prevState => prevState + 1);
-        item.number = cart + 1;
-        handleUpdateCart(item);
-    };
-
-    const cartMinus = () => {
-        if (cart > 0) {
-            setCart(prevState => prevState - 1);
-            item.number = cart - 1;
-            handleUpdateCart(item);
-        }
-    }
+    }, [cart]);
 
     const deleteCart = () => {
         item.number = 0;
-        console.log(handleUpdateCart(item))
-
+        console.log(mutate(item))
     };
 
     return (
@@ -57,15 +50,24 @@ export default function CartCard({ item }: { item: any }) {
                     <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
                 </VStack>
                 <VStack space='3' paddingLeft='2'  >
-                    <TouchableOpacity onPress={() => deleteCart()}>
-                        <Icon name='trash-o' size={30} color={Colors.SECONDARY_LIGHT} />
+                    <TouchableOpacity onPress={() => onLogOutPressHandler()}>
+                        <Icon name='trash-o' size={30} color={Colors.ERROR} />
                     </TouchableOpacity>
                     <HStack width='100' justifyContent='space-between'>
-                        <CustomButton title='-' onPress={cartMinus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                        <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                         <Text style={styles.text}>{cart}</Text>
-                        <CustomButton title='+' onPress={cartPlus} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                        <CustomButton title='+' onPress={() => setCart(cartPlus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                     </HStack>
                 </VStack>
+                <QuestionModal
+                    option1="انصراف"
+                    option2="حذف"
+                    visible={logoutModalVisible}
+                    onClose={onCloseLogoutModal}
+                    option1OnPress={onCloseLogoutModal}
+                    option2OnPress={deleteCart}
+                    title="آیا مطمئنید که میخواهید حذف کنید؟"
+                />
             </HStack>
         </View>
     )
