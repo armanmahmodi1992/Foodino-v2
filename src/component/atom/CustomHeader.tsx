@@ -12,7 +12,7 @@ const CustomHeader = ({
     navigation,
 }: NativeStackHeaderProps) => {
     return (
-        <HStack px={4} alignItems="center" bgColor={Colors.PRIMARY_LIGHT}>
+        <HStack px={4} alignItems="center" bgColor={Colors.PRIMARY_LIGHT} h='50px'>
             {back && (
                 <IconButton
                     onPress={() => navigation.goBack()}
