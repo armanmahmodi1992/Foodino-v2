@@ -47,8 +47,6 @@ export default function ForgetScreen() {
         searchUser(mail, {
             onSuccess: (data) => {
                 setStatus(data?.data)
-                console.log(data.data)
-                console.log(data.status)
                 if (data?.data == '') {
                     showError('ایمیل یافت نشد')
                 } else {
@@ -71,7 +69,7 @@ export default function ForgetScreen() {
     const { mutate } = useResetPassword()
 
     const handleResetPassword = (item: any) => {
-        console.log(item)
+
         mutate(({ item, id }), {
             onSuccess: (data) => {
                 if (data.status === 200) {
