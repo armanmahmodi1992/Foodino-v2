@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { AppBar, HomeCard } from '~/component';
+import { HomeCard } from '~/component';
 import { useFoodCategory } from '~/hooks';
 
 
@@ -8,7 +8,6 @@ export default function Home() {
 
     const { data } = useFoodCategory();
     const item = data?.data
-
 
     const renderItem = ({ item }: { item: any }) => {
         return (
