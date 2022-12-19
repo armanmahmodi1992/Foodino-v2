@@ -24,14 +24,12 @@ export const getFoodCategory = async () => {
     return data;
 }
 
-export const getFoodList = async (subset:any) => {
+export const getFoodList = async () => {
 
     const data = await instance({
         url: `food_list`,
         method: 'get',
-        params:{         
-             subset:subset
-                }
+      
     })
     return data;
 }
@@ -65,7 +63,7 @@ export const updateNumber = async (item:any) => {
 }
 
 export const loginUser = async (user:any) => {
-console.log(user)
+
     const data = await instance({
         url: `users`,
         method: 'get',
@@ -140,6 +138,36 @@ export const updateUser = async (item:any) => {
         params:{         
              email:mail
                 }
+    })
+    return data;
+}
+
+export const postOrder = async (item:any) => {
+
+    const url=`food_order`
+   const [{name,price,number,subset,pic}]=item
+
+    const result = await instance({
+          url: url,
+          method:'post',
+          data:{
+         name:name,
+         number:number,
+         price:price,
+         subset:subset,
+         pic:pic
+          }  
+      })
+      return result;
+  }
+  
+
+  export const getOrderList = async () => {
+
+    const data = await instance({
+        url: `food_order`,
+        method: 'get',
+      
     })
     return data;
 }
