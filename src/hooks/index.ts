@@ -6,8 +6,8 @@ const useFoodCategory = () => {
     return query;
 }
 
-const useFoodList = (subset: any) => {
-    const query = useQuery(['food_list', subset], async => { return api.getFoodList(subset) })
+const useFoodList = () => {
+    const query = useQuery(['food_list'], async => { return api.getFoodList() })
     return query;
 }
 
@@ -55,7 +55,7 @@ const useUpdateUser = () => {
         const useResetPassword = () => {
             const queryClient=useQueryClient()
             return useMutation( async (item:any)=> {
-                console.log('item in hook',item)
+                
                 return api.resetPassword(item);
 
                 },
@@ -64,10 +64,36 @@ const useUpdateUser = () => {
 
             const useSearchUser = () => {
                 return useMutation(email => {
-                    console.log(email)
                     return api.searchUser(email)
                 })
             }
+
+            const usePostOrder = () => {
+                return useMutation( async (item:any)=> {
+                    return api.postOrder(item);
+                },
+                )
+            }
+
+            // const useUpdateCartList = () => {
+            //     const queryClient=useQueryClient()
+            //         return useMutation( async (item:any)=> {
+            //             return api.resetCartList(item);
+
+            //         },
+                    
+            //         {
+            //             onSuccess:(data)=>{
+            //                 queryClient.invalidateQueries(['cart_list'])
+            //             }
+            //         }
+            //         )
+            //     }
+
+                const useOrderList = () => {
+                    const query = useQuery(['food_order'], async => { return api.getOrderList() })
+                    return query;
+                }
            
 
 export {
@@ -79,6 +105,9 @@ export {
     useUpdateUser,
     usePostUser,
     useResetPassword,
-    useSearchUser
+    useSearchUser,
+    usePostOrder,
+    // useUpdateCartList,
+    useOrderList
 };
 
