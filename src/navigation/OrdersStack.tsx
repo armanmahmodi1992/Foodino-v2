@@ -2,7 +2,9 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OrdersScreen } from '~/screens';
 import { CustomHeader } from '~/component';
-export type OrdersStackParamList = { OrdersScreen: undefined };
+
+export type OrdersStackParamList = { OrdersScreen: { data: any } };
+
 const Stack = createNativeStackNavigator();
 
 export default function OrdersStackNavigator() {
