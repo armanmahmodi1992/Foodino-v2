@@ -9,7 +9,7 @@ import { badgeStore } from '~/store/BadgeStore'
 
 const Tab = createBottomTabNavigator();
 
-export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: undefined };
+export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: any };
 
 export default function TabNavigator() {
     const { badge } = badgeStore();
