@@ -5,7 +5,7 @@ import { ActivityIndicator, StyleSheet, View, ViewStyle } from 'react-native';
 const CustomLoading = ({ style = styles.loading }: { style?: ViewStyle }) => {
     return (
         <View style={style}>
-            <ActivityIndicator size={28} color={Colors.PRIMARY} />
+            <ActivityIndicator size={28} color={Colors.SECONDARY_LIGHT} />
         </View>
     );
 };
@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(255,255,255,0.4)',
+
     },
 });
