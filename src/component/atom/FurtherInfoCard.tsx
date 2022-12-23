@@ -6,7 +6,7 @@ import { Colors } from '~/style';
 
 
 export default function FurtherInfoCart({ info, totalPrice }: { info: any; totalPrice: any }) {
-    console.log('info', info)
+
     return (
         <VStack w='100%' h='170' alignItems='flex-end' space='3' p='2' borderWidth='2' borderColor={Colors.GARY_5} borderTopRadius='15'>
             <Text style={styles.text}>آدرس : {info?.data.address}</Text>
