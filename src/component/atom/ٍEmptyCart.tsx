@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { AppBar } from '~/component'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import image from '~/assets/image'
 export default function EmptyCart() {
     return (
