@@ -11,13 +11,17 @@ import { navigate } from '~/navigation/Methods';
 export default function UserScreen() {
 
     const { token, reset } = authStore();
+    let name, address, email
 
-    const [{ email, name, address }] = token;
+    if (token != '') {
+        [{ name, address, email }] = token
+    }
 
     const handleLogout = () => {
         reset();
         navigate('LoginScreen')
     }
+
     return (
         <VStack flex={1}>
             <Image source={image?.headerFood} style={styles.image} />
