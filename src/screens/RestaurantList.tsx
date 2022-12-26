@@ -4,13 +4,13 @@ import { RestaurantCard } from '~/component'
 
 export default function RestaurantList({ route }: { route: any }) {
 
-    const { subset } = route?.params
-    const { restaurantList } = route?.params
-
+    const { restaurantList } = route.params
+    const { food_list } = route.params
+    console.log(restaurantList)
     const renderItem = ({ item }: { item: any }) => {
 
         return (
-            <RestaurantCard item={item} />
+            <RestaurantCard item={item} food_list={food_list} />
         )
     }
 
