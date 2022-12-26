@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HStack, Text, VStack } from 'native-base';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
 import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
@@ -15,7 +15,16 @@ import { useShowError } from '~/utils/Toast';
 
 export default function Login() {
 
+  const { isLogin } = authStore();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('UserScreen')
+    }
+  });
+
   const { showError } = useShowError();
+
   const schema = yup.object().shape({
     email: yup.string().email().required('این فیلد الزامی می باشد'),
     password: yup
@@ -24,15 +33,9 @@ export default function Login() {
       .max(36)
       .required('این فیلد الزامی می باشد'),
   });
+
   const { setIsLogin } = authStore(state => state);
   const { setToken } = authStore(state => state);
-
-  const { isLogin } = authStore();
-  useLayoutEffect(() => {
-    if (isLogin) {
-      navigate('UserScreen')
-    }
-  });
 
   const { ...methods } = useForm<Record<string, any>, object>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
@@ -42,26 +45,29 @@ export default function Login() {
   const { handleSubmit, register } = methods;
 
   const { mutate } = useLogin()
+
   const handleUserLogin = (formData: any) => {
+
     mutate(formData, {
       onSuccess: (data) => {
         if (data.data != '') {
           setIsLogin(true);
           setToken(data.data);
           navigate('UserScreen')
+
         } else {
           showError("ایمیل یا رمز عبور اشتباه است.")
         }
-      },
-      onError: (error) => {
-        console.log('login error =>', error)
       }
     })
   }
 
   return (
+
     <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+
       <Image source={image.splash} style={styles.image} />
+
       <FormProvider {...methods}>
         <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
           <CustomInput
@@ -90,6 +96,7 @@ export default function Login() {
           </HStack>
         </VStack>
       </FormProvider>
+
     </VStack>
   )
 }
