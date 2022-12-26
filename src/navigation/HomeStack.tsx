@@ -28,7 +28,7 @@ export default function HomeStackNavigator() {
                         headerTitle: 'لیست رستوران ها',
                         headerShown: true,
                         header: ({ route, options, navigation }: any) => (
-                            <CustomHeader {...{ route, options, navigation }} />
+                            <CustomHeader back {...{ route, options, navigation }} />
                         ),
                     }
                 }
