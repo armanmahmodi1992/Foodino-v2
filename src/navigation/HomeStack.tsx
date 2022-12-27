@@ -1,10 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, FoodMenuScreen, RestaurantList } from '~/screens';
+import { HomeScreen, FoodMenuScreen, RestaurantList, LoginScreen } from '~/screens';
 import { CustomHeader } from '~/component';
+import authStore from '~/store/AuthStore';
+
 export type HomeStackParamList = { HomeScreen: undefined; FoodMenuScreen: { food_list: any }; RestaurantList: { restaurantList: any, food_list: any } };
+const Stack = createNativeStackNavigator();
+
 export default function HomeStackNavigator() {
-    const Stack = createNativeStackNavigator();
+
+    const { isLogin } = authStore();
+
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
@@ -35,7 +41,7 @@ export default function HomeStackNavigator() {
             />
             <Stack.Screen
                 name={'FoodMenuScreen'}
-                component={FoodMenuScreen}
+                component={isLogin ? FoodMenuScreen : LoginScreen}
             />
 
 
