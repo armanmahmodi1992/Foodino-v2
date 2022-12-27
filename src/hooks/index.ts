@@ -6,24 +6,25 @@ const useFoodCategory = () => {
     return query;
 }
 
-const useFoodList = () => {
-    const query = useQuery(['food_list'], async => { return api.getFoodList() })
-    return query;
-}
-
 const useCartList = () => {
-const res=useQuery(['cart_list'],async ()=> {return api.getCartList()})
-return res
+    return useMutation(input => {
+        return api.getCartList(input)
+    })
+}
+const useUserCart = (user_id:number) => {
+
+    const query = useQuery(['food_cart'], async => { return api.getUserCart(user_id) })
+    return query
 }
 
 const useUpdateFoodList = () => {
 const queryClient=useQueryClient()
     return useMutation( async (item:any)=> {
-        return api.updateNumber(item);
+        return api.updateCartNumber(item);
     },
     {
         onSuccess:(data)=>{
-            queryClient.invalidateQueries(['cart_list'])
+            queryClient.invalidateQueries(['food_cart'])
         }
     }
     )
@@ -41,7 +42,7 @@ const useUpdateUser = () => {
         return useMutation( async (item:any)=> {
       
             return api.updateUser(item);
-        },
+        }
         )
     }
 
@@ -57,7 +58,6 @@ const useUpdateUser = () => {
             return useMutation( async (item:any)=> {
                 
                 return api.resetPassword(item);
-
                 },
                 )
             }
@@ -68,37 +68,68 @@ const useUpdateUser = () => {
                 })
             }
 
-            const usePostOrder = () => {
+            const usePostCart = () => {
+                const queryClient=useQueryClient()
                 return useMutation( async (item:any)=> {
-                    return api.postOrder(item);
-                },
+                    return api.postCart(item);
+                }
+                ,
+                    {
+                        onSuccess:(data)=>{
+                            queryClient.invalidateQueries(['food_cart'])
+                        }
+                    }
                 )
             }
 
-            // const useUpdateCartList = () => {
-            //     const queryClient=useQueryClient()
-            //         return useMutation( async (item:any)=> {
-            //             return api.resetCartList(item);
+            const useSearchFoodCart = () => {
+                return useMutation(input => {
+                    return api.getCartListForDelete(input)
+                })
+            }
 
-            //         },
-                    
-            //         {
-            //             onSuccess:(data)=>{
-            //                 queryClient.invalidateQueries(['cart_list'])
-            //             }
-            //         }
-            //         )
-            //     }
+            const useSearchFoodCartByUserId = () => {
+                return useMutation(input => {
+                    return api.getCartListByUserId(input)
+                })
+            }
 
-                const useOrderList = () => {
-                    const query = useQuery(['food_order'], async => { return api.getOrderList() })
+            const useDeleteCart= () => {
+                const queryClient=useQueryClient()
+                    return useMutation( async (input:any)=> {
+                        return api.deleteCart(input);
+                    },
+                    {
+                        onSuccess:(data)=>{
+                            queryClient.invalidateQueries(['food_cart'])
+                            queryClient.invalidateQueries(['food_grouping'])
+                        }
+                    }
+                    )
+                }
+
+            const usePostOrder = () => {
+                const queryClient=useQueryClient()
+                return useMutation( async (item:any)=> {
+                    return api.postOrder(item);
+                },
+                {
+                    onSuccess:(data)=>{
+                        queryClient.invalidateQueries(['food_cart'])
+                    }
+                }
+                )
+            }
+
+                const useOrderList = (user_id:number) => {
+                    console.log('in hook',user_id)
+
+                    const query = useQuery(['food_order'], async => { return api.getOrderList(user_id) })
                     return query;
                 }
-           
 
 export {
     useFoodCategory,
-    useFoodList,
     useUpdateFoodList,
     useCartList,
     useLogin,
@@ -107,7 +138,11 @@ export {
     useResetPassword,
     useSearchUser,
     usePostOrder,
-    // useUpdateCartList,
-    useOrderList
+    useOrderList,
+    usePostCart,
+    useUserCart,
+    useDeleteCart,
+    useSearchFoodCart,
+    useSearchFoodCartByUserId
 };
 
