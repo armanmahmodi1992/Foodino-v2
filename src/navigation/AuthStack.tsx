@@ -2,16 +2,22 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoginScreen, UserScreen, RegisterScreen, SettingScreen, ForgetPassword } from '~/screens';
 import { CustomHeader } from '~/component';
+import authStore from '~/store/AuthStore';
 
 export type AuthStackParamList = { LoginScreen: any; UserScreen: any; RegisterScreen: any; SettingScreen: any; ForgetPassword: any };
+
 const Stack = createNativeStackNavigator();
 
 export default function AuthStackNavigator() {
+
+    const { isLogin } = authStore();
+
     return (
+
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={'LoginScreen'}
-                component={LoginScreen}
+                component={isLogin ? UserScreen : LoginScreen}
                 options={
                     {
                         headerTitle: 'ورود کاربر',
@@ -43,7 +49,7 @@ export default function AuthStackNavigator() {
                         headerTitle: ' صفحه کاربر ',
                         headerShown: true,
                         header: ({ route, options, navigation }: any) => (
-                            <CustomHeader back {...{ route, options, navigation }} />
+                            <CustomHeader  {...{ route, options, navigation }} />
                         ),
                     }
                 }
