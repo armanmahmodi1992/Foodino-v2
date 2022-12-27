@@ -8,13 +8,13 @@ import Icon from 'react-native-vector-icons/Fontisto'
 import { navigate } from '~/navigation/Methods';
 export const WIDTH = Dimensions.get('window').width / 4;
 
-export default function RestaurantCard({ item }: { item: any }) {
+export default function RestaurantCard({ item, food_list }: { item: any; food_list: any }) {
 
     return (
         <View style={styles.content}>
             <HStack h='160' w='100%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
 
-                <TouchableOpacity onPress={() => navigate('FoodMenuScreen')}>
+                <TouchableOpacity onPress={() => navigate('FoodMenuScreen', { food_list })}>
                     <Image source={{ uri: item?.logo }} style={styles.image} alt='image' />
                 </TouchableOpacity>
 
