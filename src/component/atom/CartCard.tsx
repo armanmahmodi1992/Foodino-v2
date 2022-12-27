@@ -4,7 +4,7 @@ import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CustomButton, QuestionModal } from '~/component';
 import { cartMinus, cartPlus } from '~/component/atom/CardCounter';
-import { useUpdateFoodList } from '~/hooks';
+import { useUpdateFoodList, useDeleteCart } from '~/hooks';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
 export const WIDTH = Dimensions.get('window').width / 4;
@@ -13,10 +13,12 @@ export default function CartCard({ item }: { item: any }) {
 
 
     const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
-
     const [cart, setCart] = useState(item?.number);
 
+    const id = item?.id
+
     const { mutate } = useUpdateFoodList()
+    const { mutate: Delete } = useDeleteCart()
 
     const onLogOutPressHandler = () => {
         setLogoutModalVisible(true);
@@ -37,12 +39,21 @@ export default function CartCard({ item }: { item: any }) {
     }, [cart]);
 
     const deleteCart = () => {
-        item.number = 0;
-        console.log(mutate(item))
+
+        Delete(id, {
+            onSuccess: (data) => {
+                console.log('status', data.status)
+            },
+            onError: (error) => {
+            }
+        })
+
     };
 
     return (
+
         <View style={styles.content}>
+
             <HStack h='160' w='95%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
                 <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                 <VStack space='2' pr='1' flex={1} m='1' >
@@ -69,6 +80,7 @@ export default function CartCard({ item }: { item: any }) {
                     title="آیا مطمئنید که میخواهید حذف کنید؟"
                 />
             </HStack>
+
         </View>
     )
 }
