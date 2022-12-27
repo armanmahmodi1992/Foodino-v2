@@ -6,12 +6,12 @@ import { fontFamily, fontWeight, scale } from '~/utils/Style';
 
 export default function HomeCard({ item }: { item: any }) {
 
-    let subset = item?.subset
     let restaurantList = item?.restaurants
+    let food_list = item?.food_list
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigate('RestaurantList', { subset, restaurantList })} style={styles.touchableOpacity} >
+            <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} >
                 <Image source={{ uri: item?.pic }} style={styles.image} />
             </TouchableOpacity >
             <Text style={styles.textCard}>{item?.name}</Text>
