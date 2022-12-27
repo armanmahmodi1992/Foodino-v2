@@ -10,7 +10,10 @@ import { navigate } from '~/navigation/Methods';
 
 export default function UserScreen() {
 
-    const { token, reset } = authStore();
+    const { setIsLogin } = authStore(state => state);
+    const { setToken } = authStore(state => state);
+    const { token } = authStore();
+
     let name, address, email
 
     if (token != '') {
@@ -18,7 +21,8 @@ export default function UserScreen() {
     }
 
     const handleLogout = () => {
-        reset();
+        setIsLogin(false);
+        setToken('');
         navigate('LoginScreen')
     }
 
