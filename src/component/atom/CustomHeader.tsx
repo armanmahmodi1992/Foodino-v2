@@ -12,13 +12,8 @@ const CustomHeader = ({
     navigation,
 }: NativeStackHeaderProps) => {
     return (
-        <HStack px={4} alignItems="center" bgColor={Colors.PRIMARY_LIGHT} h='50px'>
-            {back && (
-                <IconButton
-                    onPress={() => navigation.goBack()}
-                    icon={<Icon name="chevron-back" color={Colors.GARY_3} size={24} />}
-                />
-            )}
+        <HStack alignItems="center" bgColor={Colors.PRIMARY_LIGHT} h='50px'>
+
             <Text
                 flex={1}
                 fontSize={19}
@@ -26,6 +21,12 @@ const CustomHeader = ({
                 fontFamily={fontFamily.medium}>
                 {options?.headerTitle}
             </Text>
+            {back && (
+                <IconButton
+                    onPress={() => navigation.goBack()}
+                    icon={<Icon name="chevron-forward" color={Colors.GARY_3} size={24} />}
+                />
+            )}
             <IconButton disabled />
         </HStack>
     );
