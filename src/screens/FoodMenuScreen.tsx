@@ -1,13 +1,14 @@
-import { FlatList, StyleSheet, Text, Animated, Dimensions, StatusBar } from 'react-native'
-import React from 'react'
-import { FoodMenuCard } from '~/component';
-import { Colors } from '~/style'
-import { fontFamily } from '~/utils/Style'
-import { useFoodList } from '~/hooks';
+import React from 'react';
+import { Animated, Dimensions, FlatList, StyleSheet } from 'react-native';
 import image from '~/assets/image';
+import { FoodMenuCard } from '~/component';
+import { Colors } from '~/style';
+import { fontFamily } from '~/utils/Style';
 
 const renderItem = ({ item }: { item: any }) => {
+
     return (
+
         <FoodMenuCard item={item} />
     )
 }
@@ -15,11 +16,10 @@ const renderItem = ({ item }: { item: any }) => {
 const HEADER_EXPANDED_HEIGHT = 160
 const HEADER_COLLAPSED_HEIGHT = 50
 const { width: SCREEN_WIDTH } = Dimensions.get("screen")
+
 export default function FoodMenu({ route }: { route: any }) {
 
-    const { subset } = route?.params
-    const { data } = useFoodList(subset);
-    const item = data?.data
+    const item = route?.params.food_list
 
     const scrollY = new Animated.Value(0)
     const headerY = scrollY.interpolate({
@@ -41,7 +41,6 @@ export default function FoodMenu({ route }: { route: any }) {
     return (
 
         <Animated.View style={styles.container} >
-            <StatusBar />
             <Animated.View style={[styles.header, { height: headerY }]}>
                 <Animated.Image source={image.pizza} style={{ position: 'absolute', opacity: heroTitleOpacity, height: 170, width: '100%', bottom: 0, left: 0 }} />
                 <Animated.Text style={[styles.text, { opacity: headerTitleOpacity }]}>فودینو</Animated.Text>
