@@ -11,19 +11,16 @@ import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontWeight } from '~/utils/Style';
+import { storeData } from '~/services/storage';
 import { useShowError } from '~/utils/Toast';
 
 export default function Login() {
 
   const { isLogin } = authStore();
-
-  useEffect(() => {
-    if (isLogin) {
-      navigate('UserScreen')
-    }
-  });
-
   const { showError } = useShowError();
+  const { setIsLogin } = authStore(state => state);
+  const { setToken } = authStore(state => state);
+
 
   const schema = yup.object().shape({
     email: yup.string().email().required('این فیلد الزامی می باشد'),
@@ -33,9 +30,6 @@ export default function Login() {
       .max(36)
       .required('این فیلد الزامی می باشد'),
   });
-
-  const { setIsLogin } = authStore(state => state);
-  const { setToken } = authStore(state => state);
 
   const { ...methods } = useForm<Record<string, any>, object>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
