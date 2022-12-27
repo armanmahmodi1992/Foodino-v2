@@ -1,14 +1,24 @@
-import { HStack, Select, VStack, FormControl } from 'native-base'
-import React, { useState } from 'react'
+import { HStack, Select, VStack } from 'native-base'
+import React from 'react'
+import { Controller, useForm } from "react-hook-form"
 import { StyleSheet, Text, View } from 'react-native'
 import { CustomButton } from '~/component'
+import { useDeleteCart, usePostOrder, useUserCart } from '~/hooks'
 import { navigate } from '~/navigation/Methods'
+import { authStore } from '~/store/AuthStore'
 import { Colors } from '~/style'
 import { fontWeight } from '~/utils/Style'
-import { useForm, Controller } from "react-hook-form";
-
 
 export default function FurtherInformation() {
+
+    const { token } = authStore()
+    const [{ id }] = token
+
+    const { data: foodCart } = useUserCart(id);
+    const item = foodCart?.data
+
+    const { mutate: mutateAddToOrder } = usePostOrder()
+    const { mutate: Delete } = useDeleteCart()
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -18,7 +28,25 @@ export default function FurtherInformation() {
         }
     });
 
-    const onSubmit = data => console.log(data);
+    const onSubmit = (data: any) => {
+
+        item?.map((element: any) => {
+            mutateAddToOrder(element, {
+                onSuccess: (data) => {
+                    console.log('success')
+                    item?.map((element: any) => {
+                        Delete(element, {
+                            onSuccess: (data) => {
+                                console.log('delete status', data.status)
+                            },
+                            onError: (error) => {
+                            }
+                        })
+                    })
+                },
+            })
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -38,7 +66,7 @@ export default function FurtherInformation() {
                                 onChange(itemValue)
                             }}
                         >
-                            <Select.Item label="سقز" value="saghez" />
+                            <Select.Item label="سقز" value="سقز" />
                         </Select>
                     )}
                     name="address"
@@ -59,8 +87,8 @@ export default function FurtherInformation() {
                                 onChange(itemValue)
                             }}
                         >
-                            <Select.Item label="حضوری" value="inPerson" />
-                            <Select.Item label="پیک" value="delivery" />
+                            <Select.Item label="حضوری" value="حضوری" />
+                            <Select.Item label="پیک" value="پیک" />
                         </Select>
                     )}
                     name="delivery"
@@ -81,7 +109,7 @@ export default function FurtherInformation() {
                                 onChange(itemValue)
                             }}
                         >
-                            <Select.Item label="نقدی" value="cash" />
+                            <Select.Item label="نقدی" value="نقدی" />
                         </Select>
                     )}
                     name="payment"
