@@ -1,9 +1,9 @@
 import { HStack, Image, Text, View, VStack } from 'native-base';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
-import { useUpdateCartList } from '~/hooks';
+
 export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function OrderCard({ item }: { item: any }) {
