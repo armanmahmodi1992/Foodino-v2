@@ -1,12 +1,11 @@
 import { StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
 import React from 'react'
 import { Colors } from '~/style'
-import image from '~/assets/image'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { HStack, VStack } from 'native-base';
 import { authStore } from '~/store/AuthStore';
-import { fontWeight } from '~/utils/Style'
 import { navigate } from '~/navigation/Methods';
+import { image, Style } from '~/utils'
 
 export default function UserScreen() {
 
@@ -28,8 +27,8 @@ export default function UserScreen() {
 
     return (
         <VStack flex={1}>
-            <Image source={image?.headerFood} style={styles.image} />
-            <Image source={image.splash} style={styles.logo} />
+            <Image source={{ uri: image.header }} style={styles.image} />
+            <Image source={{ uri: image.splash }} style={styles.logo} />
             <TouchableOpacity style={styles.setting} onPress={() => navigate('SettingScreen')}>
                 <Icon size={35} color={Colors.SECONDARY} name='setting' />
             </TouchableOpacity>
@@ -89,12 +88,12 @@ const styles = StyleSheet.create({
         height: 35,
         textAlign: 'right',
         fontSize: 19,
-        fontWeight: fontWeight.bold,
+        fontWeight: Style.fontWeight.bold,
         justifyContent: 'center'
     },
     logoutText: {
         fontSize: 18,
-        fontWeight: fontWeight.bold,
+        fontWeight: Style.fontWeight.bold,
 
     }
 });
