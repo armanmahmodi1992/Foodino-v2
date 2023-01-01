@@ -1,11 +1,10 @@
 import { HStack, Image, Text, View, VStack } from 'native-base';
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Fontisto';
+import { navigate } from '~/navigation/Methods';
 import { Colors } from '~/style';
 import { fontFamily, fontWeight } from '~/utils/Style';
-import image from '~/assets/image'
-import Icon from 'react-native-vector-icons/Fontisto'
-import { navigate } from '~/navigation/Methods';
 export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function RestaurantCard({ item, food_list }: { item: any; food_list: any }) {
