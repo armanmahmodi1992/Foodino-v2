@@ -5,18 +5,16 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
 import { useUpdateUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
-import { fontWeight } from '~/utils/Style';
-import { useShowSuccess } from '~/utils/Toast';
+import { image, toast, Style } from '~/utils'
 
 export default function SettingScreen() {
 
-    const { showSuccess } = useShowSuccess();
+    const { showSuccess } = toast.useShowSuccess();
     const { mutate } = useUpdateUser()
     const { token } = authStore();
     const [{ email, name, address, password, pic, id }] = token;
@@ -62,8 +60,8 @@ export default function SettingScreen() {
         <ScrollView>
             <FormProvider {...methods} >
                 <VStack flex={1}>
-                    <Image source={image?.headerFood} style={styles.image} />
-                    <Image source={image.splash} style={styles.logo} />
+                    <Image source={{ uri: image.header }} style={styles.image} />
+                    <Image source={{ uri: image.splash }} style={styles.logo} />
                     <VStack mt='3' p='2' space='5' alignItems='center' borderBottomWidth='4' borderBottomColor={Colors.GARY_5} >
 
 
@@ -154,12 +152,12 @@ const styles = StyleSheet.create({
         height: 35,
         textAlign: 'right',
         fontSize: 19,
-        fontWeight: fontWeight.bold,
+        fontWeight: Style.fontWeight.bold,
         justifyContent: 'center'
     },
     logoutText: {
         fontSize: 18,
-        fontWeight: fontWeight.bold,
+        fontWeight: Style.fontWeight.bold,
 
     }
 });
