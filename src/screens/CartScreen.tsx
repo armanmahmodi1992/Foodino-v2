@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { AppBar, CartCard, EmptyCart, SumCart } from '~/component';
-import { useCartList } from '~/hooks';
+import { CartCard, EmptyCart, SumCart } from '~/component';
+import { useUserCart } from '~/hooks';
+import { authStore } from '~/store/AuthStore';
 
 export default function CartScreen() {
 
-    const { data } = useCartList();
+    const { token } = authStore();
+    const [{ id }] = token
+
+    const { data } = useUserCart(id);
     const item = data?.data
 
     const renderItem = ({ item }: { item: any }) => {
@@ -16,7 +20,6 @@ export default function CartScreen() {
 
     const cartCount = useMemo(() => {
         let count = 0
-
         data?.data?.map((element: any) => {
             count += element?.number
         })
@@ -36,7 +39,6 @@ export default function CartScreen() {
         (item == '' ?
             <EmptyCart /> :
             <View style={styles.container} >
-                <AppBar title='سبد خرید' icon='shopping-cart' />
                 <FlatList
                     data={item}
                     keyExtractor={(_, index) => `itm${index}`}

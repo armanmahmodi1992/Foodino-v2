@@ -15,7 +15,7 @@ export default function SumCart(props: { totalCount: number; totalPrice: number 
                 <Text style={styles.text}>خلاصه سبد</Text>
             </HStack>
             <HStack justifyContent='space-between' w='100%' alignItems='center'>
-                <CustomButton title='ادامه خرید' onPress={() => navigate('OrdersStack')} buttonStyle={{ width: 130, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                <CustomButton title='ادامه خرید' onPress={() => navigate('FurtherInformation')} buttonStyle={{ width: 130, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
                 <Text style={styles.text}>جمع: {totalPrice} ريال</Text>
             </HStack>
         </VStack>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OrdersScreen } from '~/screens';
-export type OrdersStackParamList = { OrdersScreen: undefined };
+import { CustomHeader } from '~/component';
+
+export type OrdersStackParamList = { OrdersScreen: { data: any } };
+
 const Stack = createNativeStackNavigator();
 
 export default function OrdersStackNavigator() {
@@ -10,6 +13,15 @@ export default function OrdersStackNavigator() {
             <Stack.Screen
                 name={'OrdersScreen'}
                 component={OrdersScreen}
+                options={
+                    {
+                        headerTitle: ' سفارشات',
+                        headerShown: true,
+                        header: ({ route, options, navigation }: any) => (
+                            <CustomHeader back {...{ route, options, navigation }} />
+                        ),
+                    }
+                }
             />
 
         </Stack.Navigator>

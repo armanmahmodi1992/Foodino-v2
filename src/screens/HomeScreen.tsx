@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { AppBar, HomeCard } from '~/component';
+import { HomeCard } from '~/component';
 import { useFoodCategory } from '~/hooks';
 
 
@@ -8,7 +8,6 @@ export default function Home() {
 
     const { data } = useFoodCategory();
     const item = data?.data
-
 
     const renderItem = ({ item }: { item: any }) => {
         return (
@@ -18,7 +17,6 @@ export default function Home() {
 
     return (
         <View style={styles.container} >
-            <AppBar title='صفحه اصلی' icon='home' />
             <View style={styles.flatList}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
@@ -26,6 +24,8 @@ export default function Home() {
                         alignSelf: 'center',
                     }}
                     data={item}
+                    columnWrapperStyle={{ flexDirection: 'row-reverse' }}
+                    numColumns={2}
                     keyExtractor={(_, index) => `itm${index}`}
                     renderItem={renderItem}
                 />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
     },
     flatList: {
-        paddingBottom: 90,
-        paddingTop: 15
+        paddingBottom: 30,
+        paddingTop: 10
     }
 });

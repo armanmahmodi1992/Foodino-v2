@@ -6,14 +6,17 @@ import { HomeStack, CartStack, AuthStack, OrdersStack } from '~/navigation';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
 import { badgeStore } from '~/store/BadgeStore'
+import authStore from '~/store/AuthStore';
 
 const Tab = createBottomTabNavigator();
 
-export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: undefined };
+export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: any };
 
 export default function TabNavigator() {
     const { badge } = badgeStore();
     const badgeCart = badge == 0 ? undefined : badge
+    const { isLogin } = authStore();
+
     return (
         <Tab.Navigator initialRouteName='HomeStack'
             backBehavior='initialRoute'
@@ -67,15 +70,13 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name={'OrdersStack'}
-                component={OrdersStack}
+                component={isLogin ? OrdersStack : AuthStack}
             />
             <Tab.Screen
                 name={'CartStack'}
-                component={CartStack}
+                component={isLogin ? CartStack : AuthStack}
                 options={{ tabBarBadge: badgeCart }}
-
             />
-
             <Tab.Screen
                 name={'HomeStack'}
                 component={HomeStack}

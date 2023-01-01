@@ -1,13 +1,17 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { navigate } from '~/navigation/Methods';
-import { fontFamily } from '~/utils/Style';
+import { Colors } from '~/style';
+import { fontFamily, fontWeight, scale } from '~/utils/Style';
 
 export default function HomeCard({ item }: { item: any }) {
-    let subset = item?.subset
+
+    let restaurantList = item?.restaurants
+    let food_list = item?.food_list
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigate('FoodMenuScreen', { subset })} style={styles.touchableOpacity} >
+            <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} >
                 <Image source={{ uri: item?.pic }} style={styles.image} />
             </TouchableOpacity >
             <Text style={styles.textCard}>{item?.name}</Text>
@@ -16,26 +20,29 @@ export default function HomeCard({ item }: { item: any }) {
 }
 const styles = StyleSheet.create({
     container: {
-        padding: 5,
-        paddingBottom: 10,
-
+        padding: 6,
+        marginTop: 5,
     },
     textCard: {
         fontFamily: fontFamily.bold,
-        fontSize: 20,
-        marginTop: 3,
-        marginRight: 10
+        fontWeight: fontWeight.heavy,
+        fontSize: 35,
+        marginTop: 75,
+        marginRight: 10,
+        color: Colors.PRIMARY_LIGHT,
+        alignSelf: 'center',
+        position: 'absolute'
     },
     touchableOpacity: {
-        height: 210,
-        width: 385,
+        height: scale(170),
+        width: scale(170),
         margin: 1,
         marginTop: 2,
         alignSelf: 'center'
     },
     image: {
-        width: 385,
-        height: 210,
+        width: scale(170),
+        height: scale(170),
         borderRadius: 20
     }
 })
