@@ -1,11 +1,11 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import image from '~/assets/image'
+import { image } from '~/utils';
 export default function EmptyOrder() {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                <Image source={image.emptyOrder} style={{ width: 200, height: 200 }} />
+                <Image source={{ uri: image.noOrder }} style={{ width: 200, height: 200 }} />
                 <Text style={styles.text}>شما سفارشی ثبت نکردید</Text>
             </View>
         </View>
