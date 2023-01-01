@@ -1,11 +1,12 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import image from '~/assets/image'
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { image } from '~/utils';
+
 export default function EmptyCart() {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                <Image source={image.shoppingCart} style={{ width: 200, height: 200 }} />
+                <Image source={{ uri: image.noCart }} style={{ width: 200, height: 200 }} />
                 <Text style={styles.text}>شما محصولی انتخاب نکردید</Text>
             </View>
         </View>
