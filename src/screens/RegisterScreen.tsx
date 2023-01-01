@@ -4,13 +4,11 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
 import { usePostUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { Colors } from '~/style';
-import { fontWeight } from '~/utils/Style';
-import { useShowError, useShowSuccess } from '~/utils/Toast';
+import { image, toast, Style } from '~/utils';
 
 export default function RegisterScreen() {
 
@@ -36,8 +34,8 @@ export default function RegisterScreen() {
 
     const { handleSubmit, register } = methods;
 
-    const { showError } = useShowError();
-    const { showSuccess } = useShowSuccess();
+    const { showError } = toast.useShowError();
+    const { showSuccess } = toast.useShowSuccess();
 
     const { mutate } = usePostUser()
 
@@ -62,7 +60,7 @@ export default function RegisterScreen() {
 
         <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
 
-            <Image source={image.splash} style={styles.image} />
+            <Image source={{ uri: image.splash }} style={styles.image} />
 
             <FormProvider {...methods}>
 
@@ -109,11 +107,11 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
     newUser: {
         fontSize: 18,
-        fontWeight: fontWeight.heavy,
+        fontWeight: Style.fontWeight.heavy,
     },
     link: {
         fontSize: 18,
-        fontWeight: fontWeight.heavy,
+        fontWeight: Style.fontWeight.heavy,
         color: '#3f50b5',
         textDecorationLine: 'underline'
 
