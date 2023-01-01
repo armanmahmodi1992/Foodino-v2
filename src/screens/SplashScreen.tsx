@@ -1,8 +1,8 @@
 import { View, Image, StyleSheet, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
-import image from '~/assets/image';
 import { Colors } from '~/style';
 import { navigate } from '~/navigation/Methods';
+import { image } from '~/utils'
 
 export default function SplashScreen() {
 
@@ -17,7 +17,7 @@ export default function SplashScreen() {
             <StatusBar backgroundColor={Colors.GARY_2} />
 
             <View style={styles.container}>
-                <Image source={image.splash} style={styles.splash} />
+                <Image source={{ uri: image.splash }} style={styles.splash} />
             </View>
         </>
     )
