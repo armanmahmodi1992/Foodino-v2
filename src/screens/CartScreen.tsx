@@ -1,6 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { CartCard, EmptyCart, SumCart, CustomLoading } from '~/component';
+import { CartCard, EmptyCart, SumCart } from '~/component';
 import { useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 
