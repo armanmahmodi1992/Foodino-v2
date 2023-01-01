@@ -1,9 +1,8 @@
 import React from 'react';
 import { Animated, Dimensions, FlatList, StyleSheet } from 'react-native';
-import image from '~/assets/image';
 import { FoodMenuCard } from '~/component';
 import { Colors } from '~/style';
-import { fontFamily } from '~/utils/Style';
+import { image, Style } from '~/utils'
 
 const renderItem = ({ item }: { item: any }) => {
 
@@ -42,7 +41,7 @@ export default function FoodMenu({ route }: { route: any }) {
 
         <Animated.View style={styles.container} >
             <Animated.View style={[styles.header, { height: headerY }]}>
-                <Animated.Image source={image.pizza} style={{ position: 'absolute', opacity: heroTitleOpacity, height: 170, width: '100%', bottom: 0, left: 0 }} />
+                <Animated.Image source={{ uri: image.header }} style={{ position: 'absolute', opacity: heroTitleOpacity, height: 170, width: '100%', bottom: 0, left: 0 }} />
                 <Animated.Text style={[styles.text, { opacity: headerTitleOpacity }]}>فودینو</Animated.Text>
             </Animated.View>
             <FlatList
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
 
     text: {
 
-        fontFamily: fontFamily.bold,
+        fontFamily: Style.fontFamily.bold,
         fontSize: 25,
         paddingRight: 15,
         paddingTop: 4,
