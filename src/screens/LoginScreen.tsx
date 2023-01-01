@@ -1,25 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HStack, Text, VStack } from 'native-base';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
 import { useLogin } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
-import { fontWeight } from '~/utils/Style';
-import { storeData } from '~/services/storage';
-import { useShowError } from '~/utils/Toast';
+import { image, Style, toast } from '~/utils';
 
 export default function Login() {
 
-  const { isLogin } = authStore();
-  const { showError } = useShowError();
   const { setIsLogin } = authStore(state => state);
   const { setToken } = authStore(state => state);
+  const { showError } = toast.useShowError();
 
 
   const schema = yup.object().shape({
@@ -60,7 +56,7 @@ export default function Login() {
 
     <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
 
-      <Image source={image.splash} style={styles.image} />
+      <Image source={{ uri: image.splash }} style={styles.image} />
 
       <FormProvider {...methods}>
         <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
@@ -104,18 +100,18 @@ const styles = StyleSheet.create({
   },
   newUser: {
     fontSize: 18,
-    fontWeight: fontWeight.heavy,
+    fontWeight: Style.fontWeight.heavy,
   },
   register: {
     fontSize: 18,
-    fontWeight: fontWeight.heavy,
+    fontWeight: Style.fontWeight.heavy,
     color: Colors.LINK,
     textDecorationLine: 'underline'
 
   },
   forgetPass: {
     fontSize: 18,
-    fontWeight: fontWeight.heavy,
+    fontWeight: Style.fontWeight.heavy,
     color: Colors.LINK,
     textDecorationLine: 'underline',
     alignSelf: 'flex-end'
