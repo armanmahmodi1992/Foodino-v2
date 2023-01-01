@@ -4,13 +4,11 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet, View } from 'react-native';
 import * as yup from 'yup';
-import image from '~/assets/image';
 import { CustomButton, CustomInput } from '~/component';
 import { useResetPassword, useSearchUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { Colors } from '~/style';
-import { fontWeight } from '~/utils/Style';
-import { useShowError, useShowSuccess } from '~/utils/Toast';
+import { image, toast, Style } from '~/utils';
 
 export default function ForgetScreen() {
 
@@ -62,8 +60,8 @@ export default function ForgetScreen() {
     const id = 1
 
 
-    const { showError } = useShowError();
-    const { showSuccess } = useShowSuccess();
+    const { showError } = toast.useShowError();
+    const { showSuccess } = toast.useShowSuccess();
 
     const { handleSubmit, register } = methods;
     const { mutate } = useResetPassword()
@@ -86,7 +84,7 @@ export default function ForgetScreen() {
     return (
 
         <View style={styles.container}>
-            <Image source={image.splash} style={styles.image} />
+            <Image source={{ uri: image.splash }} style={styles.image} />
 
             {status == '' ?
                 <VStack w='100%' alignItems='center' justifyContent='center' top='-50' flex={1} space='3' px='6'>
@@ -153,11 +151,11 @@ const styles = StyleSheet.create({
     },
     newUser: {
         fontSize: 18,
-        fontWeight: fontWeight.heavy,
+        fontWeight: Style.fontWeight.heavy,
     },
     link: {
         fontSize: 18,
-        fontWeight: fontWeight.heavy,
+        fontWeight: Style.fontWeight.heavy,
         color: '#3f50b5',
         textDecorationLine: 'underline'
 
