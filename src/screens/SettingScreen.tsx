@@ -2,7 +2,7 @@ import { VStack } from 'native-base';
 import React from 'react';
 import { FlatList } from 'react-native';
 import { SettingCard } from '~/component';
-import { item } from '~/services/Data';
+import { item } from '~/services/SettingData';
 
 const renderItem = ({ item }: { item: any }) => {
     return (
