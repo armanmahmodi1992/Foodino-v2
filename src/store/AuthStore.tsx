@@ -7,6 +7,7 @@ export type AuthState = {
     isLogin: boolean;
     setIsLogin: (isLogin: boolean) => void;
     setToken: (token: any) => void;
+    reset: () => void;
 };
 
 type AuthPersist = (

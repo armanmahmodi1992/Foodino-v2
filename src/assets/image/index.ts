@@ -1,4 +1,5 @@
-import splash from './splash.png'; 
-import pizza from './1.jpg'; 
+import noInternet from './no-internet.png'; 
 
-export default { splash,pizza}
+export default { 
+    noInternet
+}

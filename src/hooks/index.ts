@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '~/api';
 
 const useFoodCategory = () => {
@@ -6,20 +6,143 @@ const useFoodCategory = () => {
     return query;
 }
 
-const useFoodList = (subset: any) => {
-    const query = useQuery(['food_list', subset], async => { return api.getFoodList(subset) })
-    return query;
+const useCartList = () => {
+    return useMutation(input => {
+        return api.getCartList(input)
+    })
+}
+const useUserCart = (user_id:number) => {
+
+    const query = useQuery(['food_cart'], async => { return api.getUserCart(user_id) })
+    return query
 }
 
-const UseUpdateFoodList = () => {
+const useUpdateFoodList = () => {
+const queryClient=useQueryClient()
     return useMutation( async (item:any)=> {
-        return api.updateNumber(item);
+        return api.updateCartNumber(item);
     },
+    {
+        onSuccess:(data)=>{
+            queryClient.invalidateQueries(['food_cart'])
+        }
+    }
     )
 }
 
+const useLogin = () => {
+    return useMutation(user => {
+        console.log(user)
+        return api.loginUser(user)
+    })
+}
+
+const useUpdateUser = () => {
+    const queryClient=useQueryClient()
+        return useMutation( async (item:any)=> {
+      
+            return api.updateUser(item);
+        }
+        )
+    }
+
+    const usePostUser = () => {
+            return useMutation( async (item:any)=> {
+                return api.postUser(item);
+            },
+            )
+        }
+
+        const useResetPassword = () => {
+            const queryClient=useQueryClient()
+            return useMutation( async (item:any)=> {
+                
+                return api.resetPassword(item);
+                },
+                )
+            }
+
+            const useSearchUser = () => {
+                return useMutation(email => {
+                    return api.searchUser(email)
+                })
+            }
+
+            const usePostCart = () => {
+                const queryClient=useQueryClient()
+                return useMutation( async (item:any)=> {
+                    return api.postCart(item);
+                }
+                ,
+                    {
+                        onSuccess:(data)=>{
+                            queryClient.invalidateQueries(['food_cart'])
+                        }
+                    }
+                )
+            }
+
+            const useSearchFoodCart = () => {
+                return useMutation(input => {
+                    return api.getCartListForDelete(input)
+                })
+            }
+
+            const useSearchFoodCartByUserId = () => {
+                return useMutation(input => {
+                    return api.getCartListByUserId(input)
+                })
+            }
+
+            const useDeleteCart= () => {
+                const queryClient=useQueryClient()
+                    return useMutation( async (input:any)=> {
+                        return api.deleteCart(input);
+                    },
+                    {
+                        onSuccess:(data)=>{
+                            queryClient.invalidateQueries(['food_cart'])
+                            queryClient.invalidateQueries(['food_grouping'])
+                        }
+                    }
+                    )
+                }
+
+            const usePostOrder = () => {
+                const queryClient=useQueryClient()
+                return useMutation( async (item:any)=> {
+                    return api.postOrder(item);
+                },
+                {
+                    onSuccess:(data)=>{
+                        queryClient.invalidateQueries(['food_cart'])
+                    }
+                }
+                )
+            }
+
+                const useOrderList = (user_id:number) => {
+                    console.log('in hook',user_id)
+
+                    const query = useQuery(['food_order'], async => { return api.getOrderList(user_id) })
+                    return query;
+                }
+
 export {
     useFoodCategory,
-    useFoodList,
-    UseUpdateFoodList,
+    useUpdateFoodList,
+    useCartList,
+    useLogin,
+    useUpdateUser,
+    usePostUser,
+    useResetPassword,
+    useSearchUser,
+    usePostOrder,
+    useOrderList,
+    usePostCart,
+    useUserCart,
+    useDeleteCart,
+    useSearchFoodCart,
+    useSearchFoodCartByUserId
 };
+

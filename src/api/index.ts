@@ -24,49 +24,268 @@ export const getFoodCategory = async () => {
     return data;
 }
 
-export const getFoodList = async (subset:any) => {
+export const getCartList = async (input:any) => {
+
+    const url=`food_cart`
+
+    const food_id=input?.item.id
+    const user_id=input?.id
 
     const data = await instance({
-        url: `food_list`,
+             url:url,
+             method: 'get',
+             params:{         
+                 food_id:food_id,
+                 user_id:user_id
+                    }
+        })
+        return data;
+    }
+
+    export const getUserCart = async (user_id:number) => {
+
+        const url=`food_cart`
+
+            const data = await instance({
+                 url:url,
+                 method: 'get',
+                 params:{         
+                     user_id:user_id
+                        }
+            })
+            return data;
+        }
+
+        
+  export const updateCartNumber = async (item:any) => {
+    
+    const url=`food_cart/${item.id}`
+    const number=item.number
+
+      const result = await instance({
+          url: url,
+          method:'put',
+          data:{
+              number:number,
+          }  
+      })
+      return result;
+  }
+
+  export const loginUser = async (user:any) => {
+
+    const data = await instance({
+        url: `users`,
         method: 'get',
         params:{         
-             subset:subset
+             email:user?.email,
+             password:user?.password
                 }
     })
     return data;
 }
 
-export const postFoodCart=async(item:any)=>{
+export const updateUser = async (item:any) => {
 
-    console.log('item in api>>>>',item)
-    const data=await instance({
-        url: `food_cart`,
-        method:'put',
-        data:{
-            id_food:item?.id,
-            name:item?.name,
-            subset:item?.subset,
-            number:item?.number+1,
-            price:item?.price
-        }
+    const url=`users/${item?.id}`
+    const email=item?.email
+    const password=item?.password
+    const name=item?.name
+    const address=item?.address
+    const pic=item?.pic
+          const result = await instance({
+          url: url,
+          method:'put',
+          data:{
+              email:email,
+              password:password,
+              name:name,
+              address:address,
+              pic:pic
+          }  
+      })
+      return result;
+  }
+
+  export const postUser = async (item:any) => {
+
+    const url=`users`
+    const email=item.email
+    const password=item.password
+      const result = await instance({
+          url: url,
+          method:'post',
+          data:{
+              email:email,
+              password:password,
+          }  
+      })
+      return result;
+  }
+
+  export const resetPassword = async (item:any) => {
+
+    const url=`users/${item?.id}`
+    const password=item?.item.password
+          const result = await instance({
+          url: url,
+          method:'put',
+          data:{
+              password:password,
+          }  
+      })
+      return result;
+  }
+
+  export const searchUser = async (email:any) => {
+
+    const mail=email
+
+    const data = await instance({
+        url: `users`,
+        method: 'get',
+        params:{         
+             email:mail
+                }
     })
     return data;
 }
 
-export const updateNumber = async (item:any) => {
+export const postCart = async (item:any) => {
 
-  const url=`food_list/${item.id}`
-  const number=item.number
-  const order=number > 0 ? true : false;
-  console.log({url,number,order})
+    const url=`food_cart`
+    
+    const user_id=item?.id
+    const name=item?.item.name
+    const number=item?.item.number
+    const price=item?.item.price
+    const subset=item?.item.subset
+    const pic=item?.item.pic
+    const food_id=item?.item.id
+
     const result = await instance({
-        url: url,
-        method:'put',
-        data:{
-            number:number,
-            order:order
-        }  
-    })
-    return result;
-}
 
+          url: url,
+          method:'post',
+          data:{
+            user_id:user_id,
+            name:name,
+            number:number,
+            price:price,
+            subset:subset,
+            pic:pic,
+            food_id:food_id
+          }  
+      })
+      return result;
+  }
+
+ 
+
+    export const getCartListForDelete = async (input:any) => {
+
+        const url=`food_cart`
+    
+        const food_id=input?.food_id
+        const user_id=input?.user_id
+    
+        const data = await instance({
+                 url:url,
+                 method: 'get',
+                 params:{         
+                     food_id:food_id,
+                     user_id:user_id
+                        }
+            })
+            return data;
+        }
+
+        export const getCartListByUserId = async (input:any) => {
+
+            const url=`food_cart`
+        
+            const [{user_id}]=input
+           
+        
+            const data = await instance({
+                     url:url,
+                     method: 'get',
+                     params:{         
+                         user_id:user_id
+                            }
+                })
+                return data;
+            }
+
+   
+
+
+  export const getFoodCart = async (input:any) => {
+
+    const user_id=input?.user_id
+    const food_id=input?.food_id
+
+    const url=`food_cart`
+
+        const data = await instance({
+             url:url,
+             method: 'get',
+             params:{         
+                 user_id:user_id,
+                 food_id:food_id
+                    }
+        })
+        return data;
+    }
+
+  export const deleteCart = async (input:any) => {
+    
+    const id=input?.id
+    const url=`food_cart/${id}`
+
+    const result = await instance({
+          url: url,
+          method:'delete', 
+      })
+      return result;
+  }
+
+export const postOrder = async (item:any) => {
+
+    const url=`food_order`
+    const name=item?.name
+    const number=item?.number
+    const price=item?.price
+    const subset=item?.subset
+    const pic=item?.pic
+    const user_id=item?.user_id
+    const food_id=item?.food_id
+
+    const result = await instance({
+          url: url,
+          method:'post',
+          data:{
+         name:name,
+         number:number,
+         price:price,
+         subset:subset,
+         pic:pic,
+         user_id:user_id,
+         food_id:food_id,
+          }  
+      })
+      return result;
+  }
+  
+  export const getOrderList = async (user_id:number) => {
+
+    const data = await instance({
+        url: `food_order`,
+        method: 'get',
+        params:{
+            user_id:user_id
+        }
+      
+    })
+    return data;
+}
