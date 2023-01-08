@@ -9,7 +9,7 @@ export default function SplashScreen() {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('TabNavigator')
-        }, 2000);
+        }, 1000);
     }, []);
 
     return (
