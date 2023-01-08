@@ -1,21 +1,34 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useMemo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { HomeStack, CartStack, AuthStack, OrdersStack } from '~/navigation';
+import { useUserCart } from '~/hooks';
+import { AuthStack, CartStack, HomeStack, OrdersStack } from '~/navigation';
+import authStore from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
-import { badgeStore } from '~/store/BadgeStore'
-import authStore from '~/store/AuthStore';
 
 const Tab = createBottomTabNavigator();
 
 export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: any };
 
 export default function TabNavigator() {
-    const { badge } = badgeStore();
-    const badgeCart = badge == 0 ? undefined : badge
-    const { isLogin } = authStore();
+
+    const { token, isLogin } = authStore();
+    console.log('isLogin in tab navigator', isLogin)
+    const id = token?.[0]?.id
+
+    const { data } = useUserCart(id);
+
+    const cartCount = useMemo(() => {
+        let count = 0
+        data?.data?.map((element: any) => {
+            count += element?.number
+        })
+        return count
+    }, [data])
+
+    const badgeCart = cartCount == 0 ? undefined : cartCount
 
     return (
         <Tab.Navigator initialRouteName='HomeStack'
@@ -39,7 +52,6 @@ export default function TabNavigator() {
                     else if (route.name === 'OrdersStack') {
                         iconName = focused ? 'first-order' : 'first-order';
                     }
-
                     return <View style={styles.tabIcon}><Icon name={iconName} size={size} color={color} /></View>;
                 },
                 tabBarLabel: ({ focused }) => {
@@ -53,17 +65,13 @@ export default function TabNavigator() {
                             return label = focused ? <Text style={styles.tabLabel}> صفحه کاربر </Text> : null
                         case 'OrdersStack':
                             return label = focused ? <Text style={styles.tabLabel}> سفارش </Text> : null
-
-
                     }
                     return label
                 },
                 tabBarActiveTintColor: Colors.SECONDARY,
                 tabBarInactiveTintColor: Colors.GARY_3,
-
             })}
         >
-
             <Tab.Screen
                 name={'َAuthStack'}
                 component={AuthStack}
