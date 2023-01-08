@@ -1,19 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '~/api';
+import { authStore } from '~/store/AuthStore';
 
 const useFoodCategory = () => {
     const query = useQuery(['food_grouping'], () => api.getFoodCategory())
     return query;
 }
 
-const useCartList = () => {
-    return useMutation(input => {
-        return api.getCartList(input)
-    })
-}
-const useUserCart = (user_id:number) => {
+const useUserCart = () => {
+    const { token } = authStore();
+    const id = token?.[0]?.id
 
-    const query = useQuery(['food_cart'], async => { return api.getUserCart(user_id) })
+    const query = useQuery(['food_cart'], async => { return api.getUserCart(id) })
     return query
 }
 
@@ -82,12 +80,6 @@ const useUpdateUser = () => {
                 )
             }
 
-            const useSearchFoodCart = () => {
-                return useMutation(input => {
-                    return api.getCartListForDelete(input)
-                })
-            }
-
             const useSearchFoodCartByUserId = () => {
                 return useMutation(input => {
                     return api.getCartListByUserId(input)
@@ -122,7 +114,6 @@ const useUpdateUser = () => {
             }
 
                 const useOrderList = (user_id:number) => {
-                    console.log('in hook',user_id)
 
                     const query = useQuery(['food_order'], async => { return api.getOrderList(user_id) })
                     return query;
@@ -131,7 +122,6 @@ const useUpdateUser = () => {
 export {
     useFoodCategory,
     useUpdateFoodList,
-    useCartList,
     useLogin,
     useUpdateUser,
     usePostUser,
@@ -142,7 +132,6 @@ export {
     usePostCart,
     useUserCart,
     useDeleteCart,
-    useSearchFoodCart,
-    useSearchFoodCartByUserId
+    useSearchFoodCartByUserId,
 };
 
