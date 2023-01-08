@@ -7,7 +7,6 @@ import { image, Style } from '~/utils'
 const renderItem = ({ item }: { item: any }) => {
 
     return (
-
         <FoodMenuCard item={item} />
     )
 }
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
         paddingTop: HEADER_EXPANDED_HEIGHT
     },
     header: {
-        backgroundColor: '#fff',
+        backgroundColor: Colors.PRIMARY_LIGHT,
         position: 'absolute',
         width: SCREEN_WIDTH,
         top: 0,

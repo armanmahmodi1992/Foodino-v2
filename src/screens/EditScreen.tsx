@@ -16,6 +16,7 @@ export default function EditScreen() {
 
     const { showSuccess } = toast.useShowSuccess();
     const { mutate } = useUpdateUser()
+
     const { token } = authStore();
     const [{ email, name, address, password, pic, id }] = token;
 
@@ -25,8 +26,8 @@ export default function EditScreen() {
         email: yup.string().email(),
         password: yup
             .string()
-            .min(6, 'Use 8 or more characters with a mix of letters,numbers & symbols')
-            .max(36, 'Must be 36 characters or less')
+            .min(6, 'کلمه عبور نباید کمتر از 6 کاراکتر باشد')
+            .max(36, 'کلمه عبور باید کمتر از 36 کاراکتر باشد')
     });
 
     const { setIsLogin } = authStore(state => state);

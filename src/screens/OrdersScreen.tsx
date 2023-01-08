@@ -1,19 +1,17 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { OrderCard, EmptyOrder } from '~/component';
+import { OrderCard, EmptyOrder, CustomContainer } from '~/component';
 import { useOrderList } from '~/hooks';
 import { Colors } from '~/style';
 import { authStore } from '~/store/AuthStore';
+import { HStack } from 'native-base';
 
 export default function OrdersScreen({ route }: { route: any }) {
 
-    let id
     const { token } = authStore();
-    if (token != '') {
-        [{ id }] = token
-    }
+    const id = token?.[0]?.id
 
-    const { data } = useOrderList(id)
+    const { data, isLoading } = useOrderList(id)
 
     const item = data?.data
     console.log(item)
@@ -24,21 +22,24 @@ export default function OrdersScreen({ route }: { route: any }) {
         )
     }
 
+    const itemSeparator = () => (
+        <HStack h='1px' backgroundColor='gray.400' />
+    )
+
     return (
-
-        (item == '' ?
-            <EmptyOrder /> :
-
+        <CustomContainer isLoading={isLoading} >
             <View style={styles.container} >
                 <FlatList
                     data={item}
                     contentContainerStyle={styles.flatList}
+                    ListEmptyComponent={!isLoading ? EmptyOrder : undefined}
                     keyExtractor={(_, index) => `itm${index}`}
                     renderItem={renderItem}
+                    ItemSeparatorComponent={itemSeparator}
                 />
 
             </View>
-        )
+        </CustomContainer>
     )
 }
 

@@ -56,11 +56,10 @@ export const getCartList = async (input:any) => {
             return data;
         }
 
-        
   export const updateCartNumber = async (item:any) => {
-    
-    const url=`food_cart/${item.id}`
-    const number=item.number
+    console.log('item in update ',item)
+    const url=`food_cart/${item?.id}`
+    const number=item?.number
 
       const result = await instance({
           url: url,
@@ -153,15 +152,16 @@ export const updateUser = async (item:any) => {
 
 export const postCart = async (item:any) => {
 
+    console.log('item in post cart',item)
     const url=`food_cart`
     
-    const user_id=item?.id
-    const name=item?.item.name
-    const number=item?.item.number
-    const price=item?.item.price
-    const subset=item?.item.subset
-    const pic=item?.item.pic
-    const food_id=item?.item.id
+    const user_id=item?.user_id
+    const name=item?.name
+    const number=item?.number
+    const price=item?.price
+    const subset=item?.subset
+    const pic=item?.pic
+    const food_id=item?.id
 
     const result = await instance({
 
@@ -179,26 +179,6 @@ export const postCart = async (item:any) => {
       })
       return result;
   }
-
- 
-
-    export const getCartListForDelete = async (input:any) => {
-
-        const url=`food_cart`
-    
-        const food_id=input?.food_id
-        const user_id=input?.user_id
-    
-        const data = await instance({
-                 url:url,
-                 method: 'get',
-                 params:{         
-                     food_id:food_id,
-                     user_id:user_id
-                        }
-            })
-            return data;
-        }
 
         export const getCartListByUserId = async (input:any) => {
 
@@ -239,8 +219,8 @@ export const postCart = async (item:any) => {
     }
 
   export const deleteCart = async (input:any) => {
-    
-    const id=input?.id
+
+    const id=input
     const url=`food_cart/${id}`
 
     const result = await instance({

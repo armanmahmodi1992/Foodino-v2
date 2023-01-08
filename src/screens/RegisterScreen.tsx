@@ -4,11 +4,11 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomInput } from '~/component';
+import { CustomButton, CustomContainer, CustomInput } from '~/component';
 import { usePostUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { Colors } from '~/style';
-import { image, toast, Style } from '~/utils';
+import { image, Style, toast } from '~/utils';
 
 export default function RegisterScreen() {
 
@@ -37,7 +37,7 @@ export default function RegisterScreen() {
     const { showError } = toast.useShowError();
     const { showSuccess } = toast.useShowSuccess();
 
-    const { mutate } = usePostUser()
+    const { mutate, isLoading } = usePostUser()
 
     const handlePostUser = (formData: any) => {
         mutate(formData, {
@@ -57,51 +57,53 @@ export default function RegisterScreen() {
     }
 
     return (
+        <CustomContainer isLoading={isLoading}>
 
-        <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+            <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
 
-            <Image source={{ uri: image.splash }} style={styles.image} />
+                <Image source={{ uri: image.splash }} style={styles.image} />
 
-            <FormProvider {...methods}>
+                <FormProvider {...methods}>
 
-                <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
-                    <CustomInput
-                        {...register('email')}
-                        label="ایمیل"
-                        placeholder="ایمیل"
-                        keyboardType="email-address"
-                        required
-                    />
-                    <CustomInput
-                        {...register('password')}
-                        label="رمز عبور"
-                        placeholder="رمز عبور********"
-                        type="password"
-                        required
-                    />
-                    <CustomInput
-                        {...register('passwordConfirmation')}
-                        label="تکرار رمز عبور"
-                        placeholder="تکرار رمز عبور"
-                        type="password"
-                        required
-                    />
-                    <HStack space='3'>
-                        <CustomButton
-                            onPress={() => navigate('LoginScreen')}
-                            title='انصراف'
-                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                    <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
+                        <CustomInput
+                            {...register('email')}
+                            label="ایمیل"
+                            placeholder="ایمیل"
+                            keyboardType="email-address"
+                            required
                         />
-                        <CustomButton
-                            onPress={handleSubmit(handleSubmit(handlePostUser))}
-                            title='ثبت نام'
-                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                        <CustomInput
+                            {...register('password')}
+                            label="رمز عبور"
+                            placeholder="رمز عبور********"
+                            type="password"
+                            required
                         />
-                    </HStack>
-                </VStack>
+                        <CustomInput
+                            {...register('passwordConfirmation')}
+                            label="تکرار رمز عبور"
+                            placeholder="تکرار رمز عبور"
+                            type="password"
+                            required
+                        />
+                        <HStack space='3'>
+                            <CustomButton
+                                onPress={() => navigate('LoginScreen')}
+                                title='انصراف'
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                            />
+                            <CustomButton
+                                onPress={handleSubmit(handleSubmit(handlePostUser))}
+                                title='ثبت نام'
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                            />
+                        </HStack>
+                    </VStack>
 
-            </FormProvider>
-        </VStack>
+                </FormProvider>
+            </VStack>
+        </CustomContainer>
     )
 }
 const styles = StyleSheet.create({
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     link: {
         fontSize: 18,
         fontWeight: Style.fontWeight.heavy,
-        color: '#3f50b5',
+        color: Colors.LINK,
         textDecorationLine: 'underline'
 
     },
