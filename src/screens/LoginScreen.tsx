@@ -4,7 +4,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomInput } from '~/component';
+import { CustomButton, CustomContainer, CustomInput } from '~/component';
 import { useLogin } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
@@ -16,7 +16,6 @@ export default function Login() {
   const { setIsLogin } = authStore(state => state);
   const { setToken } = authStore(state => state);
   const { showError } = toast.useShowError();
-
 
   const schema = yup.object().shape({
     email: yup.string().email().required('این فیلد الزامی می باشد'),
@@ -34,7 +33,7 @@ export default function Login() {
 
   const { handleSubmit, register } = methods;
 
-  const { mutate } = useLogin()
+  const { mutate, isLoading } = useLogin()
 
   const handleUserLogin = (formData: any) => {
 
@@ -53,41 +52,42 @@ export default function Login() {
   }
 
   return (
+    <CustomContainer isLoading={isLoading}>
+      <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
 
-    <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+        <Image source={{ uri: image.splash }} style={styles.image} />
 
-      <Image source={{ uri: image.splash }} style={styles.image} />
+        <FormProvider {...methods}>
+          <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
+            <CustomInput
+              {...register('email')}
+              label="ایمیل"
+              placeholder="cooper@example.com"
+              keyboardType="email-address"
+              required
+            />
+            <CustomInput
+              {...register('password')}
+              label="رمز عبور"
+              placeholder="********"
+              type="password"
+              required
+            />
+            <Text style={styles.forgetPass} onPress={() => navigate('ForgetPassword')}> فراموشی رمز عبور</Text>
+            <CustomButton
+              onPress={handleSubmit(handleSubmit(handleUserLogin))}
+              title='ورود'
+              buttonStyle={{ width: '100%', height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+            />
+            <HStack justifyContent="center" mt='3' >
+              <Text style={styles.register} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
+              <Text style={styles.newUser}>کاربر جدید.{"   "} </Text>
+            </HStack>
+          </VStack>
+        </FormProvider>
 
-      <FormProvider {...methods}>
-        <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
-          <CustomInput
-            {...register('email')}
-            label="ایمیل"
-            placeholder="cooper@example.com"
-            keyboardType="email-address"
-            required
-          />
-          <CustomInput
-            {...register('password')}
-            label="رمز عبور"
-            placeholder="********"
-            type="password"
-            required
-          />
-          <Text style={styles.forgetPass} onPress={() => navigate('ForgetPassword')}> فراموشی رمز عبور</Text>
-          <CustomButton
-            onPress={handleSubmit(handleSubmit(handleUserLogin))}
-            title='ورود'
-            buttonStyle={{ width: '100%', height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
-          />
-          <HStack justifyContent="center" mt='3' >
-            <Text style={styles.register} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
-            <Text style={styles.newUser}>کاربر جدید.{"   "} </Text>
-          </HStack>
-        </VStack>
-      </FormProvider>
-
-    </VStack>
+      </VStack>
+    </CustomContainer>
   )
 }
 const styles = StyleSheet.create({
