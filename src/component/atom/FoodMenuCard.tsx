@@ -1,8 +1,8 @@
 import { HStack, Image, Text, VStack } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { CustomButton } from '~/component';
-import { useCartList, useDeleteCart, usePostCart, useSearchFoodCart, useUpdateFoodList } from '~/hooks';
+import { CustomButton, CustomContainer } from '~/component';
+import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
@@ -11,108 +11,123 @@ export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function FoodMenuCard({ item }: { item: any }) {
 
-    const { mutate: useGetCart } = useCartList();
-    const { mutate: useUpdateCart } = useUpdateFoodList()
+    const { data: getUSerCart, isLoading } = useUserCart();
     const { mutate: postCart } = usePostCart()
+    const { mutate: mutateUpdateCart, isLoading: isLoadingUpdateCart } = useUpdateFoodList()
     const { mutate: Delete } = useDeleteCart()
-    const { mutate: searchFoodCart } = useSearchFoodCart()
-    const [cart, setCart] = useState(0)
     const { token } = authStore();
+    const id = token?.[0]?.id
 
+    const count = useMemo(() => {
+        let countNumber = 0;
+        if (item && getUSerCart?.data?.length) {
+            getUSerCart?.data?.filter((el: any) => {
+                return el?.food_id == item?.id
+            })?.map((obj: any) => {
+                countNumber += obj?.number
+            })
+        }
+        return countNumber
+    }, [item, getUSerCart])
 
-    const [{ id }] = token
-    useEffect(() => {
+    const handleFoodCart = (inputValue: number, type: 'inc' | 'dec') => {
 
-        const input: any = { item, id }
-        useGetCart(input, {
-            onSuccess: (data) => {
-                if (data.data != '') {
-                    const [{ number }] = data?.data
-                    setCart(number)
-                }
-            },
-            onError: (error) => {
+        if (type === 'inc') {
+            const input = {
+                ...item,
+                user_id: id,
+                number: inputValue
             }
-        })
-    }, [id])
+            if (inputValue === 1) {
 
-    const handleFoodCart = (operation: string) => {
-        if (operation == 'plus') {
-            setCart(prevState => prevState + 1)
-            item.number = cart + 1
-        } else if (operation == 'minus' && cart > 0) {
-            setCart(prevState => prevState - 1)
-            item.number = cart - 1
+                postCart(input, {
+                    onSuccess: (data) => {
+                        console.log('success', data.status)
+                    },
+                    onError: (error) => {
+                        console.log(error)
+                    }
+                })
+            } else {
+                mutateUpdateCart(input, {
+                    onSuccess: (data) => {
+
+                        const item = data?.data
+
+                    },
+                    onError: (error) => {
+                        console.log(error)
+                    }
+                })
+            }
+        } else {
+            const input = {
+                ...item,
+                user_id: id,
+                number: inputValue
+            }
+            if (inputValue === 0) {
+                const deleteInput = item?.id
+                Delete(deleteInput, {
+                    onSuccess: (data) => {
+                        console.log('status', data?.status)
+                    },
+                    onError: (error) => {
+                    }
+                })
+            } else {
+                mutateUpdateCart(input, {
+                    onSuccess: (data) => {
+
+                        const item = data?.data
+                        console.log({ item })
+
+                    },
+                    onError: (error) => {
+                        console.log(error)
+                    }
+                })
+            }
         }
 
-        const input: any = { item, id }
+    }
+    return (
+        <CustomContainer isLoading={isLoading}>
+            <HStack h='200' w='420' direction='row-reverse' p='3' alignItems='center' justifyContent='space-between' borderTopWidth='0.5' borderTopColor={Colors.GARY_4}>
+                <VStack space='2' pr='2'  >
+                    <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
+                    <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
+                </VStack>
+                <VStack space='3' paddingLeft='2' >
+                    <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
+                    <NumericUpDown value={Number(count)} onChange={handleFoodCart} />
 
-        useGetCart(input, {
-            onSuccess: (data) => {
-                if (data.data == '') {
-                    postCart(input, {
-                        onSuccess: (data) => {
-                            console.log('success', data.status)
-                        },
-                        onError: (error) => {
-                            console.log(error)
-                        }
-                    })
+                </VStack>
+            </HStack>
+        </CustomContainer>
+    )
+}
 
-                }
-                else if (data?.data != '' && item.number >= 0) {
-                    useUpdateCart(item, {
-                        onSuccess: (data) => {
+const NumericUpDown = ({ value, onChange }: { value: number; onChange: (val: number, type: 'inc' | 'dec') => void }) => {
+    const [count, setCount] = useState(value);
 
-                            const item = data.data
+    const increment = (val: number) => {
+        onChange?.(val + 1, 'inc')
+        setCount(val + 1)
+    }
 
-                            if (item.number == 0) {
-
-                                searchFoodCart(item, {
-                                    onSuccess: (data) => {
-                                        const input = data?.data
-                                        Delete(input, {
-                                            onSuccess: (data) => {
-                                                console.log('status', data.status)
-                                            },
-                                            onError: (error) => {
-                                            }
-                                        })
-                                    },
-                                    onError: () => {
-
-                                    }
-                                })
-
-                            }
-                        },
-                        onError: (error) => {
-                            console.log(error)
-                        }
-                    })
-                }
-            },
-            onError: (error) => {
-                console.log('login error')
-            }
-
-        })
+    const decrement = (val: number) => {
+        if (count > 0) {
+            onChange?.(val - 1, 'dec')
+            setCount(val - 1)
+        }
     }
 
     return (
-        <HStack h='200' w='420' direction='row-reverse' p='3' alignItems='center' justifyContent='space-between' borderTopWidth='0.5' borderTopColor={Colors.GARY_4}>
-            <VStack space='2' pr='2'  >
-                <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
-                <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
-            </VStack>
-            <VStack space='3' paddingLeft='2' >
-                <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
-                <HStack width='100' justifyContent='space-between'>
-                    <CustomButton title='-' onPress={() => handleFoodCart('minus')} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
-                    <Text style={styles.text}>{cart}</Text>
-                    <CustomButton title='+' onPress={() => handleFoodCart('plus')} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
-                </HStack>
-            </VStack>
+        <HStack width='100' justifyContent='space-between'>
+            <CustomButton title='-' onPress={() => decrement(count)} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+            <Text style={styles.text}>{count}</Text>
+            <CustomButton title='+' onPress={() => increment(count)} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
         </HStack>
     )
 }
@@ -135,4 +150,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
-
