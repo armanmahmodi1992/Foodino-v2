@@ -1,16 +1,17 @@
-import React, { useMemo } from 'react';
+import { HStack } from 'native-base';
+import React, { useEffect, useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { CartCard, EmptyCart, SumCart } from '~/component';
+import { CartCard, CustomContainer, EmptyCart, SumCart } from '~/component';
 import { useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 
 export default function CartScreen() {
 
     const { token } = authStore();
-    const [{ id }] = token
+    const id = token?.[0]?.id
 
-    const { data } = useUserCart(id);
-    const item = data?.data
+    const { data, isLoading } = useUserCart(id);
+    const items = data?.data
 
     const renderItem = ({ item }: { item: any }) => {
         return (
@@ -35,18 +36,33 @@ export default function CartScreen() {
         return price
     }, [data])
 
+    const listFooterComponent = () => (
+        <SumCart totalCount={cartCount} totalPrice={totalPrice} />
+    )
+    const itemSeparator = () => (
+        <HStack h='1px' backgroundColor='gray.400' />
+    )
+
     return (
-        (item == '' ?
-            <EmptyCart /> :
+        <CustomContainer isLoading={isLoading}>
             <View style={styles.container} >
                 <FlatList
-                    data={item}
+                    contentContainerStyle={styles.contentContainerStyle}
+                    data={items}
                     keyExtractor={(_, index) => `itm${index}`}
                     renderItem={renderItem}
+                    ListEmptyComponent={!isLoading ? EmptyCart : undefined}
+                    ItemSeparatorComponent={itemSeparator}
+                //ListFooterComponent={listFooterComponent}
                 />
-                <SumCart totalCount={cartCount} totalPrice={totalPrice} />
+                {
+                    items && (
+                        <SumCart totalCount={cartCount} totalPrice={totalPrice} />
+                    )
+                }
+
             </View>
-        )
+        </CustomContainer>
     )
 }
 const styles = StyleSheet.create({
@@ -57,4 +73,7 @@ const styles = StyleSheet.create({
         height: 160,
         width: '100%'
     },
+    contentContainerStyle: {
+        flexGrow: 1
+    }
 });
