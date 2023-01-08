@@ -1,12 +1,11 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { HomeCard } from '~/component';
+import { HomeCard, CustomContainer } from '~/component';
 import { useFoodCategory } from '~/hooks';
-
 
 export default function Home() {
 
-    const { data } = useFoodCategory();
+    const { data, isLoading } = useFoodCategory();
     const item = data?.data
 
     const renderItem = ({ item }: { item: any }) => {
@@ -16,21 +15,24 @@ export default function Home() {
     }
 
     return (
-        <View style={styles.container} >
-            <View style={styles.flatList}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{
-                        alignSelf: 'center',
-                    }}
-                    data={item}
-                    columnWrapperStyle={{ flexDirection: 'row-reverse' }}
-                    numColumns={2}
-                    keyExtractor={(_, index) => `itm${index}`}
-                    renderItem={renderItem}
-                />
+        <CustomContainer isLoading={isLoading}>
+
+            <View style={styles.container} >
+                <View style={styles.flatList}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                            alignSelf: 'center',
+                        }}
+                        data={item}
+                        columnWrapperStyle={{ flexDirection: 'row-reverse' }}
+                        numColumns={2}
+                        keyExtractor={(_, index) => `itm${index}`}
+                        renderItem={renderItem}
+                    />
+                </View>
             </View>
-        </View>
+        </CustomContainer>
     )
 }
 const styles = StyleSheet.create({
