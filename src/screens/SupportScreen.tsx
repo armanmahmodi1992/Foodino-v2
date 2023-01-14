@@ -6,7 +6,7 @@ import { Colors } from '~/style';
 
 export default function SupportScreen() {
     return (
-        <VStack flex={1} px='3'>
+        <VStack flex={1} px='3' backgroundColor='white'>
             <Text style={styles.text}>
                 شماره تلفن جهت پشتیبانی ، دریافت شکایات و ارایه پیشنهادات
             </Text>
