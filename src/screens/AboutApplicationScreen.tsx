@@ -6,7 +6,7 @@ import { Style } from '~/utils';
 
 export default function AboutApplication() {
   return (
-    <VStack flex={1} px='3'>
+    <VStack flex={1} px='3' backgroundColor='white'>
       <Text style={styles.text}>سفارش اینترنتی غذا در ایران هنوز یک فرهنگ نوپا و مفهومی نسبتا تازه است که با وجود علاقه رو به رشد مردم به استفاده از آن، این روش خرید هنوز به خوبی در کشور ما در حال اجرا می لاشد و کاربران می توانند از مزایای آن به طور کامل بهره ببرند.
       </Text>
       <Text style={styles.text}>
