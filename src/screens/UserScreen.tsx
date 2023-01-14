@@ -26,7 +26,7 @@ export default function UserScreen() {
     }
 
     return (
-        <VStack flex={1}>
+        <VStack flex={1} backgroundColor='white'>
             <Image source={{ uri: image.header }} style={styles.image} />
             <Image source={{ uri: image.splash }} style={styles.logo} />
             <TouchableOpacity style={styles.setting} onPress={() => navigate('SettingScreen')}>
