@@ -2,7 +2,7 @@ import { HStack, Image, Text, VStack } from 'native-base';
 import React, { useMemo, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { CustomButton, CustomContainer } from '~/component';
-import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart } from '~/hooks';
+import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart, useUserCartByFoodId } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
@@ -12,6 +12,7 @@ export const WIDTH = Dimensions.get('window').width / 4;
 export default function FoodMenuCard({ item }: { item: any }) {
 
     const { data: getUSerCart, isLoading } = useUserCart();
+    const { mutate: userCartByFoodId } = useUserCartByFoodId()
     const { mutate: postCart } = usePostCart()
     const { mutate: mutateUpdateCart, isLoading: isLoadingUpdateCart } = useUpdateFoodList()
     const { mutate: Delete } = useDeleteCart()
@@ -51,9 +52,7 @@ export default function FoodMenuCard({ item }: { item: any }) {
             } else {
                 mutateUpdateCart(input, {
                     onSuccess: (data) => {
-
                         const item = data?.data
-
                     },
                     onError: (error) => {
                         console.log(error)
@@ -66,22 +65,30 @@ export default function FoodMenuCard({ item }: { item: any }) {
                 user_id: id,
                 number: inputValue
             }
-            if (inputValue === 0) {
-                const deleteInput = item?.id
-                Delete(deleteInput, {
+            if (inputValue == 0) {
+                const food_id = item?.id
+                userCartByFoodId(food_id, {
                     onSuccess: (data) => {
-                        console.log('status', data?.status)
+                        const deleteInput = data?.data?.[0]?.id
+                        Delete(deleteInput, {
+                            onSuccess: (data) => {
+                                console.log('status', data?.status)
+                            },
+                            onError: (error) => {
+                            }
+                        })
+
                     },
                     onError: (error) => {
+
                     }
-                })
+                }
+
+                )
             } else {
                 mutateUpdateCart(input, {
                     onSuccess: (data) => {
-
                         const item = data?.data
-                        console.log({ item })
-
                     },
                     onError: (error) => {
                         console.log(error)
