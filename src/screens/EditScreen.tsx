@@ -58,55 +58,53 @@ export default function EditScreen() {
 
     return (
 
-        <ScrollView>
+        <VStack flex={1} backgroundColor='white'>
             <FormProvider {...methods} >
-                <VStack flex={1}>
-                    <Image source={{ uri: image.header }} style={styles.image} />
-                    <Image source={{ uri: image.splash }} style={styles.logo} />
-                    <VStack mt='3' p='2' space='5' alignItems='center' borderBottomWidth='4' borderBottomColor={Colors.GARY_5} >
+                <Image source={{ uri: image.header }} style={styles.image} />
+                <Image source={{ uri: image.splash }} style={styles.logo} />
+                <VStack mt='3' p='2' space='2' alignItems='center' borderBottomWidth='4' borderBottomColor={Colors.GARY_5} >
 
 
-                        <CustomInput
-                            {...register('id')}
-                            placeholder='شناسه'
-                            defaultValue={id}
-                            bgColor='lightgray'
-                            borderRadius='md'
-                            textAlign='right'
-                        />
-                        <CustomInput
-                            {...register('name')}
-                            placeholder="نام"
-                            defaultValue={name}
-                            required
-                        />
-                        <CustomInput
-                            {...register('email')}
-                            placeholder="ایمیل"
-                            defaultValue={email}
-                            keyboardType="email-address"
-                            required
-                        />
-                        <CustomInput
-                            {...register('address')}
-                            placeholder="آدرس"
-                            defaultValue={address}
-                            required
-                        />
-                        <CustomInput
-                            {...register('password')}
-                            placeholder="رمز عبور"
-                            defaultValue={password}
-                            required
-                        />
-                    </VStack>
-                    <HStack flexDirection='row-reverse' mt='8' p='4' space='4' alignItems='center'>
-                        <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                        <CustomButton title='انصراف' onPress={() => navigate('UserScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                    </HStack>
-                </VStack >
+                    <CustomInput
+                        {...register('id')}
+                        placeholder='شناسه'
+                        defaultValue={id}
+                        bgColor='lightgray'
+                        borderRadius='md'
+                        textAlign='right'
+                    />
+                    <CustomInput
+                        {...register('name')}
+                        placeholder="نام"
+                        defaultValue={name}
+                        required
+                    />
+                    <CustomInput
+                        {...register('email')}
+                        placeholder="ایمیل"
+                        defaultValue={email}
+                        keyboardType="email-address"
+                        required
+                    />
+                    <CustomInput
+                        {...register('address')}
+                        placeholder="آدرس"
+                        defaultValue={address}
+                        required
+                    />
+                    <CustomInput
+                        {...register('password')}
+                        placeholder="رمز عبور"
+                        defaultValue={password}
+                        required
+                    />
+                </VStack>
+                <HStack flexDirection='row-reverse' mt='3' p='2' space='4' justifyContent='center'>
+                    <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                    <CustomButton title='انصراف' onPress={() => navigate('UserScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                </HStack>
             </FormProvider>
-        </ScrollView>
+        </VStack >
 
     )
 }
