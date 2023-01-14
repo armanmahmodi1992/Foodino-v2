@@ -13,17 +13,12 @@ import { authStore } from '~/store/AuthStore';
 
 export default function ForgetScreen() {
 
-    const [id, setId] = useState(0)
+
     const [value, setValue] = useState();
     const [status, setStatus] = useState('');
     const { token } = authStore()
 
-    useEffect(() => {
-        if (token != '') {
-            const [{ id }] = token
-            setId(id)
-        }
-    })
+    const id = token?.[0]?.id
 
     const schema = yup.object().shape({
         // email: yup.string().email().required("این فیلد الزامی می باشد"),
@@ -157,7 +152,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 5,
         margin: 5,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        backgroundColor: Colors.PRIMARY_LIGHT
     },
     newUser: {
         fontSize: 18,
