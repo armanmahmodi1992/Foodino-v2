@@ -56,8 +56,22 @@ export const getCartList = async (input:any) => {
             return data;
         }
 
+        export const getCartByFoodId = async (food_id:number) => {
+
+            const url=`food_cart`
+    
+                const data = await instance({
+                     url:url,
+                     method: 'get',
+                     params:{         
+                         food_id:food_id
+                            }
+                })
+                return data;
+            }
+
   export const updateCartNumber = async (item:any) => {
-    console.log('item in update ',item)
+
     const url=`food_cart/${item?.id}`
     const number=item?.number
 
@@ -152,7 +166,6 @@ export const updateUser = async (item:any) => {
 
 export const postCart = async (item:any) => {
 
-    console.log('item in post cart',item)
     const url=`food_cart`
     
     const user_id=item?.user_id
@@ -220,7 +233,9 @@ export const postCart = async (item:any) => {
 
   export const deleteCart = async (input:any) => {
 
+
     const id=input
+
     const url=`food_cart/${id}`
 
     const result = await instance({
@@ -230,17 +245,33 @@ export const postCart = async (item:any) => {
       return result;
   }
 
+  export const deleteCartFromOrder = async (input:any) => {
+    
+        const id=input?.id
+        const url=`food_cart/${id}`
+    
+        const result = await instance({
+              url: url,
+              method:'delete', 
+          })
+          return result;
+      }
+
 export const postOrder = async (item:any) => {
 
     const url=`food_order`
-    const name=item?.name
-    const number=item?.number
-    const price=item?.price
-    const subset=item?.subset
-    const pic=item?.pic
-    const user_id=item?.user_id
-    const food_id=item?.food_id
 
+    const name=item?.element?.name
+    const number=item?.element?.number
+    const price=item?.element?.price
+    const subset=item?.element?.subset
+    const pic=item?.element?.pic
+    const user_id=item?.element?.user_id
+    const food_id=item?.element?.food_id
+    const address=item?.data?.address
+    const delivery=item?.data?.delivery
+    const payment=item?.data?.payment
+    const status='preparing'
     const result = await instance({
           url: url,
           method:'post',
@@ -252,6 +283,10 @@ export const postOrder = async (item:any) => {
          pic:pic,
          user_id:user_id,
          food_id:food_id,
+         status:status,
+         address:address,
+         delivery:delivery,
+         payment:payment
           }  
       })
       return result;
