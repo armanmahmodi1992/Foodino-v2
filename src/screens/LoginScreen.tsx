@@ -53,10 +53,8 @@ export default function Login() {
 
   return (
     <CustomContainer isLoading={isLoading}>
-      <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
-
+      <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' backgroundColor='white' >
         <Image source={{ uri: image.splash }} style={styles.image} />
-
         <FormProvider {...methods}>
           <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
             <CustomInput
