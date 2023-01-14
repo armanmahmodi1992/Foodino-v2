@@ -11,7 +11,7 @@ export default function HomeCard({ item }: { item: any }) {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} >
+            <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} activeOpacity={0.7} >
                 <Image source={{ uri: item?.pic }} style={styles.image} />
             </TouchableOpacity >
             <Text style={styles.textCard}>{item?.name}</Text>
