@@ -15,7 +15,7 @@ export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: unde
 export default function TabNavigator() {
 
     const { token, isLogin } = authStore();
-    console.log('isLogin in tab navigator', isLogin)
+
     const id = token?.[0]?.id
 
     const { data } = useUserCart(id);
