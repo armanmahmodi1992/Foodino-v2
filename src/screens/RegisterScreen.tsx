@@ -59,7 +59,7 @@ export default function RegisterScreen() {
     return (
         <CustomContainer isLoading={isLoading}>
 
-            <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+            <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' backgroundColor='white' >
 
                 <Image source={{ uri: image.splash }} style={styles.image} />
 
