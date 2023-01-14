@@ -6,7 +6,7 @@ import { Style } from '~/utils';
 
 export default function PaymentMethodsScreen() {
     return (
-        <VStack flex={1} px='3'>
+        <VStack flex={1} px='3' backgroundColor='white'>
             <Text style={styles.text}>
                 در فودینو پس ار ثبت سفارش لازم نیست هیچ وجهی بپردازید.
                 کافیست هنگام دریافت سفارش مبلغ سفارش را به مامور ارسال پرداخت یا هنگام مراجعه حضوری مبلغ را بپردازید
