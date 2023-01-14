@@ -2,7 +2,6 @@ export {default as SplashScreen} from '~/screens/SplashScreen';
 export {default as HomeScreen} from '~/screens/HomeScreen';
 export {default as CartScreen} from '~/screens/CartScreen';
 export {default as LoginScreen} from '~/screens/LoginScreen';
-export {default as OrdersScreen} from '~/screens/OrdersScreen';
 export {default as FoodMenuScreen} from '~/screens/FoodMenuScreen';
 export {default as UserScreen} from '~/screens/UserScreen';
 export {default as RegisterScreen} from '~/screens/RegisterScreen';
@@ -15,5 +14,8 @@ export {default as AboutApplicationScreen} from '~/screens/AboutApplicationScree
 export {default as PaymentMethodsScreen} from '~/screens/PaymentMethodsScreen';
 export {default as DeliveryScreen} from '~/screens/DeliveryScreen';
 export {default as SupportScreen} from '~/screens/SupportScreen';
+export {default as DeliveredScreen} from '~/screens/DeliveredScreen';
+export {default as PreparingScreen} from '~/screens/PreparingScreen';
+export {default as PostedScreen} from '~/screens/PostedScreen';
 
 
