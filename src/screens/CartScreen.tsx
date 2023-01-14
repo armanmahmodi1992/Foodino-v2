@@ -5,6 +5,10 @@ import { CartCard, CustomContainer, EmptyCart, SumCart } from '~/component';
 import { useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 
+const itemSeparator = () => (
+    <HStack h='2px' backgroundColor='gray.400' />
+)
+
 export default function CartScreen() {
 
     const { token } = authStore();
@@ -36,12 +40,9 @@ export default function CartScreen() {
         return price
     }, [data])
 
-    const listFooterComponent = () => (
-        <SumCart totalCount={cartCount} totalPrice={totalPrice} />
-    )
-    const itemSeparator = () => (
-        <HStack h='1px' backgroundColor='gray.400' />
-    )
+    // const listFooterComponent = () => (
+    //     <SumCart totalCount={cartCount} totalPrice={totalPrice} />
+    // )
 
     return (
         <CustomContainer isLoading={isLoading}>
