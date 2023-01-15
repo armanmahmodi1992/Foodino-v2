@@ -73,12 +73,8 @@ export default function TabNavigator() {
             })}
         >
             <Tab.Screen
-                name={'َAuthStack'}
-                component={AuthStack}
-            />
-            <Tab.Screen
-                name={'OrdersStack'}
-                component={isLogin ? OrdersStack : AuthStack}
+                name={'HomeStack'}
+                component={HomeStack}
             />
             <Tab.Screen
                 name={'CartStack'}
@@ -86,9 +82,16 @@ export default function TabNavigator() {
                 options={{ tabBarBadge: badgeCart }}
             />
             <Tab.Screen
-                name={'HomeStack'}
-                component={HomeStack}
+                name={'OrdersStack'}
+                component={isLogin ? OrdersStack : AuthStack}
             />
+            <Tab.Screen
+                name={'َAuthStack'}
+                component={AuthStack}
+            />
+
+
+
         </Tab.Navigator >
 
     );
