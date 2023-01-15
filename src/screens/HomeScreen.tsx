@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { HomeCard, CustomContainer } from '~/component';
+import { CustomContainer, HomeCard } from '~/component';
 import { useFoodCategory } from '~/hooks';
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
                             alignSelf: 'center',
                         }}
                         data={item}
-                        columnWrapperStyle={{ flexDirection: 'row-reverse' }}
+                        columnWrapperStyle={{ flexDirection: 'row' }}
                         numColumns={2}
                         keyExtractor={(_, index) => `itm${index}`}
                         renderItem={renderItem}
@@ -42,6 +42,5 @@ const styles = StyleSheet.create({
     },
     flatList: {
         paddingBottom: 30,
-        paddingTop: 10
     }
 });
