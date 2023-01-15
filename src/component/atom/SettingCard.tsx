@@ -11,8 +11,8 @@ export default function SettingCard({ item }: { item: any }) {
 
         <TouchableOpacity onPress={() => navigate(item?.navigate)} style={styles.container} >
             <HStack h='75' w='100%' borderWidth='1' justifyContent='space-between' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
-                <Icon name='chevron-left' size={25} color={Colors.SECONDARY} />
                 <Text style={styles.text}>{item?.name}</Text>
+                <Icon name='chevron-left' size={20} color={Colors.SECONDARY} />
             </HStack>
         </TouchableOpacity >
 
