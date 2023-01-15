@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { HStack, Text, VStack } from 'native-base';
+import { HStack, Stack, Text, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
@@ -53,10 +53,12 @@ export default function Login() {
 
   return (
     <CustomContainer isLoading={isLoading}>
-      <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' backgroundColor='white' >
-        <Image source={{ uri: image.splash }} style={styles.image} />
+      <VStack flex={1} alignItems='center' justifyContent='center' px='4' backgroundColor='white' >
+        <Stack pt='40' >
+          <Image source={{ uri: image.splash }} style={styles.image} />
+        </Stack>
         <FormProvider {...methods}>
-          <VStack flex={1} w='100%' space='5' alignItems='center' justifyContent='center'>
+          <VStack flex={1} w='100%' space='5' justifyContent='center'>
             <CustomInput
               {...register('email')}
               label="ایمیل"
@@ -77,9 +79,9 @@ export default function Login() {
               title='ورود'
               buttonStyle={{ width: '100%', height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
             />
-            <HStack justifyContent="center" mt='3' >
+            <HStack justifyContent="center" mt='3' space='2' >
+              <Text style={styles.newUser}>تا کنون ثبت نام نکرده اید؟</Text>
               <Text style={styles.register} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
-              <Text style={styles.newUser}>کاربر جدید.{"   "} </Text>
             </HStack>
           </VStack>
         </FormProvider>
@@ -111,13 +113,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: Style.fontWeight.heavy,
     color: Colors.LINK,
-    textDecorationLine: 'underline',
-    alignSelf: 'flex-end'
+    textDecorationLine: 'underline'
 
   },
   image: {
     width: 200,
-    height: 200
+    height: 100,
   }
 })
 
