@@ -34,7 +34,7 @@ export default function PostedScreen({ route }: { route: any }) {
     }
 
     const itemSeparator = () => (
-        <HStack h='1px' backgroundColor='gray.400' />
+        <HStack h='2px' mx='4' backgroundColor='gray.400' />
     )
 
     return (
