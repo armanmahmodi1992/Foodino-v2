@@ -100,15 +100,14 @@ export default function FoodMenuCard({ item }: { item: any }) {
     }
     return (
         <CustomContainer isLoading={isLoading}>
-            <HStack h='200' w='420' direction='row-reverse' p='3' alignItems='center' justifyContent='space-between' borderTopWidth='0.5' borderTopColor={Colors.GARY_4}>
-                <VStack space='2' pr='2'  >
+            <HStack h='200' w='100%' px='4' py='4' justifyContent='space-between' >
+                <VStack space='2' pr='2' pt='4px' >
                     <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
                     <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
                 </VStack>
                 <VStack space='3' paddingLeft='2' >
                     <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                     <NumericUpDown value={Number(count)} onChange={handleFoodCart} />
-
                 </VStack>
             </HStack>
         </CustomContainer>
@@ -132,9 +131,9 @@ const NumericUpDown = ({ value, onChange }: { value: number; onChange: (val: num
 
     return (
         <HStack width='100' justifyContent='space-between'>
-            <CustomButton title='-' onPress={() => decrement(count)} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
-            <Text style={styles.text}>{count}</Text>
             <CustomButton title='+' onPress={() => increment(count)} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+            <Text style={styles.text}>{count}</Text>
+            <CustomButton title='-' onPress={() => decrement(count)} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
         </HStack>
     )
 }
