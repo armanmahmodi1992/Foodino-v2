@@ -3,6 +3,7 @@ import { Animated, Dimensions, FlatList, StyleSheet } from 'react-native';
 import { FoodMenuCard } from '~/component';
 import { Colors } from '~/style';
 import { image, Style } from '~/utils'
+import { HStack } from 'native-base';
 
 const renderItem = ({ item }: { item: any }) => {
 
@@ -14,6 +15,10 @@ const renderItem = ({ item }: { item: any }) => {
 const HEADER_EXPANDED_HEIGHT = 160
 const HEADER_COLLAPSED_HEIGHT = 50
 const { width: SCREEN_WIDTH } = Dimensions.get("screen")
+
+const itemSeparator = () => (
+    <HStack h='2px' mx='4' backgroundColor='gray.400' />
+)
 
 export default function FoodMenu({ route }: { route: any }) {
 
@@ -59,6 +64,7 @@ export default function FoodMenu({ route }: { route: any }) {
                 data={item}
                 keyExtractor={(_, index) => `itm${index}`}
                 renderItem={renderItem}
+                ItemSeparatorComponent={itemSeparator}
             />
         </Animated.View>
     )
@@ -66,6 +72,7 @@ export default function FoodMenu({ route }: { route: any }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: Colors.PRIMARY_LIGHT
 
     },
 
