@@ -92,18 +92,18 @@ export default function ForgetScreen() {
 
                 {status == '' ?
                     <VStack w='100%' alignItems='center' justifyContent='center' top='-50' flex={1} space='3' px='6'>
-                        <Text fontSize='15' alignSelf='flex-end'> ایمیل</Text>
+                        <Text fontSize='15' alignSelf='flex-start'> ایمیل</Text>
                         <Input w='100%' onChangeText={handleChange} keyboardType='email-address' bgColor={Colors.GARY_5} />
 
                         <HStack alignItems='center' space='5'>
                             <CustomButton
-                                onPress={() => navigate('LoginScreen')}
-                                title='انصراف'
+                                onPress={() => handleSearchUser(value)}
+                                title=' جستجو '
                                 buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
                             />
                             <CustomButton
-                                onPress={() => handleSearchUser(value)}
-                                title=' جستجو '
+                                onPress={() => navigate('LoginScreen')}
+                                title='انصراف'
                                 buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
                             />
                         </HStack>
@@ -129,12 +129,12 @@ export default function ForgetScreen() {
                             />
                             <HStack space='3'>
                                 <CustomButton
-                                    onPress={() => navigate('LoginScreen')}
-                                    title='انصراف'
+                                    onPress={handleSubmit(handleSubmit(handleResetPassword))} title=' تنظیم مجدد'
                                     buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
                                 />
                                 <CustomButton
-                                    onPress={handleSubmit(handleSubmit(handleResetPassword))} title=' تنظیم مجدد'
+                                    onPress={() => navigate('LoginScreen')}
+                                    title='انصراف'
                                     buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
                                 />
                             </HStack>
