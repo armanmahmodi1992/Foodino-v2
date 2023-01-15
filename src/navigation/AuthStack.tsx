@@ -67,11 +67,7 @@ export default function AuthStackNavigator() {
                 component={UserScreen}
                 options={
                     {
-                        headerTitle: ' صفحه کاربر ',
-                        headerShown: true,
-                        header: ({ route, options, navigation }: any) => (
-                            <CustomHeader  {...{ route, options, navigation }} />
-                        ),
+                        headerShown: false,
                     }
                 }
             />
