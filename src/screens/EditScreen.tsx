@@ -100,8 +100,8 @@ export default function EditScreen() {
                     />
                 </VStack>
                 <HStack flexDirection='row-reverse' mt='3' p='2' space='4' justifyContent='center'>
+                    <CustomButton title='انصراف' onPress={() => navigate('SettingScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
                     <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                    <CustomButton title='انصراف' onPress={() => navigate('UserScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
                 </HStack>
             </FormProvider>
         </VStack >
