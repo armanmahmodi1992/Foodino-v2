@@ -6,7 +6,7 @@ import { useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 
 const itemSeparator = () => (
-    <HStack h='2px' backgroundColor='gray.400' />
+    <HStack h='2px' mx='4' backgroundColor='gray.400' />
 )
 
 export default function CartScreen() {
