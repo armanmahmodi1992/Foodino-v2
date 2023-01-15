@@ -62,16 +62,16 @@ const QuestionModal = ({
                 <HStack space="2" h="35px">
                     <Center flex={1}>
                         <CustomButton
-                            title={option1}
-                            onPress={option1Handler}
+                            title={option2}
+                            onPress={option2Handler}
                             buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: Colors.PRIMARY_LIGHT }}
                             textStyle={{ fontSize: verticalScale(18), color: Colors.SECONDARY_LIGHT }}
                         />
                     </Center>
                     <Center flex={1}>
                         <CustomButton
-                            title={option2}
-                            onPress={option2Handler}
+                            title={option1}
+                            onPress={option1Handler}
                             buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: Colors.PRIMARY_LIGHT }}
                             textStyle={{ fontSize: verticalScale(18), color: Colors.SECONDARY_LIGHT }}
                         />
