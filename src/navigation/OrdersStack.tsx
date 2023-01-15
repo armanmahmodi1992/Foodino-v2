@@ -1,10 +1,10 @@
-import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { DeliveredScreen, PostedScreen, PreparingScreen } from '~/screens'
 import { View } from 'native-base';
+import React from 'react';
 import { Dimensions } from 'react-native';
-import { Colors } from '~/style';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { DeliveredScreen, PostedScreen, PreparingScreen } from '~/screens';
+import { Colors } from '~/style';
 export type TopTabNavigatorStackParamList = { TopTabNavigator: undefined };
 export const WIDTH = Dimensions.get('window').width / 3;
 
@@ -12,9 +12,11 @@ const Tab = createMaterialTopTabNavigator();
 
 const screens = [
     {
-        name: 'DeliveredScreen',
-        component: DeliveredScreen,
-        options: { title: 'تحویل داده شده' }
+        name: 'PreparingScreen',
+        component: PreparingScreen,
+        options: {
+            title: 'در حال آماده سازی',
+        }
     },
     {
         name: 'PostedScreen',
@@ -22,10 +24,12 @@ const screens = [
         options: { title: 'ارسال شده' }
     },
     {
-        name: 'PreparingScreen',
-        component: PreparingScreen,
-        options: { title: 'در حال آماده سازی' }
-    }
+        name: 'DeliveredScreen',
+        component: DeliveredScreen,
+        options: { title: 'تحویل داده شده' }
+    },
+
+
 ];
 
 export default function TopTabNavigator() {
