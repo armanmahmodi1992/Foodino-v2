@@ -1,5 +1,8 @@
-export const item = [{ id: 1, name: 'ویرایش اطلاعات', navigate: 'EditScreen' },
-{ id: 1, name: 'درباره فودینو', navigate: 'AboutApplicationScreen' },
-{ id: 1, name: 'روشهای پرداخت', navigate: 'PaymentMethodsScreen' },
-{ id: 1, name: ' شیوه ارسال سفارش', navigate: 'DeliveryScreen' },
-{ id: 1, name: ' پشتیبانی  ', navigate: 'SupportScreen' },]
+
+
+export const item = [{ id: 1, name: 'ویرایش اطلاعات',routeName: 'EditScreen' },
+{ id: 1, name: 'درباره فودینو', routeName: 'AboutApplicationScreen' },
+{ id: 2, name: 'روشهای پرداخت', routeName: 'PaymentMethodsScreen' },
+{ id: 3, name: ' شیوه ارسال سفارش', routeName: 'DeliveryScreen' },
+{ id: 4, name: ' پشتیبانی', routeName: 'SupportScreen' },
+]
