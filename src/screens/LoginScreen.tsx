@@ -18,11 +18,11 @@ export default function Login() {
   const { showError } = toast.useShowError();
 
   const schema = yup.object().shape({
-    email: yup.string().email().required('این فیلد الزامی می باشد'),
+    email: yup.string().email('ایمیل وارد شده معتبر نمی باشد').required('این فیلد الزامی می باشد'),
     password: yup
       .string()
-      .min(6)
-      .max(36)
+      .min(6, '')
+      .max(36, '')
       .required('این فیلد الزامی می باشد'),
   });
 
