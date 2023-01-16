@@ -1,45 +1,26 @@
-import { StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
-import React, { useState } from 'react'
-import { Colors } from '~/style'
-import Icon from 'react-native-vector-icons/AntDesign'
 import { HStack, VStack } from 'native-base';
-import { authStore } from '~/store/AuthStore';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { navigate } from '~/navigation/Methods';
-import { QuestionModal } from '~/component';
-import { image, Style } from '~/utils'
+import { authStore } from '~/store/AuthStore';
+import { Colors } from '~/style';
+import { image, Style } from '~/utils';
 
 export default function UserScreen() {
 
-    const { setIsLogin } = authStore(state => state);
-    const { setToken } = authStore(state => state);
     const { token } = authStore();
-    const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
-
     let name, address, email
 
     if (token != '') {
         [{ name, address, email }] = token
     }
 
-    const onLogOutPressHandler = () => {
-        setLogoutModalVisible(true);
-    };
-
-    const onCloseLogoutModal = () => {
-        setLogoutModalVisible(false);
-    };
-
-    const handleLogout = () => {
-        setIsLogin(false);
-        setToken('');
-        navigate('LoginScreen')
-    }
-
     return (
-        <VStack flex={1} backgroundColor='white'>
+        <VStack flex={1} backgroundColor='white' py='2'>
             <Image source={{ uri: image.header }} style={styles.image} />
             <Image source={{ uri: image.splash }} style={styles.logo} />
-            <HStack w='100%' position='absolute' mt='6px' justifyContent='space-between' px='2' alignItems='center'>
+            <HStack w='100%' position='absolute' py='4' justifyContent='space-between' px='2' alignItems='center'>
                 <TouchableOpacity onPress={() => navigate('HomeScreen')}>
                     <Icon size={30} color={Colors.PRIMARY_LIGHT} name='right' />
                 </TouchableOpacity>
@@ -52,21 +33,6 @@ export default function UserScreen() {
                 <Text style={styles.text}>  ایمیل: {email}</Text>
                 <Text style={styles.text}>  آدرس: {address}  </Text>
             </VStack>
-            <HStack mt='8' px='4' space='4' alignItems='center'>
-                <TouchableOpacity onPress={() => onLogOutPressHandler()}>
-                    <Icon size={25} color={Colors.SECONDARY_LIGHT} name='logout' />
-                </TouchableOpacity>
-                <Text style={styles.logoutText}>خروج از حساب کاربری</Text>
-            </HStack>
-            <QuestionModal
-                option1="انصراف"
-                option2="تایید"
-                visible={logoutModalVisible}
-                onClose={onCloseLogoutModal}
-                option1OnPress={onCloseLogoutModal}
-                option2OnPress={handleLogout}
-                title="برای خروج از حساب کاربری دکمه تایید را بزنید."
-            />
         </VStack >
     )
 }
@@ -96,15 +62,12 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PRIMARY_LIGHT,
     },
     text: {
-        backgroundColor: Colors.PRIMARY_LIGHT,
-        borderWidth: 1,
-        borderColor: Colors.PRIMARY_LIGHT,
-        borderRadius: 10,
         width: '100%',
         height: 30,
-        fontSize: 19,
-        fontWeight: Style.fontWeight.bold,
-        justifyContent: 'center'
+        fontSize: 20,
+        fontWeight: Style.fontWeight.heavy,
+        justifyContent: 'center',
+        color: Colors.GARY_1
     },
     logoutText: {
         fontSize: 18,
