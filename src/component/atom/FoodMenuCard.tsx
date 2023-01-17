@@ -2,7 +2,7 @@ import { HStack, Image, Text, VStack } from 'native-base';
 import React, { useMemo, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { CustomButton, CustomContainer } from '~/component';
-import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart, useUserCartByFoodId } from '~/hooks';
+import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
@@ -12,23 +12,27 @@ export const WIDTH = Dimensions.get('window').width / 4;
 export default function FoodMenuCard({ item }: { item: any }) {
 
     const { data: getUSerCart, isLoading } = useUserCart();
-    const { mutate: userCartByFoodId } = useUserCartByFoodId()
     const { mutate: postCart } = usePostCart()
     const { mutate: mutateUpdateCart, isLoading: isLoadingUpdateCart } = useUpdateFoodList()
     const { mutate: Delete } = useDeleteCart()
     const { token } = authStore();
     const id = token?.[0]?.id
 
-    const count = useMemo(() => {
+    const foodItem = useMemo(() => {
+        let itemId = null;
         let countNumber = 0;
         if (item && getUSerCart?.data?.length) {
             getUSerCart?.data?.filter((el: any) => {
-                return el?.food_id == item?.id
+                if (el?.food_id == item?.id) {
+                    itemId = el?.id;
+                    return el
+                }
             })?.map((obj: any) => {
                 countNumber += obj?.number
+
             })
         }
-        return countNumber
+        return { count: countNumber, itemId }
     }, [item, getUSerCart])
 
     const handleFoodCart = (inputValue: number, type: 'inc' | 'dec') => {
@@ -39,6 +43,7 @@ export default function FoodMenuCard({ item }: { item: any }) {
                 user_id: id,
                 number: inputValue
             }
+
             if (inputValue === 1) {
 
                 postCart(input, {
@@ -50,6 +55,12 @@ export default function FoodMenuCard({ item }: { item: any }) {
                     }
                 })
             } else {
+                const input = {
+                    ...item,
+                    id: foodItem.itemId,
+                    user_id: id,
+                    number: inputValue
+                }
                 mutateUpdateCart(input, {
                     onSuccess: (data) => {
                         const item = data?.data
@@ -60,32 +71,22 @@ export default function FoodMenuCard({ item }: { item: any }) {
                 })
             }
         } else {
-            const input = {
-                ...item,
-                user_id: id,
-                number: inputValue
-            }
             if (inputValue == 0) {
-                const food_id = item?.id
-                userCartByFoodId(food_id, {
+                Delete(foodItem.itemId, {
                     onSuccess: (data) => {
-                        const deleteInput = data?.data?.[0]?.id
-                        Delete(deleteInput, {
-                            onSuccess: (data) => {
-                                console.log('status', data?.status)
-                            },
-                            onError: (error) => {
-                            }
-                        })
-
+                        console.log('status', data?.status)
                     },
                     onError: (error) => {
-
                     }
+                })
+            } else {
+                const input = {
+                    ...item,
+                    id: foodItem.itemId,
+                    user_id: id,
+                    number: inputValue
                 }
 
-                )
-            } else {
                 mutateUpdateCart(input, {
                     onSuccess: (data) => {
                         const item = data?.data
@@ -107,7 +108,7 @@ export default function FoodMenuCard({ item }: { item: any }) {
                 </VStack>
                 <VStack space='3' paddingLeft='2' >
                     <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
-                    <NumericUpDown value={Number(count)} onChange={handleFoodCart} />
+                    <NumericUpDown value={Number(foodItem?.count)} onChange={handleFoodCart} />
                 </VStack>
             </HStack>
         </CustomContainer>
