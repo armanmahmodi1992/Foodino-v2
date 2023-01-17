@@ -2,7 +2,6 @@ import { Divider } from 'native-base';
 import React, { useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { CustomContainer, QuestionModal, SettingCard } from '~/component';
-import { resetRoot } from '~/navigation/Methods';
 import { item } from '~/services/SettingData';
 import { authStore } from '~/store/AuthStore';
 
@@ -23,7 +22,7 @@ export default function SettingScreen() {
     const { setIsLogin } = authStore(state => state);
     const { setToken } = authStore(state => state);
 
-    const settingItems = [...item, { id: 5, name: ' خروج', onPress: () => onLogOutPressHandler() },];
+    const settingItems = [...item, { id: 5, name: ' خروج', icon: 'logout', onPress: () => onLogOutPressHandler() },];
 
     const onLogOutPressHandler = () => {
         setLogoutModalVisible(true);
@@ -36,7 +35,6 @@ export default function SettingScreen() {
     const handleLogout = () => {
         setIsLogin(false);
         setToken('');
-        resetRoot('LoginScreen')
     }
 
     return (
