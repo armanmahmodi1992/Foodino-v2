@@ -1,9 +1,13 @@
-import { HStack } from 'native-base';
+import { HStack, Divider } from 'native-base';
 import React, { useEffect, useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { CartCard, CustomContainer, EmptyCart, SumCart } from '~/component';
 import { useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
+
+const itemSeparator = () => (
+    <Divider my='4' />
+)
 
 export default function CartScreen() {
 
@@ -36,12 +40,9 @@ export default function CartScreen() {
         return price
     }, [data])
 
-    const listFooterComponent = () => (
-        <SumCart totalCount={cartCount} totalPrice={totalPrice} />
-    )
-    const itemSeparator = () => (
-        <HStack h='1px' backgroundColor='gray.400' />
-    )
+    // const listFooterComponent = () => (
+    //     <SumCart totalCount={cartCount} totalPrice={totalPrice} />
+    // )
 
     return (
         <CustomContainer isLoading={isLoading}>
@@ -74,6 +75,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     contentContainerStyle: {
-        flexGrow: 1
+        paddingVertical: 6,
+        paddingHorizontal: 14
     }
+
 });

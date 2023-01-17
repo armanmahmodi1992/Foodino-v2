@@ -1,47 +1,44 @@
-import { StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
-import React from 'react'
-import { Colors } from '~/style'
-import Icon from 'react-native-vector-icons/AntDesign'
 import { HStack, VStack } from 'native-base';
-import { authStore } from '~/store/AuthStore';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { navigate } from '~/navigation/Methods';
-import { image, Style } from '~/utils'
+import { authStore } from '~/store/AuthStore';
+import { Colors } from '~/style';
+import { image, Style } from '~/utils';
 
 export default function UserScreen() {
 
-    const { setIsLogin } = authStore(state => state);
-    const { setToken } = authStore(state => state);
     const { token } = authStore();
-
     let name, address, email
 
     if (token != '') {
         [{ name, address, email }] = token
     }
 
-    const handleLogout = () => {
-        setIsLogin(false);
-        setToken('');
-        navigate('LoginScreen')
-    }
-
     return (
-        <VStack flex={1}>
+        <VStack flex={1} backgroundColor='white' py='2'>
             <Image source={{ uri: image.header }} style={styles.image} />
             <Image source={{ uri: image.splash }} style={styles.logo} />
-            <TouchableOpacity style={styles.setting} onPress={() => navigate('SettingScreen')}>
-                <Icon size={35} color={Colors.SECONDARY} name='setting' />
-            </TouchableOpacity>
-            <VStack mt='3' mr='2' space='4' alignItems='flex-end' borderBottomWidth='4' borderBottomColor={Colors.GARY_5} pb='5'>
-                <Text style={styles.text}>  نام : {name} </Text>
-                <Text style={styles.text}>   ایمیل : {email}</Text>
-                <Text style={styles.text}>  آدرس : {address}  </Text>
-            </VStack>
-            <HStack flexDirection='row-reverse' mt='8' p='4' space='4' alignItems='center'>
-                <TouchableOpacity onPress={handleLogout}>
-                    <Icon size={40} color={Colors.SECONDARY_LIGHT} name='logout' />
+            <HStack w='100%' position='absolute' py='4' justifyContent='space-between' px='2' alignItems='center'>
+                <TouchableOpacity onPress={() => navigate('HomeScreen')}>
+                    <Icon size={30} color={Colors.PRIMARY_LIGHT} name='right' />
                 </TouchableOpacity>
-                <Text style={styles.logoutText}>خروج از حساب کاربری</Text>
+                <TouchableOpacity onPress={() => navigate('SettingScreen')}>
+                    <Icon size={30} color={Colors.PRIMARY_LIGHT} name='setting' />
+                </TouchableOpacity>
+            </HStack>
+            <HStack space='2'>
+                <VStack pl='4' space='4' >
+                    <Text style={styles.title}>نام</Text>
+                    <Text style={styles.title}>ایمیل</Text>
+                    <Text style={styles.title}>آدرس</Text>
+                </VStack>
+                <VStack flex={1} pl='2' space='4' >
+                    <Text style={styles.info}>{name}</Text>
+                    <Text style={styles.info}>{email}</Text>
+                    <Text style={styles.info}>{address}</Text>
+                </VStack>
             </HStack>
         </VStack >
     )
@@ -56,8 +53,8 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 250,
-        borderWidth: 1,
-        borderRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         borderColor: Colors.GARY_5,
         backgroundColor: Colors.GARY_4
     },
@@ -71,29 +68,24 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: Colors.PRIMARY_LIGHT,
     },
-    setting: {
-        position: 'absolute',
-        margin: 4,
-        marginLeft: 7,
-        width: 33,
-        height: 33,
-        borderRadius: 16
-    },
-    text: {
-        backgroundColor: Colors.PRIMARY_LIGHT,
-        borderWidth: 1,
-        borderColor: Colors.PRIMARY_LIGHT,
-        borderRadius: 10,
-        width: '97%',
+    title: {
+        width: '100%',
         height: 35,
-        textAlign: 'right',
-        fontSize: 19,
-        fontWeight: Style.fontWeight.bold,
-        justifyContent: 'center'
-    },
-    logoutText: {
-        fontSize: 18,
-        fontWeight: Style.fontWeight.bold,
+        fontSize: 20,
+        fontWeight: Style.fontWeight.heavy,
+        color: Colors.GARY_1,
+        backgroundColor: Colors.WARNING,
+        textAlign: 'center',
+        textAlignVertical: 'center',
 
-    }
+    },
+    info: {
+        width: '100%',
+        height: 35,
+        fontSize: 20,
+        fontFamily: Style.fontWeight.heavy,
+        color: Colors.GARY_1,
+        textAlign: 'left',
+        textAlignVertical: 'center',
+    },
 });

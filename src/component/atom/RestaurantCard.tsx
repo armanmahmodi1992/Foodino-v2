@@ -12,19 +12,19 @@ export default function RestaurantCard({ item, food_list }: { item: any; food_li
     return (
         <View style={styles.content}>
             <HStack h='160' w='100%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
-
+                <VStack flex={1} mx='4' >
+                    <Text style={[styles.text, { height: 25 }]}>{item?.title}</Text>
+                    <Text style={styles.description}>فودینو | سفارش انلاین غذا</Text>
+                    <HStack mt='6' space='5'>
+                        <Text style={styles.description}>5000 تومان</Text>
+                        <Icon name='motorcycle' size={20} color={Colors.GARY_4} />
+                    </HStack>
+                </VStack>
                 <TouchableOpacity onPress={() => navigate('FoodMenuScreen', { food_list })}>
                     <Image source={{ uri: item?.logo }} style={styles.image} alt='image' />
                 </TouchableOpacity>
 
-                <VStack flex={1} mx='4' >
-                    <Text style={[styles.text, { height: 25 }]}>{item?.title}</Text>
-                    <Text style={styles.description}>فودینو | سفارش انلاین غذا</Text>
-                    <HStack direction='row-reverse' mt='6' space='5'>
-                        <Icon name='motorcycle' size={20} color={Colors.GARY_4} />
-                        <Text style={styles.description}>5000 تومان</Text>
-                    </HStack>
-                </VStack>
+
             </HStack>
         </View>
     )

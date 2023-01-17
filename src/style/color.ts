@@ -12,6 +12,7 @@ export const GARY_2 = '#4F4F4F';
 export const GARY_3 = '#828282';
 export const GARY_4 = '#AEAFB4';
 export const GARY_5 = '#DEE0E5';
+export const GARY_6 = '#eeeeee';
 
 export const INFO = '#3583EB';
 export const SUCCESS = '#1CA24A';

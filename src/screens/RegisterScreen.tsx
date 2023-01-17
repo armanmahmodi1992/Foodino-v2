@@ -13,7 +13,7 @@ import { image, Style, toast } from '~/utils';
 export default function RegisterScreen() {
 
     const schema = yup.object().shape({
-        email: yup.string().email().required("این فیلد الزامی می باشد"),
+        email: yup.string().email('ایمیل وارد شده معتبر نمی باشد').required("این فیلد الزامی می باشد"),
         password: yup
             .string()
             .min(6, 'کلمه عبور نباید کمتر از 6 کاراکتر باشد')
@@ -59,7 +59,7 @@ export default function RegisterScreen() {
     return (
         <CustomContainer isLoading={isLoading}>
 
-            <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' >
+            <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' backgroundColor='white' >
 
                 <Image source={{ uri: image.splash }} style={styles.image} />
 

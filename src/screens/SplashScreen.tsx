@@ -1,14 +1,14 @@
 import { View, Image, StyleSheet, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { Colors } from '~/style';
-import { navigate } from '~/navigation/Methods';
+import { navigate, replace } from '~/navigation/Methods';
 import { image } from '~/utils'
 
 export default function SplashScreen() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate('TabNavigator')
+            replace('TabNavigator')
         }, 1000);
     }, []);
 

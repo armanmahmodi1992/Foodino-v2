@@ -1,29 +1,29 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { image } from '~/utils';
+import { Colors } from '~/style';
+import { image, Style } from '~/utils';
 
 export default function EmptyCart() {
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <Image source={{ uri: image.noCart }} style={{ width: 200, height: 200 }} />
-                <Text style={styles.text}>شما محصولی انتخاب نکردید</Text>
-            </View>
+
+        <View style={styles.content}>
+            <Image source={{ uri: image.noCart }} style={{ width: 200, height: 200, marginBottom: 20 }} />
+            <Text style={styles.text}>سبد خرید شما خالی است.</Text>
         </View>
     )
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+
     content: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     text: {
         fontSize: 25,
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: Style.fontFamily.bold,
+        color: Colors.GARY_1
     }
 
 });

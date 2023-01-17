@@ -12,20 +12,24 @@ const CustomHeader = ({
     navigation,
 }: NativeStackHeaderProps) => {
     return (
-        <HStack alignItems="center" justifyContent='flex-end' bgColor={Colors.PRIMARY_LIGHT} h='50px'>
+        <HStack alignItems="center"
+            bgColor={Colors.PRIMARY_LIGHT}
+            h='50px' px='4'
 
-            <Text
-                fontSize={19}
-                textAlign='center'
-                fontFamily={fontFamily.medium}>
-                {options?.headerTitle}
-            </Text>
+        >
             {back && (
                 <IconButton
                     onPress={() => navigation.goBack()}
                     icon={<Icon name="chevron-forward" color={Colors.GARY_3} size={24} />}
                 />
             )}
+            <Text
+                fontSize={19}
+                textAlign='center'
+                fontFamily={fontFamily.bold}>
+                {options?.headerTitle}
+            </Text>
+
             <IconButton disabled />
         </HStack>
     );

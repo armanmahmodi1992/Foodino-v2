@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useController } from 'react-hook-form';
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Colors } from '~/style';
 
 export default React.forwardRef(
     (
@@ -12,7 +13,7 @@ export default React.forwardRef(
             defaultValue,
             type,
             keyboardType,
-            backgroundColor = 'lightgrey',
+            backgroundColor = Colors.GARY_6,
             label,
             required = false,
             color = 'black',
@@ -74,7 +75,6 @@ export default React.forwardRef(
                 )}
                 {mode === 'input' ? (
                     <HStack
-                        flexDirection='row-reverse'
                         bg={backgroundColor}
                         borderRadius="md"
                         alignItems="center"

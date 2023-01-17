@@ -64,20 +64,20 @@ export default function CartCard({ item }: { item: any }) {
         <CustomContainer isLoading={isLoading}>
             <View style={styles.content}>
 
-                <HStack h='160' w='95%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
+                <HStack h='160' w='100%' alignItems='center' >
                     <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
-                    <VStack space='2' pr='1' flex={1} m='1' >
+                    <VStack space='2' flex={1} ml='2'>
                         <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
                         <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
                     </VStack>
-                    <VStack space='3' paddingLeft='2'  >
+                    <VStack space='3' paddingLeft='2' >
                         <TouchableOpacity onPress={() => onLogOutPressHandler()}>
                             <Icon name='trash-o' size={30} color={Colors.ERROR} />
                         </TouchableOpacity>
                         <HStack width='100' justifyContent='space-between'>
-                            <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
-                            <Text style={styles.text}>{cart}</Text>
                             <CustomButton title='+' onPress={() => setCart(cartPlus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                            <Text style={styles.text}>{cart}</Text>
+                            <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
                         </HStack>
                     </VStack>
                     <QuestionModal

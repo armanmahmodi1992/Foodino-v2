@@ -10,9 +10,9 @@ export default function OrderCard({ item }: { item: any }) {
 
     return (
         <View style={styles.content}>
-            <HStack h='160' w='95%' direction='row-reverse' borderWidth='1' bgColor={Colors.PRIMARY_LIGHT} borderColor={Colors.PRIMARY_LIGHT} alignItems='center' borderRadius='10' marginTop='2' p='3'>
+            <HStack h='130' w='100%' direction='row-reverse' alignItems='center' >
                 <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
-                <VStack space='2' pr='1' flex={1} m='1' >
+                <VStack space='2' pr='1' flex={1} >
                     <Text style={[styles.text, { height: 20 }]}>{item?.name}</Text>
                     <Text style={[styles.text, { height: 20 }]}>{item?.price} ريال</Text>
                     <Text style={[styles.text, { height: 20 }]}>{item?.number} پرس </Text>
@@ -27,9 +27,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 2,
-        paddingHorizontal: 5
-
     },
     text: {
         fontSize: 15,

@@ -15,6 +15,13 @@ const useUserCart = () => {
     return query
 }
 
+const useUserCartByFoodId = () => {
+    
+    return useMutation(food_id => {
+        return api.getCartByFoodId(food_id)
+    })
+}
+
 const useUpdateFoodList = () => {
 const queryClient=useQueryClient()
     return useMutation( async (item:any)=> {
@@ -29,17 +36,22 @@ const queryClient=useQueryClient()
 }
 
 const useLogin = () => {
+    
     return useMutation(user => {
-        console.log(user)
         return api.loginUser(user)
     })
 }
 
 const useUpdateUser = () => {
+
+    const { token } = authStore();
+    const userId = token?.[0]?.id
+
     const queryClient=useQueryClient()
         return useMutation( async (item:any)=> {
-      
-            return api.updateUser(item);
+
+            const items={item,userId}
+            return api.updateUser(items);
         }
         )
     }
@@ -100,6 +112,20 @@ const useUpdateUser = () => {
                     )
                 }
 
+                const useDeleteCartFromOrder= () => {
+                    const queryClient=useQueryClient()
+                        return useMutation( async (input:any)=> {
+                            return api.deleteCartFromOrder(input);
+                        },
+                        {
+                            onSuccess:(data)=>{
+                                queryClient.invalidateQueries(['food_cart'])
+                                queryClient.invalidateQueries(['food_grouping'])
+                            }
+                        }
+                        )
+                    }
+
             const usePostOrder = () => {
                 const queryClient=useQueryClient()
                 return useMutation( async (item:any)=> {
@@ -108,6 +134,7 @@ const useUpdateUser = () => {
                 {
                     onSuccess:(data)=>{
                         queryClient.invalidateQueries(['food_cart'])
+                        queryClient.invalidateQueries(['food_order'])
                     }
                 }
                 )
@@ -133,5 +160,7 @@ export {
     useUserCart,
     useDeleteCart,
     useSearchFoodCartByUserId,
+    useDeleteCartFromOrder,
+    useUserCartByFoodId
 };
 

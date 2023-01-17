@@ -6,7 +6,7 @@ import { Style } from '~/utils';
 
 export default function DeliveryScreen() {
     return (
-        <VStack flex={1} px='3'>
+        <VStack flex={1} px='3' backgroundColor='white'>
             <Text style={styles.text}>
                 اگر رستورانی که سفارش خود را در آن ثبت کرده اید دارای پیک باشد ، در بخش ثبت نهایی می توانید ارسال با پیک را انتخاب کنید یا شخصا جهت دریافت سفارش به محل مراجعه نمایید.
             </Text>

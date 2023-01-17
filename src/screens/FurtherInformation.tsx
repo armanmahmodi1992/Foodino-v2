@@ -1,9 +1,9 @@
 import { HStack, Select, VStack } from 'native-base'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Controller, useForm } from "react-hook-form"
 import { StyleSheet, Text, View } from 'react-native'
 import { CustomButton, CustomContainer } from '~/component'
-import { useDeleteCart, usePostOrder, useUserCart } from '~/hooks'
+import { useDeleteCart, useDeleteCartFromOrder, usePostOrder, useUserCart } from '~/hooks'
 import { navigate } from '~/navigation/Methods'
 import { authStore } from '~/store/AuthStore'
 import { Colors } from '~/style'
@@ -18,7 +18,7 @@ export default function FurtherInformation() {
     const item = foodCart?.data
 
     const { mutate: mutateAddToOrder, isLoading } = usePostOrder()
-    const { mutate: Delete } = useDeleteCart()
+    const { mutate: Delete } = useDeleteCartFromOrder()
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -28,18 +28,17 @@ export default function FurtherInformation() {
         }
     });
 
-
-
     const onSubmit = (data: any) => {
 
         item?.map((element: any) => {
-            mutateAddToOrder(element, {
+            const input = { element, data }
+            mutateAddToOrder(input, {
                 onSuccess: (data) => {
                     console.log('success')
                     item?.map((element: any) => {
                         Delete(element, {
                             onSuccess: (data) => {
-                                console.log('delete status', data.status)
+                                navigate('OrdersStack')
                             },
                             onError: (error) => {
                             }
@@ -68,6 +67,7 @@ export default function FurtherInformation() {
                                 selectedValue={value}
                                 onValueChange={(itemValue: string) => {
                                     onChange(itemValue)
+
                                 }}
                             >
                                 <Select.Item label="سقز" value="سقز" />
