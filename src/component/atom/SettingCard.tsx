@@ -1,7 +1,7 @@
 import { HStack } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { navigate } from '~/navigation/Methods';
 import { Colors } from '~/style';
 import { Style } from '~/utils';
@@ -20,8 +20,11 @@ export default function SettingCard({ item }: { item: any }) {
 
         <TouchableOpacity onPress={onPressHandler} style={styles.container} >
             <HStack w='100%' justifyContent='space-between' alignItems='center' >
-                <Text style={styles.text}>{item?.name}</Text>
-                <Icon name='chevron-left' size={20} color={Colors.SECONDARY} />
+                <HStack space='3' alignItems='center'>
+                    <Icon name={item?.icon} size={30} />
+                    <Text style={styles.text}>{item?.name}</Text>
+                </HStack>
+                <Icon name='arrow-back-ios' size={20} />
             </HStack>
         </TouchableOpacity >
 
