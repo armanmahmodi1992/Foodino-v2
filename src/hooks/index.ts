@@ -43,10 +43,15 @@ const useLogin = () => {
 }
 
 const useUpdateUser = () => {
+
+    const { token } = authStore();
+    const userId = token?.[0]?.id
+
     const queryClient=useQueryClient()
         return useMutation( async (item:any)=> {
-      
-            return api.updateUser(item);
+
+            const items={item,userId}
+            return api.updateUser(items);
         }
         )
     }
