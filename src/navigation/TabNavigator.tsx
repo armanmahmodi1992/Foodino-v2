@@ -3,14 +3,20 @@ import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useUserCart } from '~/hooks';
-import { AuthStack, CartStack, HomeStack, OrdersStack } from '~/navigation';
+import { AuthStack, CartStack, HomeStack, OrdersStack, ProfileStack } from '~/navigation';
 import authStore from '~/store/AuthStore';
 import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
 
 const Tab = createBottomTabNavigator();
 
-export type TabNavigatorStackParamList = { HomeStack: undefined; CartStack: undefined; AuthStack: undefined; OrdersStack: any };
+export type TabNavigatorStackParamList = {
+    HomeStack: any;
+    CartStack: any;
+    AuthStack: any;
+    OrdersStack: any;
+    ProfileStack: any
+};
 
 export default function TabNavigator() {
 
@@ -79,7 +85,7 @@ export default function TabNavigator() {
             <Tab.Screen
                 name={'CartStack'}
                 component={isLogin ? CartStack : AuthStack}
-                options={{ tabBarBadge: badgeCart }}
+                options={{ tabBarBadge: isLogin ? badgeCart : undefined }}
             />
             <Tab.Screen
                 name={'OrdersStack'}
@@ -87,7 +93,7 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name={'َAuthStack'}
-                component={AuthStack}
+                component={isLogin ? ProfileStack : AuthStack}
             />
 
 
