@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 export const apiConfig = {
     
     tools: 'tools',
@@ -98,14 +99,15 @@ export const getCartList = async (input:any) => {
     return data;
 }
 
-export const updateUser = async (item:any) => {
+export const updateUser = async (items:any) => {
 
-    const url=`users/${item?.id}`
-    const email=item?.email
-    const password=item?.password
-    const name=item?.name
-    const address=item?.address
-    const pic=item?.pic
+    const id=items?.userId
+    const url=`users/${id}`
+    const email=items?.item?.email
+    const password=items?.item?.password
+    const name=items?.item?.name
+    const address=items?.item?.address
+    const pic=items?.item?.pic
           const result = await instance({
           url: url,
           method:'put',
