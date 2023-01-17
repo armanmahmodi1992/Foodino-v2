@@ -5,12 +5,14 @@ import {CartStackParamList} from './CartStack';
 import {HomeStackParamList} from './HomeStack';
 import {AuthStackParamList} from './AuthStack';
 import {OrdersStackParamList} from './OrdersStack';
+import {ProfileStackParamList} from './ProfileStack';
 export type RootStackParamList = 
 MainStackParamList&
   TabNavigatorStackParamList&
   HomeStackParamList&
   AuthStackParamList&
   OrdersStackParamList&
+  ProfileStackParamList&
   CartStackParamList
 
 
