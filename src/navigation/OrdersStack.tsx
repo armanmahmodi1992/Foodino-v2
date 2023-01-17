@@ -5,7 +5,9 @@ import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { DeliveredScreen, PostedScreen, PreparingScreen } from '~/screens';
 import { Colors } from '~/style';
-export type TopTabNavigatorStackParamList = { TopTabNavigator: undefined };
+
+export type OrdersStackParamList = { PreparingScreen: undefined; PostedScreen: undefined; DeliveredScreen: undefined };
+
 export const WIDTH = Dimensions.get('window').width / 3;
 
 const Tab = createMaterialTopTabNavigator();
@@ -32,7 +34,7 @@ const screens = [
 
 ];
 
-export default function TopTabNavigator() {
+export default function OrderStack() {
     return (
         <View flex='1' >
             <Tab.Navigator
