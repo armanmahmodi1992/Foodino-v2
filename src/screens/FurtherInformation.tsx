@@ -28,15 +28,8 @@ export default function FurtherInformation() {
         }
     });
 
-
-
     const onSubmit = (data: any) => {
 
-        // const input = { item, data }
-        // const input = [
-        //     ...item,
-        //     data
-        // ]
         item?.map((element: any) => {
             const input = { element, data }
             mutateAddToOrder(input, {
@@ -45,7 +38,7 @@ export default function FurtherInformation() {
                     item?.map((element: any) => {
                         Delete(element, {
                             onSuccess: (data) => {
-                                console.log('delete status', data.status)
+                                navigate('OrdersStack')
                             },
                             onError: (error) => {
                             }
