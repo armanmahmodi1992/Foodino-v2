@@ -5,7 +5,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomInput } from '~/component';
+import { CustomButton, CustomInput, CustomContainer } from '~/component';
 import { useUpdateUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
@@ -15,7 +15,7 @@ import { image, toast, Style } from '~/utils'
 export default function EditScreen() {
 
     const { showSuccess } = toast.useShowSuccess();
-    const { mutate } = useUpdateUser()
+    const { mutate: updateUser, isLoading } = useUpdateUser()
 
     const { token } = authStore();
     const [{ email, name, address, password, pic, id }] = token;
@@ -23,7 +23,7 @@ export default function EditScreen() {
     const schema = yup.object().shape({
         name: yup.string(),
         address: yup.string(),
-        email: yup.string().email(),
+        email: yup.string().email('ایمیل وارد شده معتبر نمی باشد.'),
         password: yup
             .string()
             .min(6, 'کلمه عبور نباید کمتر از 6 کاراکتر باشد')
@@ -41,12 +41,11 @@ export default function EditScreen() {
 
     const handleUpdateUser = (item: any) => {
 
-        mutate((item), {
+        updateUser((item), {
             onSuccess: (data) => {
                 if (data.status === 200) {
                     setIsLogin(false);
                     showSuccess("اطلاعات با موفقیت ویرایش شد")
-                    navigate('LoginScreen')
                 }
 
             },
@@ -57,54 +56,46 @@ export default function EditScreen() {
     }
 
     return (
+        <CustomContainer isLoading={isLoading}>
+            <ScrollView>
+                <FormProvider {...methods} >
+                    <Image source={{ uri: image.header }} style={styles.image} />
+                    <Image source={{ uri: image.splash }} style={styles.logo} />
+                    <VStack px='4' space='2' alignItems='center' >
 
-        <VStack flex={1} backgroundColor='white'>
-            <FormProvider {...methods} >
-                <Image source={{ uri: image.header }} style={styles.image} />
-                <Image source={{ uri: image.splash }} style={styles.logo} />
-                <VStack mt='3' p='2' space='2' alignItems='center' borderBottomWidth='4' borderBottomColor={Colors.GARY_5} >
-
-
-                    <CustomInput
-                        {...register('id')}
-                        placeholder='شناسه'
-                        defaultValue={id}
-                        bgColor='lightgray'
-                        borderRadius='md'
-                        textAlign='right'
-                    />
-                    <CustomInput
-                        {...register('name')}
-                        placeholder="نام"
-                        defaultValue={name}
-                        required
-                    />
-                    <CustomInput
-                        {...register('email')}
-                        placeholder="ایمیل"
-                        defaultValue={email}
-                        keyboardType="email-address"
-                        required
-                    />
-                    <CustomInput
-                        {...register('address')}
-                        placeholder="آدرس"
-                        defaultValue={address}
-                        required
-                    />
-                    <CustomInput
-                        {...register('password')}
-                        placeholder="رمز عبور"
-                        defaultValue={password}
-                        required
-                    />
-                </VStack>
-                <HStack flexDirection='row-reverse' mt='3' p='2' space='4' justifyContent='center'>
-                    <CustomButton title='انصراف' onPress={() => navigate('SettingScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                    <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                </HStack>
-            </FormProvider>
-        </VStack >
+                        <CustomInput
+                            {...register('name')}
+                            placeholder="نام"
+                            defaultValue={name}
+                            required
+                        />
+                        <CustomInput
+                            {...register('email')}
+                            placeholder="ایمیل"
+                            defaultValue={email}
+                            keyboardType="email-address"
+                            required
+                        />
+                        <CustomInput
+                            {...register('address')}
+                            placeholder="آدرس"
+                            defaultValue={address}
+                            required
+                        />
+                        <CustomInput
+                            {...register('password')}
+                            placeholder="رمز عبور"
+                            defaultValue={password}
+                            required
+                        />
+                    </VStack>
+                    <HStack flexDirection='row-reverse' mt='3' p='2' space='4' justifyContent='center'>
+                        <CustomButton title='انصراف' onPress={() => navigate('SettingScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                        <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                    </HStack>
+                </FormProvider>
+            </ScrollView>
+        </CustomContainer>
 
     )
 }
