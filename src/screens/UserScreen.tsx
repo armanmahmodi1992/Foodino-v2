@@ -28,11 +28,18 @@ export default function UserScreen() {
                     <Icon size={30} color={Colors.PRIMARY_LIGHT} name='setting' />
                 </TouchableOpacity>
             </HStack>
-            <VStack px='4' space='4' >
-                <Text style={styles.text}>  نام: {name} </Text>
-                <Text style={styles.text}>  ایمیل: {email}</Text>
-                <Text style={styles.text}>  آدرس: {address}  </Text>
-            </VStack>
+            <HStack space='2'>
+                <VStack pl='4' space='4' >
+                    <Text style={styles.title}>نام</Text>
+                    <Text style={styles.title}>ایمیل</Text>
+                    <Text style={styles.title}>آدرس</Text>
+                </VStack>
+                <VStack flex={1} pl='2' space='4' >
+                    <Text style={styles.info}>{name}</Text>
+                    <Text style={styles.info}>{email}</Text>
+                    <Text style={styles.info}>{address}</Text>
+                </VStack>
+            </HStack>
         </VStack >
     )
 }
@@ -61,17 +68,24 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: Colors.PRIMARY_LIGHT,
     },
-    text: {
+    title: {
         width: '100%',
-        height: 30,
+        height: 35,
         fontSize: 20,
         fontWeight: Style.fontWeight.heavy,
-        justifyContent: 'center',
-        color: Colors.GARY_1
-    },
-    logoutText: {
-        fontSize: 18,
-        fontWeight: Style.fontWeight.bold,
+        color: Colors.GARY_1,
+        backgroundColor: Colors.WARNING,
+        textAlign: 'center',
+        textAlignVertical: 'center',
 
-    }
+    },
+    info: {
+        width: '100%',
+        height: 35,
+        fontSize: 20,
+        fontFamily: Style.fontWeight.heavy,
+        color: Colors.GARY_1,
+        textAlign: 'left',
+        textAlignVertical: 'center',
+    },
 });
