@@ -1,10 +1,10 @@
+import { Divider } from 'native-base';
 import React, { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { OrderCard, EmptyOrder, CustomContainer } from '~/component';
+import { CustomContainer, EmptyOrder, OrderCard } from '~/component';
 import { useOrderList } from '~/hooks';
-import { Colors } from '~/style';
 import { authStore } from '~/store/AuthStore';
-import { HStack } from 'native-base';
+import { Colors } from '~/style';
 
 export default function DeliveredScreen({ route }: { route: any }) {
 
@@ -35,15 +35,14 @@ export default function DeliveredScreen({ route }: { route: any }) {
     }
 
     const itemSeparator = () => (
-        <HStack h='2px' mx='4' backgroundColor='gray.400' />
-    )
+        <Divider my='4' />)
 
     return (
         <CustomContainer isLoading={isLoading} >
             <View style={styles.container} >
                 <FlatList
                     data={myArray}
-                    contentContainerStyle={styles.flatList}
+                    contentContainerStyle={styles.contentContainerStyle}
                     ListEmptyComponent={!isLoading ? EmptyOrder : undefined}
                     keyExtractor={(_, index) => `itm${index}`}
                     renderItem={renderItem}
@@ -60,15 +59,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    furtherInfo: {
-        borderTopWidth: 1,
-        borderTopColor: Colors.GARY_5,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        backgroundColor: Colors.GARY_5
-    },
-    flatList: {
-        paddingBottom: 10
+    contentContainerStyle: {
+        paddingVertical: 4,
+        paddingHorizontal: 16
     }
-
 });
