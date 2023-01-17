@@ -8,7 +8,7 @@ export default function EmptyCart() {
 
         <View style={styles.content}>
             <Image source={{ uri: image.noCart }} style={{ width: 200, height: 200, marginBottom: 20 }} />
-            <Text style={styles.text}>شما محصولی انتخاب نکردید</Text>
+            <Text style={styles.text}>سبد خرید شما خالی است.</Text>
         </View>
     )
 }
