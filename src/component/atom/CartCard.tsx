@@ -64,7 +64,7 @@ export default function CartCard({ item }: { item: any }) {
         <CustomContainer isLoading={isLoading}>
             <View style={styles.content}>
 
-                <HStack h='160' w='100%' alignItems='center' marginTop='2' px='4'>
+                <HStack h='160' w='100%' alignItems='center' >
                     <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                     <VStack space='2' flex={1} ml='2'>
                         <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
