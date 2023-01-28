@@ -7,7 +7,7 @@ export const AppOfflineNotification: React.FC = () => {
     return (
         <View style={styles.container}>
             <StatusBar hidden />
-            <Image style={styles.image} source={image.noInternet} />
+            <Image style={styles.image} source={image?.noInternet} />
             <Text style={styles.text}>لطفا اتصال داده خود را بررسی کنید</Text>
         </View>
     );
