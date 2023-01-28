@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     },
     contentContainerStyle: {
         paddingVertical: 6,
-        paddingHorizontal: 14
+        paddingHorizontal: 14,
+        flexGrow: 1
     }
 
 });
