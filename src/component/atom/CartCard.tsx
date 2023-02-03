@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CustomButton, CustomContainer, QuestionModal } from '~/component';
 import { cartMinus, cartPlus } from '~/component/atom/CardCounter';
 import { useUpdateFoodList, useDeleteCart } from '~/hooks';
-import { Colors } from '~/style';
 import { fontFamily } from '~/utils/Style';
+import { useTheme } from '@react-navigation/native';
 export const WIDTH = Dimensions.get('window').width / 4;
 
 export default function CartCard({ item }: { item: any }) {
@@ -14,6 +14,7 @@ export default function CartCard({ item }: { item: any }) {
 
     const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
     const [cart, setCart] = useState(item?.number);
+    const { colors } = useTheme();
 
     const id = item?.id
 
@@ -67,17 +68,17 @@ export default function CartCard({ item }: { item: any }) {
                 <HStack h='160' w='100%' alignItems='center' >
                     <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
                     <VStack space='2' flex={1} ml='2'>
-                        <Text style={[styles.text, { height: 30 }]}>{item?.name}</Text>
-                        <Text style={[styles.text, { height: 30 }]}>{item?.price} ريال</Text>
+                        <Text style={[styles.text, { height: 30 }, { color: colors.GARY_1 }]}>{item?.name}</Text>
+                        <Text style={[styles.text, { height: 30 }, { color: colors.GARY_1 }]}>{item?.price} ريال</Text>
                     </VStack>
                     <VStack space='3' paddingLeft='2' >
                         <TouchableOpacity onPress={() => onLogOutPressHandler()}>
-                            <Icon name='trash-o' size={30} color={Colors.ERROR} />
+                            <Icon name='trash-o' size={30} color={colors.ERROR} />
                         </TouchableOpacity>
                         <HStack width='100' justifyContent='space-between'>
-                            <CustomButton title='+' onPress={() => setCart(cartPlus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
-                            <Text style={styles.text}>{cart}</Text>
-                            <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: Colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.SECONDARY_LIGHT }} />
+                            <CustomButton title='+' onPress={() => setCart(cartPlus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: colors.SECONDARY_LIGHT }} />
+                            <Text style={[styles.text, { color: colors.GARY_1 }]}>{cart}</Text>
+                            <CustomButton title='-' onPress={() => setCart(cartMinus(cart))} buttonStyle={{ width: 29, height: 35, backgroundColor: colors.PRIMARY_LIGHT }} textStyle={{ fontSize: 20, color: colors.SECONDARY_LIGHT }} />
                         </HStack>
                     </VStack>
                     <QuestionModal
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         textAlignVertical: 'center',
-        color: Colors.GARY_1,
         fontFamily: fontFamily.number
     },
     image: {

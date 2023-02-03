@@ -7,13 +7,13 @@ import * as yup from 'yup';
 import { CustomButton, CustomInput, CustomContainer } from '~/component';
 import { useResetPassword, useSearchUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
-import { Colors } from '~/style';
 import { image, toast, Style } from '~/utils';
 import { authStore } from '~/store/AuthStore';
+import { useTheme } from '@react-navigation/native';
 
 export default function ForgetScreen() {
 
-
+    const { colors } = useTheme();
     const [value, setValue] = useState();
     const [status, setStatus] = useState('');
     const { token } = authStore()
@@ -87,24 +87,24 @@ export default function ForgetScreen() {
     return (
         <CustomContainer isLoading={isLoading}>
 
-            <View style={styles.container}>
+            <View style={[styles.container, { backgroundColor: colors.PRIMARY_LIGHT }]}>
                 <Image source={{ uri: image.splash }} style={styles.image} />
 
                 {status == '' ?
                     <VStack w='100%' alignItems='center' justifyContent='center' top='-50' flex={1} space='3' px='6'>
                         <Text fontSize='15' alignSelf='flex-start'> ایمیل</Text>
-                        <Input w='100%' onChangeText={handleChange} keyboardType='email-address' bgColor={Colors.GARY_5} />
+                        <Input w='100%' onChangeText={handleChange} keyboardType='email-address' bgColor={colors.GARY_5} />
 
                         <HStack alignItems='center' space='5'>
                             <CustomButton
                                 onPress={() => handleSearchUser(value)}
                                 title=' جستجو '
-                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                             />
                             <CustomButton
                                 onPress={() => navigate('LoginScreen')}
                                 title='انصراف'
-                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                             />
                         </HStack>
 
@@ -130,12 +130,12 @@ export default function ForgetScreen() {
                             <HStack space='3'>
                                 <CustomButton
                                     onPress={handleSubmit(handleSubmit(handleResetPassword))} title=' تنظیم مجدد'
-                                    buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                    buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                                 />
                                 <CustomButton
                                     onPress={() => navigate('LoginScreen')}
                                     title='انصراف'
-                                    buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                    buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                                 />
                             </HStack>
                         </FormProvider>
@@ -153,18 +153,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
         margin: 5,
         paddingHorizontal: 15,
-        backgroundColor: Colors.PRIMARY_LIGHT
     },
     newUser: {
         fontSize: 18,
         fontWeight: Style.fontWeight.heavy,
-    },
-    link: {
-        fontSize: 18,
-        fontWeight: Style.fontWeight.heavy,
-        color: Colors.LINK,
-        textDecorationLine: 'underline'
-
     },
     image: {
         width: 200,

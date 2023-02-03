@@ -1,9 +1,9 @@
 import React from 'react';
 import { Animated, Dimensions, FlatList, StyleSheet } from 'react-native';
 import { FoodMenuCard } from '~/component';
-import { Colors } from '~/style';
 import { image, Style } from '~/utils'
 import { HStack } from 'native-base';
+import { useTheme } from '@react-navigation/native';
 
 const renderItem = ({ item }: { item: any }) => {
 
@@ -22,6 +22,7 @@ const itemSeparator = () => (
 
 export default function FoodMenu({ route }: { route: any }) {
 
+    const { colors } = useTheme();
     const item = route?.params.food_list
 
     const scrollY = new Animated.Value(0)
@@ -43,10 +44,10 @@ export default function FoodMenu({ route }: { route: any }) {
 
     return (
 
-        <Animated.View style={styles.container} >
-            <Animated.View style={[styles.header, { height: headerY }]}>
+        <Animated.View style={[styles.container, { backgroundColor: colors.PRIMARY_LIGHT }]} >
+            <Animated.View style={[styles.header, { height: headerY, backgroundColor: colors.PRIMARY_LIGHT }]}>
                 <Animated.Image source={{ uri: image.header }} style={{ position: 'absolute', opacity: heroTitleOpacity, height: 170, width: '100%', bottom: 0, left: 0 }} />
-                <Animated.Text style={[styles.text, { opacity: headerTitleOpacity }]}>فودینو</Animated.Text>
+                <Animated.Text style={[styles.text, { opacity: headerTitleOpacity, color: colors.GARY_1 }]}>فودینو</Animated.Text>
             </Animated.View>
             <FlatList
                 contentContainerStyle={styles.scrollContainer}
@@ -72,7 +73,6 @@ export default function FoodMenu({ route }: { route: any }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.PRIMARY_LIGHT
 
     },
 
@@ -82,21 +82,18 @@ const styles = StyleSheet.create({
     },
 
     text: {
-
         fontFamily: Style.fontFamily.bold,
         fontSize: 25,
         paddingRight: 15,
         paddingTop: 4,
         textAlignVertical: 'center',
         alignSelf: 'flex-end',
-        marginTop: 3,
-        color: Colors.GARY_1
+        marginTop: 3
     },
     scrollContainer: {
         paddingTop: HEADER_EXPANDED_HEIGHT
     },
     header: {
-        backgroundColor: Colors.PRIMARY_LIGHT,
         position: 'absolute',
         width: SCREEN_WIDTH,
         top: 0,

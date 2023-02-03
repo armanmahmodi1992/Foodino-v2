@@ -1,7 +1,7 @@
 import { HStack, VStack } from 'native-base';
 import React from 'react';
 import { FlatList } from 'react-native';
-import { RestaurantCard } from '~/component';
+import { CustomContainer, RestaurantCard } from '~/component';
 
 const itemSeparator = () => (
     <HStack h='2px' backgroundColor='gray.400' />
@@ -19,13 +19,15 @@ export default function RestaurantList({ route }: { route: any }) {
     }
 
     return (
-        <VStack flex={1} backgroundColor='white'>
-            <FlatList
-                data={restaurantList}
-                keyExtractor={(_, index) => `itm${index}`}
-                ItemSeparatorComponent={itemSeparator}
-                renderItem={renderItem}
-            />
-        </VStack>
+        <CustomContainer>
+            <VStack flex={1}>
+                <FlatList
+                    data={restaurantList}
+                    keyExtractor={(_, index) => `itm${index}`}
+                    ItemSeparatorComponent={itemSeparator}
+                    renderItem={renderItem}
+                />
+            </VStack>
+        </CustomContainer>
     )
 }

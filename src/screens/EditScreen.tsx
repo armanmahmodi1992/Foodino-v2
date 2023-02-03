@@ -1,19 +1,20 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTheme } from '@react-navigation/native';
 import { HStack, ScrollView, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomInput, CustomContainer } from '~/component';
+import { CustomButton, CustomContainer, CustomInput } from '~/component';
 import { useUpdateUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
-import { Colors } from '~/style';
-import { image, toast, Style } from '~/utils'
+import { image, toast } from '~/utils';
 
 export default function EditScreen() {
 
+    const { colors } = useTheme();
     const { showSuccess } = toast.useShowSuccess();
     const { mutate: updateUser, isLoading } = useUpdateUser()
 
@@ -59,8 +60,8 @@ export default function EditScreen() {
         <CustomContainer isLoading={isLoading}>
             <ScrollView>
                 <FormProvider {...methods} >
-                    <Image source={{ uri: image.header }} style={styles.image} />
-                    <Image source={{ uri: image.splash }} style={styles.logo} />
+                    <Image source={{ uri: image.header }} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} />
+                    <Image source={{ uri: image.splash }} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} />
                     <VStack px='4' space='2' alignItems='center' >
 
                         <CustomInput
@@ -90,8 +91,8 @@ export default function EditScreen() {
                         />
                     </VStack>
                     <HStack flexDirection='row-reverse' mt='3' p='2' space='4' justifyContent='center'>
-                        <CustomButton title='انصراف' onPress={() => navigate('SettingScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
-                        <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }} />
+                        <CustomButton title='انصراف' onPress={() => navigate('SettingScreen')} buttonStyle={{ width: 100, height: 35, backgroundColor: colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }} />
+                        <CustomButton title='ویرایش' onPress={handleSubmit(handleSubmit(handleUpdateUser))} buttonStyle={{ width: 100, height: 35, backgroundColor: colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }} />
                     </HStack>
                 </FormProvider>
             </ScrollView>
@@ -102,18 +103,11 @@ export default function EditScreen() {
 
 const styles = StyleSheet.create({
 
-    imageContainer: {
-        width: '100%',
-        height: 250,
-        backgroundColor: Colors.GARY_5
-    },
     image: {
         width: '100%',
         height: 250,
         borderWidth: 1,
-        borderRadius: 10,
-        borderColor: Colors.GARY_5,
-        backgroundColor: Colors.GARY_4
+        borderRadius: 10
     },
     logo: {
         width: 100,
@@ -121,9 +115,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         top: -50,
         borderWidth: 1,
-        borderColor: Colors.GARY_5,
-        alignSelf: 'center',
-        backgroundColor: Colors.PRIMARY_LIGHT,
+        alignSelf: 'center'
     },
     setting: {
         position: 'absolute',
@@ -132,22 +124,5 @@ const styles = StyleSheet.create({
         width: 33,
         height: 33,
         borderRadius: 16
-    },
-    text: {
-        backgroundColor: Colors.PRIMARY_LIGHT,
-        borderWidth: 1,
-        borderColor: Colors.PRIMARY_LIGHT,
-        borderRadius: 10,
-        width: '97%',
-        height: 35,
-        textAlign: 'right',
-        fontSize: 19,
-        fontWeight: Style.fontWeight.bold,
-        justifyContent: 'center'
-    },
-    logoutText: {
-        fontSize: 18,
-        fontWeight: Style.fontWeight.bold,
-
     }
 });

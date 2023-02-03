@@ -1,12 +1,16 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { image, Style } from '~/utils';
+
 export default function EmptyOrder() {
+
+    const { colors } = useTheme();
+
     return (
         <View style={styles.container}>
             <Image source={{ uri: image.noOrder }} style={{ width: 200, height: 200 }} />
-            <Text style={styles.text}>شما سفارشی ثبت نکردید</Text>
+            <Text style={[styles.text, { color: colors.GARY_1 }]}>شما سفارشی ثبت نکردید</Text>
         </View>
     )
 }
@@ -20,7 +24,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginTop: 10,
         fontFamily: Style.fontFamily.bold,
-        color: Colors.GARY_1
     }
 
 });

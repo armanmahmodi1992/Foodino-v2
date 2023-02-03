@@ -4,7 +4,6 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { CustomContainer, EmptyOrder, OrderCard } from '~/component';
 import { useOrderList } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
-import { Colors } from '~/style';
 
 export default function DeliveredScreen({ route }: { route: any }) {
 

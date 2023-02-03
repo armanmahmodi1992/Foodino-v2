@@ -1,10 +1,11 @@
 import { View, Image, StyleSheet, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
-import { Colors } from '~/style';
 import { navigate, replace } from '~/navigation/Methods';
 import { image } from '~/utils'
+import { useTheme } from '@react-navigation/native';
 
 export default function SplashScreen() {
+    const { colors } = useTheme();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -14,9 +15,9 @@ export default function SplashScreen() {
 
     return (
         <>
-            <StatusBar backgroundColor={Colors.GARY_2} />
+            <StatusBar backgroundColor={colors.GARY_5} />
 
-            <View style={styles.container}>
+            <View style={[styles.container, { backgroundColor: colors.GARY_5 }]}>
                 <Image source={{ uri: image.splash }} style={styles.splash} />
             </View>
         </>
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.GARY_2
     },
     splash: {
         width: 250,

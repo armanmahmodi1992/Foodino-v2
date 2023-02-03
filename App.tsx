@@ -10,27 +10,31 @@ import { SafeAreaView, StatusBar } from 'react-native';
 import { AppOfflineNotification } from '~/component';
 import HomeStack from '~/navigation/MainStack';
 import { navigationRef } from '~/navigation/Methods';
-import { Colors } from '~/style';
+import themStore from '~/store/ThemeStore';
+import { themeColor } from '~/style';
+import { useTheme } from '@react-navigation/native';
+
 const queryClient = new QueryClient()
 
 export default function App() {
 
+  const { theme } = themStore();
   const { isConnected } = useNetInfo();
-
   if (isConnected === false) {
     return <AppOfflineNotification />;
   }
 
+  const { colors } = useTheme();
+  const th = theme ? themeColor.customDarkTheme : themeColor.customDefaultTheme
+
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar barStyle="light-content" hidden={false} translucent={false} backgroundColor={Colors.PRIMARY_LIGHT} />
+      <StatusBar barStyle={theme ? "light-content" : "dark-content"} backgroundColor={theme ? "#000000" : "#ffffff"} />
       <QueryClientProvider client={queryClient}>
         <NativeBaseProvider >
-          <NavigationContainer ref={navigationRef}>
-
+          <NavigationContainer ref={navigationRef} theme={th}>
             <HomeStack />
-
           </NavigationContainer>
         </NativeBaseProvider>
       </QueryClientProvider>

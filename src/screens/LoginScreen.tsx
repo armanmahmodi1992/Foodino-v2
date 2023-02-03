@@ -8,11 +8,12 @@ import { CustomButton, CustomContainer, CustomInput } from '~/component';
 import { useLogin } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
-import { Colors } from '~/style';
 import { image, Style, toast } from '~/utils';
+import { useTheme } from '@react-navigation/native';
 
 export default function Login() {
 
+  const { colors } = useTheme();
   const { setIsLogin } = authStore(state => state);
   const { setToken } = authStore(state => state);
   const { showError } = toast.useShowError();
@@ -53,7 +54,7 @@ export default function Login() {
 
   return (
     <CustomContainer isLoading={isLoading}>
-      <VStack flex={1} alignItems='center' justifyContent='center' px='4' backgroundColor='white' >
+      <VStack flex={1} alignItems='center' justifyContent='center' px='4' >
         <Stack pt='40' >
           <Image source={{ uri: image.splash }} style={styles.image} />
         </Stack>
@@ -73,15 +74,15 @@ export default function Login() {
               type="password"
               required
             />
-            <Text style={styles.forgetPass} onPress={() => navigate('ForgetPassword')}> فراموشی رمز عبور</Text>
+            <Text style={[styles.forgetPass, { color: colors.LINK }]} onPress={() => navigate('ForgetPassword')}> فراموشی رمز عبور</Text>
             <CustomButton
               onPress={handleSubmit(handleSubmit(handleUserLogin))}
               title='ورود'
-              buttonStyle={{ width: '100%', height: 35, backgroundColor: Colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+              buttonStyle={{ width: '100%', height: 35, backgroundColor: colors.SECONDARY_LIGHT }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
             />
             <HStack justifyContent="center" mt='3' space='2' >
-              <Text style={styles.newUser}>تا کنون ثبت نام نکرده اید؟</Text>
-              <Text style={styles.register} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
+              <Text style={[styles.newUser, { color: colors.GARY_1 }]}>تا کنون ثبت نام نکرده اید؟</Text>
+              <Text style={[styles.register, { color: colors.LINK }]} onPress={() => navigate('RegisterScreen')}>ثبت نام</Text>
             </HStack>
           </VStack>
         </FormProvider>
@@ -105,14 +106,12 @@ const styles = StyleSheet.create({
   register: {
     fontSize: 18,
     fontWeight: Style.fontWeight.heavy,
-    color: Colors.LINK,
     textDecorationLine: 'underline'
 
   },
   forgetPass: {
     fontSize: 18,
     fontWeight: Style.fontWeight.heavy,
-    color: Colors.LINK,
     textDecorationLine: 'underline'
 
   },

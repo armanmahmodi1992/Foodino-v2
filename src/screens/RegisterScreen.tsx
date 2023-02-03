@@ -7,11 +7,12 @@ import * as yup from 'yup';
 import { CustomButton, CustomContainer, CustomInput } from '~/component';
 import { usePostUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
-import { Colors } from '~/style';
 import { image, Style, toast } from '~/utils';
+import { useTheme } from '@react-navigation/native';
 
 export default function RegisterScreen() {
 
+    const { colors } = useTheme();
     const schema = yup.object().shape({
         email: yup.string().email('ایمیل وارد شده معتبر نمی باشد').required("این فیلد الزامی می باشد"),
         password: yup
@@ -91,12 +92,12 @@ export default function RegisterScreen() {
                             <CustomButton
                                 onPress={() => navigate('LoginScreen')}
                                 title='انصراف'
-                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                             />
                             <CustomButton
                                 onPress={handleSubmit(handleSubmit(handlePostUser))}
                                 title='ثبت نام'
-                                buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                                buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                             />
                         </HStack>
                     </VStack>
@@ -110,13 +111,6 @@ const styles = StyleSheet.create({
     newUser: {
         fontSize: 18,
         fontWeight: Style.fontWeight.heavy,
-    },
-    link: {
-        fontSize: 18,
-        fontWeight: Style.fontWeight.heavy,
-        color: Colors.LINK,
-        textDecorationLine: 'underline'
-
     },
     image: {
         width: 200,

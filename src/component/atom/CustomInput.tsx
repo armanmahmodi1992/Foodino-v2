@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useController } from 'react-hook-form';
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Colors } from '~/style';
-
+import { useTheme } from '@react-navigation/native';
+// const { colors } = useTheme();
 export default React.forwardRef(
     (
         {
@@ -13,10 +13,10 @@ export default React.forwardRef(
             defaultValue,
             type,
             keyboardType,
-            backgroundColor = Colors.GARY_6,
+            backgroundColor = useTheme().colors.GARY_5,
             label,
             required = false,
-            color = 'black',
+            color = useTheme().colors.GARY_1,
             textArea = false,
             disabled,
             mode = 'input',
@@ -59,12 +59,14 @@ export default React.forwardRef(
             setSecureText(prevState => !prevState);
         };
 
+
+
         return (
             <FormControl isInvalid={fieldState.error} w={{ base: '100%' }} >
                 {label && (
                     <Text
                         mb="3"
-                        color='black'
+                        color={useTheme().colors.GARY_1}
                         fontSize='14'
                     >
                         {label}
@@ -112,7 +114,7 @@ export default React.forwardRef(
                                 activeOpacity={0.7}
                             >
 
-                                <Icon name={secureText ? 'eye' : 'eye-slash'} size={24} />
+                                <Icon name={secureText ? 'eye' : 'eye-slash'} size={24} color={useTheme().colors.GARY_1} />
 
                             </TouchableOpacity>
                         )}

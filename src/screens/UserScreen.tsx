@@ -4,11 +4,12 @@ import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { image, Style } from '~/utils';
 
 export default function UserScreen() {
 
+    const { colors } = useTheme();
     const { token } = authStore();
     let name, address, email
 
@@ -17,46 +18,36 @@ export default function UserScreen() {
     }
 
     return (
-        <VStack flex={1} backgroundColor='white' py='2'>
-            <Image source={{ uri: image.header }} style={styles.image} />
-            <Image source={{ uri: image.splash }} style={styles.logo} />
+        <VStack flex={1} backgroundColor={colors.PRIMARY_LIGHT} >
+            <Image source={{ uri: image.header }} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} />
+            <Image source={{ uri: image.splash }} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} />
             <HStack w='100%' position='absolute' py='4' justifyContent='space-between' px='2' alignItems='center'>
                 <TouchableOpacity onPress={() => navigate('HomeScreen')}>
-                    <Icon size={30} color={Colors.PRIMARY_LIGHT} name='right' />
+                    <Icon size={33} color={colors.WHITE} name='right' />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigate('SettingScreen')}>
-                    <Icon size={30} color={Colors.PRIMARY_LIGHT} name='setting' />
+                    <Icon size={33} color={colors.WHITE} name='setting' />
                 </TouchableOpacity>
             </HStack>
             <HStack space='2'>
                 <VStack pl='4' space='4' >
-                    <Text style={styles.title}>نام</Text>
-                    <Text style={styles.title}>ایمیل</Text>
-                    <Text style={styles.title}>آدرس</Text>
+                    <Text style={[styles.title, { color: colors.GARY_1, backgroundColor: colors.WARNING }]}>نام</Text>
+                    <Text style={[styles.title, { color: colors.GARY_1, backgroundColor: colors.WARNING }]}>ایمیل</Text>
+                    <Text style={[styles.title, { color: colors.GARY_1, backgroundColor: colors.WARNING }]}>آدرس</Text>
                 </VStack>
                 <VStack flex={1} pl='2' space='4' >
-                    <Text style={styles.info}>{name}</Text>
-                    <Text style={styles.info}>{email}</Text>
-                    <Text style={styles.info}>{address}</Text>
+                    <Text style={[styles.info, { color: colors.GARY_1 }]}>{name}</Text>
+                    <Text style={[styles.info, { color: colors.GARY_1 }]}>{email}</Text>
+                    <Text style={[styles.info, { color: colors.GARY_1 }]}>{address}</Text>
                 </VStack>
             </HStack>
         </VStack >
     )
 }
 const styles = StyleSheet.create({
-
-    imageContainer: {
-        width: '100%',
-        height: 250,
-        backgroundColor: Colors.GARY_5
-    },
     image: {
         width: '100%',
-        height: 250,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderColor: Colors.GARY_5,
-        backgroundColor: Colors.GARY_4
+        height: 250
     },
     logo: {
         width: 100,
@@ -64,17 +55,13 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         top: -50,
         borderWidth: 1,
-        borderColor: Colors.GARY_5,
         alignSelf: 'center',
-        backgroundColor: Colors.PRIMARY_LIGHT,
     },
     title: {
         width: '100%',
         height: 35,
         fontSize: 20,
         fontWeight: Style.fontWeight.heavy,
-        color: Colors.GARY_1,
-        backgroundColor: Colors.WARNING,
         textAlign: 'center',
         textAlignVertical: 'center',
 
@@ -84,7 +71,6 @@ const styles = StyleSheet.create({
         height: 35,
         fontSize: 20,
         fontFamily: Style.fontWeight.heavy,
-        color: Colors.GARY_1,
         textAlign: 'left',
         textAlignVertical: 'center',
     },

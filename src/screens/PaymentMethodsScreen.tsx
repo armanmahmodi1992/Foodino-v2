@@ -1,18 +1,23 @@
 import { VStack } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { Colors } from '~/style';
 import { Style } from '~/utils';
+import { useTheme } from '@react-navigation/native';
+import { CustomContainer } from '~/component';
 
 export default function PaymentMethodsScreen() {
-    return (
-        <VStack flex={1} px='3' backgroundColor='white'>
-            <Text style={styles.text}>
-                در فودینو پس ار ثبت سفارش لازم نیست هیچ وجهی بپردازید.
-                کافیست هنگام دریافت سفارش مبلغ سفارش را به مامور ارسال پرداخت یا هنگام مراجعه حضوری مبلغ را بپردازید
-            </Text>
 
-        </VStack>
+    const { colors } = useTheme();
+
+    return (
+        <CustomContainer>
+            <VStack flex={1} px='3'>
+                <Text style={[styles.text, { color: colors.GARY_1 }]}>
+                    در فودینو پس ار ثبت سفارش لازم نیست هیچ وجهی بپردازید.
+                    کافیست هنگام دریافت سفارش مبلغ سفارش را به مامور ارسال پرداخت یا هنگام مراجعه حضوری مبلغ را بپردازید
+                </Text>
+            </VStack>
+        </CustomContainer>
     )
 }
 const styles = StyleSheet.create({
@@ -21,6 +26,5 @@ const styles = StyleSheet.create({
         fontWeight: Style.fontWeight.bold,
         marginTop: 10,
         lineHeight: 35,
-        color: Colors.GARY_1
     }
 })
