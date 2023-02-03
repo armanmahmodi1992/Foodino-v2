@@ -1,11 +1,12 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { navigate } from '~/navigation/Methods';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { fontFamily, fontWeight, scale } from '~/utils/Style';
 
 export default function HomeCard({ item }: { item: any }) {
 
+    const { colors } = useTheme();
     let restaurantList = item?.restaurants
     let food_list = item?.food_list
 
@@ -14,7 +15,7 @@ export default function HomeCard({ item }: { item: any }) {
             <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} activeOpacity={0.7} >
                 <Image source={{ uri: item?.pic }} style={styles.image} />
             </TouchableOpacity >
-            <Text style={styles.textCard}>{item?.name}</Text>
+            <Text style={[styles.textCard, { color: colors.WHITE }]}>{item?.name}</Text>
         </View>
     )
 }
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
         marginTop: 75,
         marginRight: 10,
-        color: Colors.PRIMARY_LIGHT,
         alignSelf: 'center',
         position: 'absolute'
     },

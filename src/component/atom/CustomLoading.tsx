@@ -1,11 +1,14 @@
 import React from 'react';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { ActivityIndicator, StyleSheet, View, ViewStyle } from 'react-native';
 
 const CustomLoading = ({ style = styles.loading }: { style?: ViewStyle }) => {
+
+    const { colors } = useTheme();
+
     return (
         <View style={style}>
-            <ActivityIndicator size={28} color={Colors.SECONDARY_LIGHT} />
+            <ActivityIndicator size={28} color={colors.SECONDARY_LIGHT} />
         </View>
     );
 };

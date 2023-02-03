@@ -1,16 +1,19 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text } from 'react-native'
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { fontFamily, fontWeight } from '~/utils/Style'
 
 export default function CustomButton(props: { title: string, onPress: any, buttonStyle: any, textStyle: any }) {
     const { title, onPress, buttonStyle, textStyle } = props;
+
+    const { colors } = useTheme();
+
     return (
         <TouchableOpacity
-            style={[styles.button, buttonStyle]}
+            style={[styles.button, buttonStyle, { borderColor: colors.SECONDARY_LIGHT }]}
             onPress={onPress}
         >
-            <Text style={[styles.textButton, textStyle]}>{title}</Text>
+            <Text style={[styles.textButton, textStyle, { color: colors.GARY_1 }]}>{title}</Text>
 
         </TouchableOpacity>
     )
@@ -21,7 +24,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: Colors.SECONDARY_LIGHT,
     },
     textButton: {
         textAlign: 'center',

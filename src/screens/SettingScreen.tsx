@@ -4,6 +4,8 @@ import { FlatList, StyleSheet } from 'react-native';
 import { CustomContainer, QuestionModal, SettingCard } from '~/component';
 import { item } from '~/services/SettingData';
 import { authStore } from '~/store/AuthStore';
+import { themeStore } from '~/store/ThemeStore';
+
 
 const renderItem = ({ item }: { item: any }) => {
     return (
@@ -18,11 +20,17 @@ const itemSeparator = () => (
 
 export default function SettingScreen() {
 
+    const { theme } = themeStore();
     const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
     const { setIsLogin } = authStore(state => state);
     const { setToken } = authStore(state => state);
+    const { setTheme } = themeStore(state => state);
 
-    const settingItems = [...item, { id: 5, name: ' خروج', icon: 'logout', onPress: () => onLogOutPressHandler() },];
+    const settingItems = [
+        { id: 5, name: ' زمینه تاریک', icon: 'brightness-6', onValueChange: () => setTheme(!theme), switch: 'true' },
+        ...item,
+        { id: 6, name: ' خروج', icon: 'logout', onPress: () => onLogOutPressHandler() },
+    ];
 
     const onLogOutPressHandler = () => {
         setLogoutModalVisible(true);

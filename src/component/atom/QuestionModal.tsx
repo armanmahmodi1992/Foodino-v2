@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { VStack, Center, Text, HStack } from 'native-base';
 import { ModalContainer, CustomButton } from '~/component';
 import { scale, fontFamily, verticalScale } from '~/utils/Style';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 
 const QuestionModal = ({
     visible,
@@ -38,6 +38,7 @@ const QuestionModal = ({
         option2OnPress?.();
     };
 
+    const { colors } = useTheme();
     return (
         <ModalContainer
             isVisible={visible}
@@ -46,7 +47,7 @@ const QuestionModal = ({
             loading={loading}
             closeOnTouchOutSide={closeOnTouchOutSide}>
             <VStack
-                bg={Colors.PRIMARY_LIGHT}
+                bg={colors.PRIMARY_LIGHT}
                 px="2"
                 pt="8"
                 pb="4"
@@ -56,7 +57,7 @@ const QuestionModal = ({
                     textAlign="center"
                     fontSize={scale(16)}
                     fontFamily={fontFamily.medium}
-                    color={Colors.GARY_1}>
+                    color={colors.GARY_1}>
                     {title}
                 </Text>
                 <HStack space="2" h="35px">
@@ -64,16 +65,16 @@ const QuestionModal = ({
                         <CustomButton
                             title={option2}
                             onPress={option2Handler}
-                            buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: Colors.PRIMARY_LIGHT }}
-                            textStyle={{ fontSize: verticalScale(18), color: Colors.SECONDARY_LIGHT }}
+                            buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: colors.PRIMARY_LIGHT }}
+                            textStyle={{ fontSize: verticalScale(18), color: colors.SECONDARY_LIGHT }}
                         />
                     </Center>
                     <Center flex={1}>
                         <CustomButton
                             title={option1}
                             onPress={option1Handler}
-                            buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: Colors.PRIMARY_LIGHT }}
-                            textStyle={{ fontSize: verticalScale(18), color: Colors.SECONDARY_LIGHT }}
+                            buttonStyle={{ width: verticalScale(70), height: verticalScale(35), backgroundColor: colors.PRIMARY_LIGHT }}
+                            textStyle={{ fontSize: verticalScale(18), color: colors.SECONDARY_LIGHT }}
                         />
                     </Center>
                 </HStack>

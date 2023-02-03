@@ -6,11 +6,12 @@ import { CustomButton, CustomContainer } from '~/component'
 import { useDeleteCart, useDeleteCartFromOrder, usePostOrder, useUserCart } from '~/hooks'
 import { navigate } from '~/navigation/Methods'
 import { authStore } from '~/store/AuthStore'
-import { Colors } from '~/style'
 import { fontWeight } from '~/utils/Style'
+import { useTheme } from '@react-navigation/native';
 
 export default function FurtherInformation() {
 
+    const { colors } = useTheme();
     const { token } = authStore()
     const id = token?.[0]?.id
 
@@ -53,9 +54,9 @@ export default function FurtherInformation() {
 
         <CustomContainer isLoading={isLoading}>
             <View style={styles.container}>
-                <VStack w='100%' h='100%' backgroundColor={Colors.PRIMARY_LIGHT} m='6' borderRadius='10' p='5' space='6' >
+                <VStack w='100%' h='100%' backgroundColor={colors.PRIMARY_LIGHT} m='6' borderRadius='10' p='5' space='6' >
 
-                    <Text style={styles.header}>آدرس</Text>
+                    <Text style={[styles.header, { color: colors.GARY_1 }]}>آدرس</Text>
                     <Controller
                         control={control}
                         rules={{
@@ -77,7 +78,7 @@ export default function FurtherInformation() {
                     />
 
 
-                    <Text style={styles.header}>روش ارسال</Text>
+                    <Text style={[styles.header, { color: colors.GARY_1 }]}>روش ارسال</Text>
                     <Controller
                         control={control}
                         rules={{
@@ -98,7 +99,7 @@ export default function FurtherInformation() {
                         name="delivery"
                     />
 
-                    <Text style={styles.header}>روش پرداخت</Text>
+                    <Text style={[styles.header, { color: colors.GARY_1 }]}>روش پرداخت</Text>
 
                     <Controller
                         control={control}
@@ -123,12 +124,12 @@ export default function FurtherInformation() {
                         <CustomButton
                             onPress={() => navigate('CartScreen')}
                             title='انصراف'
-                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                            buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                         />
                         <CustomButton
                             onPress={handleSubmit(onSubmit)}
                             title='ثبت'
-                            buttonStyle={{ width: 150, height: 35, backgroundColor: Colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: Colors.PRIMARY_LIGHT }}
+                            buttonStyle={{ width: 150, height: 35, backgroundColor: colors.SECONDARY_LIGHT, marginTop: 20 }} textStyle={{ fontSize: 20, color: colors.PRIMARY_LIGHT }}
                         />
                     </HStack>
 

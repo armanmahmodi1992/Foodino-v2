@@ -15,8 +15,8 @@ export default function Home() {
     }
 
     return (
-        <CustomContainer isLoading={isLoading}>
 
+        <CustomContainer isLoading={isLoading}>
             <View style={styles.container} >
                 <View style={styles.flatList}>
                     <FlatList

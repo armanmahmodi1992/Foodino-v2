@@ -9,7 +9,7 @@ import {
     Icon,
     FormControl,
 } from 'native-base';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 import { fontFamily, scale } from '~/utils/Style';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useController } from 'react-hook-form';
@@ -48,17 +48,19 @@ export default React.forwardRef(
             field.onChange?.(item?.value);
         };
 
+        const { colors } = useTheme();
+
         return (
             <FormControl isInvalid={fieldState.error} w={{ base: '100%' }}>
                 {label && (
                     <Text
                         mb="3"
                         ref={ref}
-                        color={Colors.HEADER_TITLE}
+                        color={colors.HEADER_TITLE}
                         fontSize={scale(14)}
                         fontFamily={fontFamily.medium}>
                         {label}
-                        {required && <Text color={Colors.PRIMARY}>{'   *'}</Text>}
+                        {required && <Text color={colors.PRIMARY}>{'   *'}</Text>}
                     </Text>
                 )}
                 <TouchableOpacity activeOpacity={0.7} onPress={onPressHandler}>
@@ -67,21 +69,21 @@ export default React.forwardRef(
                         borderWidth="0.5"
                         h={scale(48)}
                         px="2"
-                        bg={Colors.WHITE}
+                        bg={colors.WHITE}
                         alignItems="center"
-                        borderColor={Colors.BORDER_COLOR}>
+                        borderColor={colors.BORDER_COLOR}>
                         <Text
                             flex={1}
                             numberOfLines={1}
                             fontSize={scale(12)}
                             fontFamily={fontFamily.medium}
-                            color={field.value ? Colors.RIVER_BED : Colors.BORDER_COLOR}>
+                            color={field.value ? colors.RIVER_BED : colors.BORDER_COLOR}>
                             {field.value ? getName(field.value) : placeholder}
                         </Text>
                         <Icon
                             as={<Ionicons name="chevron-down" />}
                             size={scale(22)}
-                            color={Colors.BORDER_COLOR}
+                            color={colors.BORDER_COLOR}
                             mr="2"
                         />
                     </HStack>
@@ -90,7 +92,7 @@ export default React.forwardRef(
                     <VStack
                         mt="1"
                         borderRadius="md"
-                        borderColor={Colors.BORDER_COLOR}
+                        borderColor={colors.BORDER_COLOR}
                         borderWidth="0.5">
                         {data.map((item, index: number) => {
                             return (
@@ -104,7 +106,7 @@ export default React.forwardRef(
                                                     numberOfLines={1}
                                                     fontSize={scale(12)}
                                                     fontFamily={fontFamily.medium}
-                                                    color={Colors.HEADER_TITLE}>
+                                                    color={colors.HEADER_TITLE}>
                                                     {item?.title}
                                                 </Text>
                                             )}
@@ -113,14 +115,14 @@ export default React.forwardRef(
                                                     numberOfLines={1}
                                                     fontSize={scale(10)}
                                                     fontFamily={fontFamily.medium}
-                                                    color={Colors.BORDER_COLOR}>
+                                                    color={colors.BORDER_COLOR}>
                                                     {item?.subtitle}
                                                 </Text>
                                             )}
                                         </VStack>
                                     </TouchableOpacity>
                                     {index + 1 < data?.length && (
-                                        <Divider color={Colors.BORDER_COLOR} />
+                                        <Divider color={colors.BORDER_COLOR} />
                                     )}
                                 </Box>
                             );

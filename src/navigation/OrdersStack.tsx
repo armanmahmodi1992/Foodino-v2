@@ -4,7 +4,7 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { DeliveredScreen, PostedScreen, PreparingScreen } from '~/screens';
-import { Colors } from '~/style';
+import { useTheme } from '@react-navigation/native';
 
 export type OrdersStackParamList = { PreparingScreen: undefined; PostedScreen: undefined; DeliveredScreen: undefined };
 
@@ -35,6 +35,9 @@ const screens = [
 ];
 
 export default function OrderStack() {
+
+    const { colors } = useTheme();
+
     return (
         <View flex='1' >
             <Tab.Navigator
@@ -42,7 +45,7 @@ export default function OrderStack() {
                 backBehavior='initialRoute'
                 screenOptions={({ route }) => ({
                     tabBarIndicatorStyle: {
-                        backgroundColor: Colors.GARY_5
+                        backgroundColor: colors.GARY_5
                     },
 
                     tabBarLabelStyle: {
@@ -67,8 +70,8 @@ export default function OrderStack() {
                         }
                         return <View ><Icon name={iconName} size={20} color={color} /></View>;
                     },
-                    tabBarActiveTintColor: Colors.SECONDARY,
-                    tabBarInactiveTintColor: Colors.GARY_3,
+                    tabBarActiveTintColor: colors.SECONDARY,
+                    tabBarInactiveTintColor: colors.GARY_3,
                 })}>
                 {screens.map(screen => (
                     //@ts-ignore
