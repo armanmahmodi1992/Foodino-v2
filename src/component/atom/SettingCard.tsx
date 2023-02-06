@@ -1,34 +1,29 @@
+import { useTheme } from '@react-navigation/native';
 import { HStack } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Switch, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { navigate } from '~/navigation/Methods';
-import { Style } from '~/utils';
-import { useTheme } from '@react-navigation/native';
 import { themeStore } from '~/store/ThemeStore';
+import { Style } from '~/utils';
 
 export default function SettingCard({ item }: { item: any }) {
 
     const { colors } = useTheme();
     const { theme } = themeStore();
 
-    const [isEnabled, setIsEnabled] = useState(theme);
-
     const onPressHandler = () => {
+
         if (item?.routeName) {
             navigate(item?.routeName)
-        } else if (item?.switch == 'true') {
-            item?.onValueChange?.()
-            setIsEnabled(previousState => !previousState);
         } else {
             item?.onPress?.()
         }
     }
 
-
     return (
 
-        item?.switch == 'true' ?
+        item?.switch ?
             <HStack w='100%' justifyContent='space-between' alignItems='center' >
                 <HStack space='3' alignItems='center'>
                     <Icon name={item?.icon} size={30} color={colors.GARY_1} />
@@ -36,10 +31,10 @@ export default function SettingCard({ item }: { item: any }) {
                 </HStack>
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    thumbColor={theme ? '#f5dd4b' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={onPressHandler}
-                    value={isEnabled}
+                    value={theme}
                 />
             </HStack> :
             <TouchableOpacity onPress={onPressHandler} style={styles.container} >
