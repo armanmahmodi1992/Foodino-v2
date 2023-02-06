@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 250,
-        borderWidth: 1,
         borderRadius: 10
     },
     logo: {
