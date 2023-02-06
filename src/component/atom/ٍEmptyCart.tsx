@@ -1,6 +1,7 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { CustomImage } from '~/component';
 import { image, Style } from '~/utils';
 
 export default function EmptyCart() {
@@ -9,7 +10,7 @@ export default function EmptyCart() {
 
     return (
         <View style={styles.container}>
-            <Image source={{ uri: image.noCart }} style={{ width: 200, height: 200 }} />
+            <CustomImage imageSource={image.noCart} style={{ width: 200, height: 200 }} resizeMode='cover' />
             <Text style={[styles.text, { color: colors.GARY_1 }]}>سبد خرید شما خالی است.</Text>
         </View>
     )

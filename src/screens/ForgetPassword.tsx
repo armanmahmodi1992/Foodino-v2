@@ -2,9 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { HStack, Input, Text, VStack } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomInput, CustomContainer } from '~/component';
+import { CustomButton, CustomInput, CustomContainer, CustomImage } from '~/component';
 import { useResetPassword, useSearchUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { image, toast, Style } from '~/utils';
@@ -88,7 +88,7 @@ export default function ForgetScreen() {
         <CustomContainer isLoading={isLoading}>
 
             <View style={[styles.container, { backgroundColor: colors.PRIMARY_LIGHT }]}>
-                <Image source={{ uri: image.splash }} style={styles.image} />
+                <CustomImage imageSource={image.splash} style={styles.image} resizeMode='cover' />
 
                 {status == '' ?
                     <VStack w='100%' alignItems='center' justifyContent='center' top='-50' flex={1} space='3' px='6'>

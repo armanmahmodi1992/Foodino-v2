@@ -9,7 +9,6 @@ import { themeStore } from '~/store/ThemeStore';
 
 const renderItem = ({ item }: { item: any }) => {
     return (
-
         <SettingCard item={item} />
     )
 }
@@ -20,14 +19,17 @@ const itemSeparator = () => (
 
 export default function SettingScreen() {
 
-    const { theme } = themeStore();
     const [logoutModalVisible, setLogoutModalVisible] = useState<boolean>(false);
     const { setIsLogin } = authStore(state => state);
     const { setToken } = authStore(state => state);
-    const { setTheme } = themeStore(state => state);
+    const { setTheme, theme } = themeStore(state => state);
+
+    const themHandler = () => {
+        setTheme(!theme)
+    }
 
     const settingItems = [
-        { id: 5, name: ' زمینه تاریک', icon: 'brightness-6', onValueChange: () => setTheme(!theme), switch: 'true' },
+        { id: 5, name: ' زمینه تاریک', icon: 'brightness-6', onPress: () => themHandler(), switch: true },
         ...item,
         { id: 6, name: ' خروج', icon: 'logout', onPress: () => onLogOutPressHandler() },
     ];
@@ -54,7 +56,6 @@ export default function SettingScreen() {
                 keyExtractor={(_, index) => `itm${index}`}
                 renderItem={renderItem}
                 ItemSeparatorComponent={itemSeparator}
-
             />
             <QuestionModal
                 option1="انصراف"

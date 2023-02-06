@@ -1,11 +1,11 @@
-import { HStack, Image, Text, VStack } from 'native-base';
+import { useTheme } from '@react-navigation/native';
+import { HStack, Text, VStack } from 'native-base';
 import React, { useMemo, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { CustomButton, CustomContainer } from '~/component';
+import { CustomButton, CustomContainer, CustomImage } from '~/component';
 import { useDeleteCart, usePostCart, useUpdateFoodList, useUserCart } from '~/hooks';
 import { authStore } from '~/store/AuthStore';
 import { fontFamily } from '~/utils/Style';
-import { useTheme } from '@react-navigation/native';
 
 export const WIDTH = Dimensions.get('window').width / 4;
 
@@ -108,7 +108,7 @@ export default function FoodMenuCard({ item }: { item: any }) {
                     <Text style={[styles.text, { height: 30, color: colors.GARY_1 }]}>{item?.price} ريال</Text>
                 </VStack>
                 <VStack space='3' paddingLeft='2' >
-                    <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
+                    <CustomImage imageSource={item?.pic} style={styles.image} resizeMode='cover' />
                     <NumericUpDown value={Number(foodItem?.count)} onChange={handleFoodCart} />
                 </VStack>
             </HStack>

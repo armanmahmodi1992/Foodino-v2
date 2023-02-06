@@ -1,8 +1,8 @@
-import { HStack, Image, Text, View, VStack } from 'native-base';
+import { HStack, Text, View, VStack } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { CustomButton, CustomContainer, QuestionModal } from '~/component';
+import { CustomButton, CustomContainer, QuestionModal, CustomImage } from '~/component';
 import { cartMinus, cartPlus } from '~/component/atom/CardCounter';
 import { useUpdateFoodList, useDeleteCart } from '~/hooks';
 import { fontFamily } from '~/utils/Style';
@@ -66,7 +66,7 @@ export default function CartCard({ item }: { item: any }) {
             <View style={styles.content}>
 
                 <HStack h='160' w='100%' alignItems='center' >
-                    <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
+                    <CustomImage imageSource={item?.pic} style={styles.image} resizeMode='cover' />
                     <VStack space='2' flex={1} ml='2'>
                         <Text style={[styles.text, { height: 30 }, { color: colors.GARY_1 }]}>{item?.name}</Text>
                         <Text style={[styles.text, { height: 30 }, { color: colors.GARY_1 }]}>{item?.price} ريال</Text>
