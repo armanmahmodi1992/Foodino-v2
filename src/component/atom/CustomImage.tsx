@@ -28,7 +28,7 @@ const CustomImage = ({
                 height={style?.height ?? null}
                 width={style?.width ?? null}
                 borderRadius={style?.borderRadius ?? null}
-                overflow='hidden'
+
             >
                 <Image
                     indicator={() => <Spinner size={24} color={Colors.PRIMARY} />}
