@@ -20,7 +20,7 @@ export default function UserScreen() {
 
     return (
         <VStack flex={1} backgroundColor={colors.PRIMARY_LIGHT} >
-            <CustomImage imageSource={image.header} resizeMode='stretch' style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} resizeMode='cover' />
+            <CustomImage imageSource={image.header} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} resizeMode='cover' />
             <CustomImage imageSource={image.splash} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} resizeMode='cover' />
             <HStack w='100%' position='absolute' py='4' justifyContent='space-between' px='2' alignItems='center'>
                 <TouchableOpacity onPress={() => navigate('HomeScreen')}>
@@ -48,7 +48,7 @@ export default function UserScreen() {
 const styles = StyleSheet.create({
     image: {
         width: '100%',
-        height: 250
+        height: 250,
     },
     logo: {
         width: 100,

@@ -28,6 +28,7 @@ const CustomImage = ({
                 height={style?.height ?? null}
                 width={style?.width ?? null}
                 borderRadius={style?.borderRadius ?? null}
+                overflow={style?.overflow ?? null}
 
             >
                 <Image
