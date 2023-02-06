@@ -1,6 +1,7 @@
-import { HStack, Image, Text, View, VStack } from 'native-base';
+import { HStack, Text, View, VStack } from 'native-base';
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { CustomImage } from '~/component'
 import Icon from 'react-native-vector-icons/Fontisto';
 import { navigate } from '~/navigation/Methods';
 import { useTheme } from '@react-navigation/native';
@@ -22,7 +23,7 @@ export default function RestaurantCard({ item, food_list }: { item: any; food_li
                     </HStack>
                 </VStack>
                 <TouchableOpacity onPress={() => navigate('FoodMenuScreen', { food_list })}>
-                    <Image source={{ uri: item?.logo }} style={[styles.image, { borderColor: colors.GARY_2 }]} alt='image' />
+                    <CustomImage imageSource={item?.logo} style={[styles.image, { borderColor: colors.GARY_2 }]} resizeMode='cover' />
                 </TouchableOpacity>
             </HStack>
         </View>

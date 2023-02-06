@@ -1,7 +1,8 @@
-import { HStack, Image, Text, View, VStack } from 'native-base';
+import { useTheme } from '@react-navigation/native';
+import { HStack, Text, View, VStack } from 'native-base';
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { CustomImage } from '~/component';
 import { fontFamily } from '~/utils/Style';
 
 export const WIDTH = Dimensions.get('window').width / 4;
@@ -13,7 +14,7 @@ export default function OrderCard({ item }: { item: any }) {
     return (
         <View style={styles.content}>
             <HStack h='130' w='100%' direction='row-reverse' alignItems='center' >
-                <Image source={{ uri: item?.pic }} style={styles.image} alt='image' />
+                <CustomImage imageSource={item?.pic} style={styles.image} resizeMode='cover' />
                 <VStack space='2' pr='1' flex={1} >
                     <Text style={[styles.text, { height: 20, color: colors.GARY_1 }]}>{item?.name}</Text>
                     <Text style={[styles.text, { height: 20, color: colors.GARY_1 }]}>{item?.price} ريال</Text>

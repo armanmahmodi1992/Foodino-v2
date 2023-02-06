@@ -4,9 +4,9 @@ import { useTheme } from '@react-navigation/native';
 import { HStack, ScrollView, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomContainer, CustomInput } from '~/component';
+import { CustomButton, CustomContainer, CustomImage, CustomInput } from '~/component';
 import { useUpdateUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
@@ -60,8 +60,8 @@ export default function EditScreen() {
         <CustomContainer isLoading={isLoading}>
             <ScrollView>
                 <FormProvider {...methods} >
-                    <Image source={{ uri: image.header }} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} />
-                    <Image source={{ uri: image.splash }} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} />
+                    <CustomImage imageSource={image.header} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} resizeMode='cover' />
+                    <CustomImage imageSource={image.splash} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} resizeMode='cover' />
                     <VStack px='4' space='2' alignItems='center' >
 
                         <CustomInput

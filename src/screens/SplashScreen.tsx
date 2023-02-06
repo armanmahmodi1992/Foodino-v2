@@ -1,8 +1,9 @@
-import { View, Image, StyleSheet, StatusBar } from 'react-native'
+import { View, StyleSheet, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { navigate, replace } from '~/navigation/Methods';
 import { image } from '~/utils'
 import { useTheme } from '@react-navigation/native';
+import { CustomImage } from '~/component'
 
 export default function SplashScreen() {
     const { colors } = useTheme();
@@ -18,7 +19,7 @@ export default function SplashScreen() {
             <StatusBar backgroundColor={colors.GARY_5} />
 
             <View style={[styles.container, { backgroundColor: colors.GARY_5 }]}>
-                <Image source={{ uri: image.splash }} style={styles.splash} />
+                <CustomImage imageSource={image.splash} style={styles.splash} resizeMode='cover' />
             </View>
         </>
     )

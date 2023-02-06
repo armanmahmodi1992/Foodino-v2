@@ -1,10 +1,11 @@
+import { useTheme } from '@react-navigation/native';
 import { HStack, VStack } from 'native-base';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { CustomImage } from '~/component'
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
-import { useTheme } from '@react-navigation/native';
 import { image, Style } from '~/utils';
 
 export default function UserScreen() {
@@ -19,8 +20,8 @@ export default function UserScreen() {
 
     return (
         <VStack flex={1} backgroundColor={colors.PRIMARY_LIGHT} >
-            <Image source={{ uri: image.header }} style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} />
-            <Image source={{ uri: image.splash }} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} />
+            <CustomImage imageSource={image.header} resizeMode='stretch' style={[styles.image, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_4 }]} resizeMode='cover' />
+            <CustomImage imageSource={image.splash} style={[styles.logo, { borderColor: colors.GARY_4, backgroundColor: colors.GARY_1 }]} resizeMode='cover' />
             <HStack w='100%' position='absolute' py='4' justifyContent='space-between' px='2' alignItems='center'>
                 <TouchableOpacity onPress={() => navigate('HomeScreen')}>
                     <Icon size={33} color={colors.WHITE} name='right' />

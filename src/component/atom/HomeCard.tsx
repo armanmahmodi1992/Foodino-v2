@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CustomImage } from '~/component'
 import { navigate } from '~/navigation/Methods';
 import { useTheme } from '@react-navigation/native';
 import { fontFamily, fontWeight, scale } from '~/utils/Style';
@@ -13,7 +14,7 @@ export default function HomeCard({ item }: { item: any }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigate('RestaurantList', { restaurantList, food_list })} style={styles.touchableOpacity} activeOpacity={0.7} >
-                <Image source={{ uri: item?.pic }} style={styles.image} />
+                <CustomImage imageSource={item?.pic} style={styles.image} resizeMode='cover' />
             </TouchableOpacity >
             <Text style={[styles.textCard, { color: colors.WHITE }]}>{item?.name}</Text>
         </View>

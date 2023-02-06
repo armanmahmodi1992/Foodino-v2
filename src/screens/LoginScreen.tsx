@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTheme } from '@react-navigation/native';
 import { HStack, Stack, Text, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomContainer, CustomInput } from '~/component';
+import { CustomButton, CustomContainer, CustomImage, CustomInput } from '~/component';
 import { useLogin } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { authStore } from '~/store/AuthStore';
 import { image, Style, toast } from '~/utils';
-import { useTheme } from '@react-navigation/native';
 
 export default function Login() {
 
@@ -56,7 +56,7 @@ export default function Login() {
     <CustomContainer isLoading={isLoading}>
       <VStack flex={1} alignItems='center' justifyContent='center' px='4' >
         <Stack pt='40' >
-          <Image source={{ uri: image.splash }} style={styles.image} />
+          <CustomImage imageSource={image.splash} style={styles.image} resizeMode='cover' />
         </Stack>
         <FormProvider {...methods}>
           <VStack flex={1} w='100%' space='5' justifyContent='center'>

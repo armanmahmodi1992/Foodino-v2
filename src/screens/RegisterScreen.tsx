@@ -2,9 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { HStack, VStack } from 'native-base';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as yup from 'yup';
-import { CustomButton, CustomContainer, CustomInput } from '~/component';
+import { CustomButton, CustomContainer, CustomInput, CustomImage } from '~/component';
 import { usePostUser } from '~/hooks';
 import { navigate } from '~/navigation/Methods';
 import { image, Style, toast } from '~/utils';
@@ -62,7 +62,7 @@ export default function RegisterScreen() {
 
             <VStack flex={1} alignItems='center' justifyContent='center' mt='5' px='6' backgroundColor='white' >
 
-                <Image source={{ uri: image.splash }} style={styles.image} />
+                <CustomImage imageSource={image.splash} style={styles.image} resizeMode='cover' />
 
                 <FormProvider {...methods}>
 
