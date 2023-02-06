@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     image: {
         width: scale(170),
         height: scale(170),
-        borderRadius: 20
+        borderRadius: 20,
+        overflow: 'hidden'
     }
 })
